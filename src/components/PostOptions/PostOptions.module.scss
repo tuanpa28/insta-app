@@ -1,0 +1,53 @@
+.wrapper {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  .modal-container {
+    max-height: 384px;
+    width: 400px;
+    border-radius: 12px;
+    background: #fff;
+    animation: faceIn ease-out 0.1s;
+    .list-option {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      .option-item {
+        width: 100%;
+        min-height: 48px;
+        color: var(--text-primary-color);
+        background-color: transparent;
+        border-top: 1px solid rgb(219, 219, 219);
+        font-size: 14px;
+        cursor: pointer;
+        line-height: 1.5;
+        padding: 14px 8px 4px;
+        text-align: center;
+        &:first-child {
+          border: none;
+        }
+      }
+      .btn-danger {
+        color: rgb(237, 73, 86);
+        font-weight: 700;
+      }
+    }
+  }
+  @keyframes faceIn {
+    0% {
+      opacity: 0;
+      transform: scale(1.2);
+      transform-origin: center;
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+      transform-origin: center;
+    }
+  }
+}

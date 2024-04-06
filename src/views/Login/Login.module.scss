@@ -1,0 +1,191 @@
+.wrapper {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+  .bg-img {
+    position: absolute;
+    top: 0;
+    z-index: 0;
+    img {
+      width: 1785px;
+      height: 510px;
+    }
+  }
+  .main {
+    width: 100%;
+    max-width: 418px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    margin-top: 15vh;
+    .title {
+      display: block;
+      font-size: 16px;
+      font-weight: 700;
+      text-align: center;
+      color: #000;
+      margin-bottom: 10px;
+    }
+    .form {
+      width: 100%;
+      .error {
+        display: inline-block;
+        margin-top: 4px;
+        margin-left: 10px;
+        font-size: 14px;
+        font-weight: 600;
+        color: #dc2626;
+      }
+    }
+    .input-item {
+      width: 100%;
+      margin-bottom: 8px;
+      input {
+        padding: 16px;
+        padding-top: 20px;
+        padding-bottom: 12px;
+        width: 100%;
+        border: 1px solid transparent;
+        border-radius: 12px;
+        font-size: 15px;
+        color: #000;
+        background-color: rgb(245, 245, 245);
+        outline: none;
+        line-height: 140%;
+        &:focus {
+          border-color: rgba(0, 0, 0, 0.15);
+        }
+      }
+    }
+    .btn-submit {
+      padding: 16px;
+      width: 100%;
+      height: 54px;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 0, 0, 0.4);
+      outline: none;
+      font-size: 15px;
+      font-weight: 600;
+      background-color: rgb(0, 0, 0);
+      cursor: pointer;
+      &:active {
+        transform: scale(0.98);
+      }
+      & > .text {
+        color: #fff;
+        display: block;
+        margin-bottom: -8px;
+      }
+      &.disable > .text {
+        opacity: 0.4;
+      }
+      &.disable {
+        cursor: no-drop;
+        transform: scale(1);
+      }
+    }
+    .btn-forgot-pass {
+      margin-top: 16px;
+      width: 100%;
+      font-size: 15px;
+      font-weight: 400;
+      text-align: center;
+      color: rgb(153, 153, 153);
+    }
+    .line {
+      position: relative;
+      padding: 8px 0;
+      margin: 24px 0;
+      width: 100%;
+      &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 0.5px;
+        background-color: rgba(0, 0, 0, 0.15);
+      }
+      & > .text {
+        position: absolute;
+        display: block;
+        top: 50%;
+        left: 50%;
+        background-color: #fff;
+        padding: 0 16px;
+        font-size: 15px;
+        font-weight: 400;
+        color: rgb(153, 153, 153);
+        transform: translate(-50%, -34%);
+        z-index: 1;
+      }
+    }
+    .another-login {
+      width: 100%;
+      padding: 20px;
+      border-radius: 16px;
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      &:active {
+        transform: scale(0.98);
+      }
+      .logo {
+        width: 45px;
+        height: 45px;
+      }
+      & > .text {
+        color: #000;
+        font-size: 16px;
+        font-weight: 700;
+        display: block;
+        margin-bottom: -8px;
+      }
+      .icon {
+        font-size: 18px;
+        padding: 8px;
+        padding-bottom: 0;
+        margin-bottom: -2px;
+        color: rgb(153, 153, 153);
+      }
+    }
+  }
+  .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 70px;
+    padding: 0 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .list-content {
+      margin: 0 auto;
+      text-align: center;
+      .item {
+        display: inline-block;
+        font-size: 12px;
+        font-weight: 400;
+        color: rgb(153, 153, 153);
+        margin: 0 6px;
+        .link {
+          &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}

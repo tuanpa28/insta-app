@@ -1,0 +1,138 @@
+.hidden {
+  display: none !important;
+}
+.list-menu {
+  flex-grow: 1;
+}
+.menu-item {
+  width: 100%;
+  margin: 8px 0;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-radius: 8px;
+  font-size: 1.5rem;
+  font-weight: 400;
+  transition: background-color ease-in-out 100ms;
+  position: relative;
+  .title {
+    margin-left: 16px;
+    height: 12px;
+  }
+  .icon,
+  .active-icon {
+    transition: transform ease 150ms;
+    display: flex;
+  }
+
+  .active-icon {
+    display: none;
+  }
+  .sub-icon {
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    color: rgb(142, 142, 142);
+    opacity: 0;
+    transition: opacity ease 0.3s;
+  }
+  &.active {
+    .icon {
+      display: none;
+    }
+    .active-icon {
+      display: flex;
+    }
+    .title {
+      font-weight: 800;
+    }
+  }
+
+  &:hover {
+    background-color: var(--hover-overlay);
+    .icon,
+    .active-icon {
+      transform: scale(105%);
+    }
+    .sub-icon {
+      opacity: 1;
+    }
+  }
+  &:active {
+    opacity: 0.5;
+    .icon,
+    .active-icon {
+      transform: scale(95%);
+    }
+  }
+}
+
+.box-tippy {
+  position: relative;
+  height: 35px;
+  border-radius: 8px;
+  box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.2);
+  font-weight: 400;
+  font-size: 1.4rem;
+  line-height: 1.9rem;
+  background-color: #fff;
+  padding: 12px;
+  color: var(--primary-background);
+  margin-left: 5px;
+  animation: tippyIn ease-in-out 0.25s;
+  &::before {
+    content: '';
+    position: absolute;
+    display: block;
+    top: 50%;
+    left: -6.9px;
+    height: 20px;
+    width: 15px;
+    background-color: #fff;
+    transform: translateY(-50%);
+    clip-path: path(
+      'M8 0C8 4 9.32406e-08 7.819 1.25211e-07 10.5C1.57188e-07 13.1815 8 17.0005 8 21L8 0Z'
+    );
+  }
+  @keyframes tippyIn {
+    0% {
+      transform: scale(0);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+}
+@media screen and (max-width: 1199px) {
+  .menu-item {
+    .title {
+      display: none;
+    }
+  }
+}
+@media screen and (max-width: 767px) {
+  .list-menu {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    bottom: 0;
+    left: 0;
+    background-color: #fff;
+    width: 100%;
+    height: 50px;
+    z-index: 1;
+    border-top: 1px solid var(--separator);
+  }
+  .menu-item {
+    width: unset;
+    justify-content: center;
+  }
+}

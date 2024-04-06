@@ -1,0 +1,34 @@
+.wrapper {
+  padding: 16px;
+  padding-bottom: 6px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 50px;
+  line-height: 1.5;
+  border-radius: 8px;
+  font-size: 1.4rem;
+  font-weight: 400;
+  cursor: pointer;
+  user-select: none;
+}
+
+.icon + .title {
+  margin-left: 12px;
+}
+
+button {
+  background-color: transparent;
+}
+
+.primary {
+  transition: background-color ease-in-out 100ms;
+
+  &:hover {
+    background-color: var(--hover-overlay);
+  }
+  &:active > .icon,
+  &:active > .title {
+    opacity: 0.5;
+  }
+}

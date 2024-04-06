@@ -1,0 +1,107 @@
+.wrapper {
+  width: 366px;
+  padding: 16px 0;
+  .head {
+    padding: 0 16px;
+    background: transparent;
+    margin-bottom: 30px;
+  }
+  .analytics {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 3px;
+    margin-bottom: 16px;
+    .item {
+      margin: 0 8px;
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      line-height: 12px;
+      font-size: 14px;
+      .label {
+        margin-top: 6px;
+        font-weight: 400;
+      }
+      .value {
+        font-weight: 700;
+      }
+    }
+  }
+  .images {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 3px;
+    margin-bottom: 16px;
+    .img-item {
+      height: 120px;
+      aspect-ratio: auto 120 / 120;
+      width: 120px;
+    }
+  }
+  .no-images {
+    padding: 16px;
+    padding-bottom: 8px;
+    border-top: 1px solid rgb(219, 219, 219);
+    border-bottom: 1px solid rgb(219, 219, 219);
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    .icon-camera {
+      background-image: url('../../assets/images/icons.png');
+      background-position: 0px -98px;
+      background-size: 98px 198px;
+      width: 48px;
+      height: 48px;
+      background-repeat: no-repeat;
+      display: inline-block;
+    }
+    .title {
+      font-size: 14px;
+      font-weight: 700;
+      color: rgb(0, 0, 0);
+    }
+    .desc {
+      font-size: 14px;
+      font-weight: 400;
+      color: rgb(115, 115, 115);
+      text-align: center;
+    }
+  }
+  .wrapper-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    padding: 0 16px;
+    .btn-follow {
+      background-color: rgb(0, 149, 246);
+      color: rgb(255, 255, 255);
+      justify-content: center;
+      height: 34px;
+      font-weight: 600;
+      font-size: 14px;
+      &:hover {
+        background-color: rgb(24, 119, 242);
+      }
+      .icon {
+        width: 20px;
+        height: 20px;
+      }
+    }
+    .btn-following {
+      background-color: rgb(239, 239, 239);
+      color: rgb(0, 0, 0);
+      justify-content: center;
+      height: 34px;
+      font-weight: 600;
+      font-size: 14px;
+      &:hover {
+        background-color: rgb(219, 219, 219);
+      }
+    }
+  }
+}
