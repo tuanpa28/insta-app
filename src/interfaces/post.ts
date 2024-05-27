@@ -2,7 +2,7 @@ import { IUser } from './user';
 
 export interface IPost {
   _id?: string;
-  user_id?: string | IUser;
+  user_id?: any;
   caption: string;
   media: Array<IMedia>;
   likes?: Array<any>;

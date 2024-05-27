@@ -33,7 +33,7 @@ const HomePage = () => {
               <button className={cx('btn')}>
                 <div className={cx('avatar')}>
                   <span className={cx('img')}>
-                    <Image src='https://picsum.photos/300/300' alt='' />
+                    <Image width={300} height={300} src='https://picsum.photos/300/300' alt='' />
                   </span>
                 </div>
                 <span className={cx('username')}>tuanpa.03</span>
@@ -44,7 +44,7 @@ const HomePage = () => {
               <button className={cx('btn')}>
                 <div className={cx('avatar')}>
                   <span className={cx('img')}>
-                    <Image src='https://picsum.photos/300/300' alt='' />
+                    <Image width={300} height={300} src='https://picsum.photos/300/300' alt='' />
                   </span>
                 </div>
                 <span className={cx('username')}>tuanpa.03</span>
@@ -55,7 +55,7 @@ const HomePage = () => {
               <button className={cx('btn')}>
                 <div className={cx('avatar')}>
                   <span className={cx('img')}>
-                    <Image src='https://picsum.photos/300/300' alt='' />
+                    <Image width={300} height={300} src='https://picsum.photos/300/300' alt='' />
                   </span>
                 </div>
                 <span className={cx('username')}>tuanpa.03</span>
@@ -66,7 +66,7 @@ const HomePage = () => {
               <button className={cx('btn')}>
                 <div className={cx('avatar')}>
                   <span className={cx('img')}>
-                    <Image src='https://picsum.photos/300/300' alt='' />
+                    <Image width={300} height={300} src='https://picsum.photos/300/300' alt='' />
                   </span>
                 </div>
                 <span className={cx('username')}>tuanpa.03</span>
@@ -77,7 +77,7 @@ const HomePage = () => {
               <button className={cx('btn')}>
                 <div className={cx('avatar')}>
                   <span className={cx('img')}>
-                    <Image src='https://picsum.photos/300/300' alt='' />
+                    <Image width={300} height={300} src='https://picsum.photos/300/300' alt='' />
                   </span>
                 </div>
                 <span className={cx('username')}>tuanpa.03</span>

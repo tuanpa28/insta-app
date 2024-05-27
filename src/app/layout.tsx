@@ -19,11 +19,12 @@ export default async function RootLayout({
   return (
     <html lang='en'>
       <body>
-        <PrivateRouteProvider>
-          <ReduxProvider>
+        <ReduxProvider>
+          <PrivateRouteProvider>
             <AntdProvider>{children}</AntdProvider>
-          </ReduxProvider>
-        </PrivateRouteProvider>
+          </PrivateRouteProvider>
+        </ReduxProvider>
+
         <ToastContainer
           position='top-right'
           autoClose={4000}

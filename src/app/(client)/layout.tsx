@@ -9,11 +9,9 @@ const cx = classNames.bind(styles);
 export default async function layout({ children }: { children: React.ReactNode }) {
   // const [fullMain, setFullMain] = useState(false);
 
-  const setFullMain = () => {};
-
   return (
     <div className={cx('wrapper')}>
-      <Sidebar handleFullMain={setFullMain} />
+      <Sidebar />
       <main className={cx('main', { fullMain: false })}>
         <div className={cx('content')}>
           {children}
