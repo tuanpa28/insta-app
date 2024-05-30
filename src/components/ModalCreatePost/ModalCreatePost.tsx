@@ -3,8 +3,8 @@
 import classNames from 'classnames/bind';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { BiArrowBack, BiXCircle } from 'react-icons/bi';
-import { RiArrowLeftSLine, RiArrowRightSLine } from 'react-icons/ri';
+// import { BiArrowBack, BiXCircle } from 'react-icons/bi';
+// import { RiArrowLeftSLine, RiArrowRightSLine } from 'react-icons/ri';
 import { Carousel } from 'react-responsive-carousel';
 import { toast } from 'react-toastify';
 
@@ -90,7 +90,7 @@ const ModalCreatePost = ({ onClick }: IModalCreatePost) => {
         display: `${hasPrev ? 'block' : 'none'}`,
       }}
     >
-      <RiArrowLeftSLine className={cx('block')} />
+      {/* <RiArrowLeftSLine className={cx('block')} /> */}
     </button>
   );
 
@@ -104,7 +104,7 @@ const ModalCreatePost = ({ onClick }: IModalCreatePost) => {
         display: `${hasNext ? 'block' : 'none'}`,
       }}
     >
-      <RiArrowRightSLine className={cx('block')} />
+      {/* <RiArrowRightSLine className={cx('block')} /> */}
     </button>
   );
 
@@ -145,7 +145,7 @@ const ModalCreatePost = ({ onClick }: IModalCreatePost) => {
               onClick={() => !!(!loadingMedia && !loadingPost) && handleBack()}
               className={cx('btn-back', { disable: !(!loadingMedia && !loadingPost) })}
             >
-              <BiArrowBack className={cx('icon')} />
+              {/* <BiArrowBack className={cx('icon')} /> */}
             </div>
           )}
           <p className={cx('title')}>Create new post</p>
@@ -223,7 +223,7 @@ const ModalCreatePost = ({ onClick }: IModalCreatePost) => {
 
           {files && files.length > 0 && activeStep < 1 && (
             <div onClick={() => setFiles([])} className={cx('btn-delete')}>
-              <BiXCircle className={cx('icon')} />
+              {/* <BiXCircle className={cx('icon')} /> */}
             </div>
           )}
         </div>

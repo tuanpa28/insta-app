@@ -1,4 +1,4 @@
-import { Skeleton } from 'antd';
+// import { Skeleton } from 'antd';
 import classNames from 'classnames/bind';
 
 import NotifiItem from '@/components/NotifiItem';
@@ -13,7 +13,7 @@ const Notifications = () => {
         <span className={cx('title')}>Notifications</span>
       </div>
       <div className={cx('content')}>
-        <Skeleton className={cx('skeleton')} loading={true} active title paragraph={{ rows: 0 }} />
+        {/* <Skeleton className={cx('skeleton')} loading={true} active title paragraph={{ rows: 0 }} />
         <Skeleton
           className={cx('skeleton')}
           avatar
@@ -37,7 +37,7 @@ const Notifications = () => {
           active
           title
           paragraph={{ rows: 0 }}
-        />
+        /> */}
         <div className={cx('notifi-week')}>
           <span className={cx('notifi-title')}>This week</span>
           <div className={cx('notifi-content')}>

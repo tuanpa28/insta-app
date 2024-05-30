@@ -4,8 +4,8 @@ import Tippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
-import { BiSolidVolumeFull, BiSolidVolumeMute } from 'react-icons/bi';
-import { RiArrowLeftSLine, RiArrowRightSLine, RiMoreFill } from 'react-icons/ri';
+// import { BiSolidVolumeFull, BiSolidVolumeMute } from 'react-icons/bi';
+// import { RiArrowLeftSLine, RiArrowRightSLine, RiMoreFill } from 'react-icons/ri';
 import { useInView } from 'react-intersection-observer';
 import { Carousel } from 'react-responsive-carousel';
 
@@ -22,7 +22,7 @@ import { PopperWrapper } from '@/components/Popper';
 import PostOptions from '@/components/PostOptions';
 import { useCommentPost, useLikePost } from '@/hooks';
 import { IComment, IPost, IUser } from '@/interfaces';
-import { noImage } from '@/public/images';
+import noAvatar from '@/public/images/no-user-image.jpg';
 import { commentService, postService } from '@/services';
 import { useAppSelector } from '@/store/hook';
 import { timeAgo } from '@/utils/formatTime';
@@ -96,7 +96,7 @@ const PostItem = ({ post, isVolume, onHandlerVolume }: IPostItem) => {
         display: `${hasPrev ? 'block' : 'none'}`,
       }}
     >
-      <RiArrowLeftSLine className={cx('block')} />
+      {/* <RiArrowLeftSLine className={cx('block')} /> */}
     </button>
   );
 
@@ -110,7 +110,7 @@ const PostItem = ({ post, isVolume, onHandlerVolume }: IPostItem) => {
         display: `${hasNext ? 'block' : 'none'}`,
       }}
     >
-      <RiArrowRightSLine className={cx('block')} />
+      {/* <RiArrowRightSLine className={cx('block')} /> */}
     </button>
   );
 
@@ -173,7 +173,7 @@ const PostItem = ({ post, isVolume, onHandlerVolume }: IPostItem) => {
                 <div className={cx('avatar', { border: true })}>
                   <Image
                     className={cx('img')}
-                    src={post.user_id?.profile_image || noImage}
+                    src={post.user_id?.profile_image || noAvatar}
                     alt=''
                   />
                 </div>
@@ -200,7 +200,7 @@ const PostItem = ({ post, isVolume, onHandlerVolume }: IPostItem) => {
             )}
         </div>
         <div onClick={handleOptionPost} className={cx('btn-more')}>
-          <RiMoreFill />
+          {/* <RiMoreFill /> */}
         </div>
       </div>
       <div ref={ref} className={cx('body')}>
@@ -226,11 +226,11 @@ const PostItem = ({ post, isVolume, onHandlerVolume }: IPostItem) => {
                     {!play && <div className={cx('icon-play')}></div>}
                   </div>
                   <div onClick={onHandlerVolume} className={cx('sound')}>
-                    {isVolume ? (
+                    {/* {isVolume ? (
                       <BiSolidVolumeFull className={cx('block')} />
                     ) : (
                       <BiSolidVolumeMute className={cx('block')} />
-                    )}
+                    )} */}
                   </div>
                 </>
               )}

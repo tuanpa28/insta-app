@@ -1,85 +1,34 @@
 import instance from '@/configs/axios.config';
 import { IPost } from '@/interfaces';
-import { toast } from 'react-toastify';
 
-const getPostsUser = async (userId: string) => {
-  try {
-    const respon = await instance.get(`post/${userId}/user`);
-    return respon;
-  } catch (error: any) {
-    toast.error(error?.message);
-  }
+export const getPostsUser = (userId: string) => {
+  return instance.get(`post/${userId}/user`);
 };
 
-const likePost = async (postId: string) => {
-  try {
-    const respon = await instance.put(`post/${postId}/like`);
-    return respon;
-  } catch (error: any) {
-    toast.error(error?.message);
-  }
+export const likePost = (postId: string) => {
+  return instance.put(`post/${postId}/like`);
 };
 
-const createPost = async (post: IPost) => {
-  try {
-    const respon = await instance.post('post', post);
-    return respon;
-  } catch (error: any) {
-    toast.error(error?.message);
-  }
+export const createPost = (post: IPost) => {
+  return instance.post('post', post);
 };
 
-const getListPost = async () => {
-  try {
-    const respon = await instance.get('post');
-    return respon;
-  } catch (error: any) {
-    toast.error(error?.message);
-  }
+export const getListPost = () => {
+  return instance.get('post');
 };
 
-const getPostTimeLine = async () => {
-  try {
-    const respon = await instance.get('post/timeline/results?_order=desc');
-    return respon;
-  } catch (error: any) {
-    toast.error(error?.message);
-  }
+export const getPostTimeLine = () => {
+  return instance.get('post/timeline/results?_order=desc');
 };
 
-const uploadImage = async (formData: FormData) => {
-  try {
-    const respon = await instance.post('upload/images', formData);
-    return respon;
-  } catch (error: any) {
-    toast.error(error?.message);
-  }
+export const uploadImage = (formData: FormData) => {
+  return instance.post('upload/images', formData);
 };
 
-const uploadVideo = async (formData: FormData) => {
-  try {
-    const respon = await instance.post('upload/video', formData);
-    return respon;
-  } catch (error: any) {
-    toast.error(error?.message);
-  }
+export const uploadVideo = (formData: FormData) => {
+  return instance.post('upload/video', formData);
 };
 
-const deletePost = async (IdPost: string) => {
-  try {
-    return await instance.delete(`post/${IdPost}`);
-  } catch (error: any) {
-    toast.error(error?.message);
-  }
-};
-
-export {
-  createPost,
-  deletePost,
-  getListPost,
-  getPostTimeLine,
-  getPostsUser,
-  likePost,
-  uploadImage,
-  uploadVideo,
+export const deletePost = (IdPost: string) => {
+  return instance.delete(`post/${IdPost}`);
 };

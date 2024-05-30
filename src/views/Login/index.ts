@@ -1,1 +1,1 @@
-export { default as LoginPageView } from './LoginPage';
+export { default as SigninPageView } from './SigninPage';

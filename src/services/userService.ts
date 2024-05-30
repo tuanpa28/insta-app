@@ -1,35 +1,17 @@
 import instance from '@/configs/axios.config';
-import { toast } from 'react-toastify';
 
-const getListUser = async () => {
-  try {
-    const respon = await instance.get('user');
-    return respon;
-  } catch (error: any) {
-    toast.error(error?.message);
-  }
+export const getListUser = () => {
+  return instance.get('user');
 };
 
-const search = async (q: string) => {
-  try {
-    const respon = await instance.get('user/search/results', {
-      params: {
-        q,
-      },
-    });
-    return respon;
-  } catch (error: any) {
-    toast.error(error?.message);
-  }
+export const search = (q: string) => {
+  return instance.get('user/search/results', {
+    params: {
+      q,
+    },
+  });
 };
 
-const getUsersSuggested = async () => {
-  try {
-    const respon = await instance.get('user/suggested/results');
-    return respon;
-  } catch (error: any) {
-    toast.error(error?.message);
-  }
+export const getUsersSuggested = () => {
+  return instance.get('user/suggested/results');
 };
-
-export { search, getUsersSuggested, getListUser };

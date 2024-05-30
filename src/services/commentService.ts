@@ -1,23 +1,10 @@
 import instance from '@/configs/axios.config';
 import { IComment } from '@/interfaces';
-import { toast } from 'react-toastify';
 
-const getAllCommentPost = async (postId: string) => {
-  try {
-    const respon = await instance.get(`comment/${postId}/post`);
-    return respon;
-  } catch (error: any) {
-    toast.error(error?.message);
-  }
+export const getAllCommentPost = (postId: string) => {
+  return instance.get(`comment/${postId}/post`);
 };
 
-const commentPost = async (comment: IComment) => {
-  try {
-    const respon = await instance.post(`comment`, comment);
-    return respon;
-  } catch (error: any) {
-    toast.error(error?.message);
-  }
+export const commentPost = async (comment: IComment) => {
+  return instance.post(`comment`, comment);
 };
-
-export { commentPost, getAllCommentPost };

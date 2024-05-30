@@ -27,7 +27,7 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   (response) => {
-    return response && response.data ? response.data : response;
+    return response;
   },
   async (error) => {
     const prevRequest = error.config;

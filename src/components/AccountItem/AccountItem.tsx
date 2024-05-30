@@ -5,14 +5,14 @@ import classNames from 'classnames/bind';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { BiSolidBadgeCheck } from 'react-icons/bi';
+// import { BiSolidBadgeCheck } from 'react-icons/bi';
 
 import AccountPreview from '@/components/AccountPreview';
 import { PopperWrapper } from '@/components/Popper';
 import { IPost, IUser } from '@/interfaces';
 import { postService } from '@/services';
 import styles from './AccountItem.module.scss';
-import { noImage } from '@/public/images';
+import noAvatar from '@/public/images/no-user-image.jpg';
 
 const cx = classNames.bind(styles);
 
@@ -66,7 +66,7 @@ const AccountItem = ({
             <Link className={cx({ border: hasBorder })} href={`/${user.username}`}>
               <Image
                 className={cx('avatar', { avatarLarge })}
-                src={user.profile_image || noImage}
+                src={user.profile_image || noAvatar}
                 alt=''
               />
             </Link>
@@ -76,7 +76,7 @@ const AccountItem = ({
         <Link className={cx({ border: hasBorder })} href={`/${user.username}`}>
           <Image
             className={cx('avatar', { avatarLarge })}
-            src={user.profile_image || noImage}
+            src={user.profile_image || noAvatar}
             alt=''
           />
         </Link>
@@ -94,14 +94,14 @@ const AccountItem = ({
               >
                 <Link href={`/${user.username}`}>
                   <span>{user.username}</span>
-                  {user?.tick && <BiSolidBadgeCheck className={cx('check')} />}
+                  {/* {user?.tick && <BiSolidBadgeCheck className={cx('check')} />} */}
                 </Link>
               </Tippy>
             </div>
           ) : (
             <Link href={`/${user.username}`}>
               <span>{user.username}</span>
-              {user?.tick && <BiSolidBadgeCheck className={cx('check')} />}
+              {/* {user?.tick && <BiSolidBadgeCheck className={cx('check')} />} */}
             </Link>
           )}
         </h4>

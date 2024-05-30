@@ -1,30 +1,35 @@
 import type { Metadata } from 'next';
 import { ToastContainer } from 'react-toastify';
 
-import { AntdProvider, PrivateRouteProvider, ReduxProvider } from '@/components/Providers';
-import '@/styles/base/index.scss';
+import { ReduxProvider, RoutesProvider, ThemeProvider } from '@/components/Providers';
+import { robotoFont } from '@/configs/font';
+import '@/styles/globals.css';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 
 export const metadata: Metadata = {
   title: 'Insta App',
-  description: 'Nơi kết lối mọi người!',
+  description: 'Nơi kết nối mọi người!',
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en'>
-      <body>
+    <html lang='en' className={`${robotoFont.className}`}>
+      <body className='min-h-screen bg-background'>
         <ReduxProvider>
-          <PrivateRouteProvider>
-            <AntdProvider>{children}</AntdProvider>
-          </PrivateRouteProvider>
+          <ThemeProvider
+            attribute='class'
+            defaultTheme='system'
+            enableSystem
+            disableTransitionOnChange
+          >
+            <RoutesProvider>{children}</RoutesProvider>
+          </ThemeProvider>
         </ReduxProvider>
-
         <ToastContainer
           position='top-right'
           autoClose={4000}

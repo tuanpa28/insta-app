@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import Link from 'next/link';
-import { RiArrowDownSLine } from 'react-icons/ri';
+// import { RiArrowDownSLine } from 'react-icons/ri';
 import styles from './Footer.module.scss';
 
 const cx = classNames.bind(styles);
@@ -68,7 +68,7 @@ const Footer = () => {
       </div>
       <div className={cx('bottom')}>
         <span className={cx('language')}>
-          English <RiArrowDownSLine className={cx('arrow-icon')} />
+          {/* English <RiArrowDownSLine className={cx('arrow-icon')} /> */}
         </span>
         <span className={cx('infor')}>© 2023 Instagram Clone By Pham Tuan</span>
       </div>

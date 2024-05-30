@@ -1,9 +1,9 @@
 'use client';
 
-import { Skeleton } from 'antd';
+// import { Skeleton } from 'antd';
 import classNames from 'classnames/bind';
 import { useEffect, useRef, useState } from 'react';
-import { BiLoader, BiSolidXCircle } from 'react-icons/bi';
+// import { BiLoader, BiSolidXCircle } from 'react-icons/bi';
 
 import AccountItem from '@/components/AccountItem';
 import { useDebounce } from '@/hooks';
@@ -66,12 +66,12 @@ const Search = () => {
           />
           {!!searchValue && !loading && (
             <div onClick={handleClear} className={cx('clear')}>
-              <BiSolidXCircle className={cx('icon')} />
+              {/* <BiSolidXCircle className={cx('icon')} /> */}
             </div>
           )}
           {loading && (
             <div className={cx('loading')}>
-              <BiLoader className={cx('icon')} />
+              {/* <BiLoader className={cx('icon')} /> */}
             </div>
           )}
         </div>
@@ -79,7 +79,7 @@ const Search = () => {
         <div className={cx('result')}>
           {loading && (
             <>
-              <Skeleton
+              {/* <Skeleton
                 className={cx('skeleton')}
                 avatar
                 loading={true}
@@ -110,7 +110,7 @@ const Search = () => {
                 active
                 title={false}
                 paragraph={{ rows: 2, width: ['80%', '50%'] }}
-              />
+              /> */}
             </>
           )}
           {searchResult && searchResult.length > 0 ? (

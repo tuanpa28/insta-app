@@ -12,6 +12,8 @@ import {
   ExploreIcon,
   HomeActiveIcon,
   HomeIcon,
+  LogoImgIcon,
+  LogoTextIcon,
   MessageActiveIcon,
   MessageIcon,
   MoreActiveIcon,
@@ -28,7 +30,7 @@ import ModalCreatePost from '@/components/ModalCreatePost';
 import ModalMore from '@/components/ModalMore';
 import Notifications from '@/components/Notifications';
 import Search from '@/components/Search';
-import { logo_img, logo_text, noImage } from '@/public/images';
+import noAvatar from '@/public/images/no-user-image.jpg';
 import { useAppSelector } from '@/store/hook';
 import Menu, { MenuItem } from './Menu';
 import styles from './Sidebar.module.scss';
@@ -100,20 +102,22 @@ const Sidebar = ({ handleFullMain = () => {} }: ISidebar) => {
 
   return (
     <>
-      <div className={cx('wrapper')}>
+      <div className={`${cx('wrapper')} h-screen border-r w-fit border-solid border-border`}>
         <div className={cx('content', { sidebar_small: sizeSidebar })}>
           <div className={cx('logo')}>
             <Link onClick={handleSidebarBig} href={'/'} className={cx('logo-link')}>
-              <Image
+              {/* <Image
                 className={cx('logo-text', { opacity_0: sizeSidebar })}
                 src={logo_text}
                 alt='Instagram'
-              />
-              <Image
+              /> */}
+              <LogoTextIcon className={cx('logo-text', { opacity_0: sizeSidebar })} />
+              <LogoImgIcon className={cx('logo-img', { scale_1: sizeSidebar })} />
+              {/* <Image
                 className={cx('logo-img', { scale_1: sizeSidebar })}
                 src={logo_img}
                 alt='Instagram'
-              />
+              /> */}
             </Link>
           </div>
           <Menu>
@@ -182,7 +186,7 @@ const Sidebar = ({ handleFullMain = () => {} }: ISidebar) => {
               icon={
                 <Image
                   className={cx('sidebar-avatar')}
-                  src={user?.profile_image || noImage}
+                  src={user?.profile_image || noAvatar}
                   alt='Avatar'
                 />
               }
