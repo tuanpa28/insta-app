@@ -19,7 +19,7 @@ const config: Config = {
     },
     extend: {
       fontFamily: {
-        roboto: ['var(--font-roboto)'],
+        quicksand: ['var(--font-quicksand)'],
       },
       colors: {
         border: 'hsl(var(--border))',
@@ -76,10 +76,11 @@ const config: Config = {
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
       screens: {
-        sm: 'var(--sm)',
-        md: 'var(--md)',
-        lg: 'var(--lg)',
-        xl: 'var(--xl)',
+        sm: '479px',
+        md: '767px',
+        lg: '1160px',
+        xl: '1264px',
+        '3xl': '1920px',
       },
     },
   },

@@ -34,14 +34,9 @@
 
     --radius: 0.5rem;
 
-    /** Break boint  */
-    --sm: 479px;
-    --md: 767px;
-    --lg: 1160px;
-    --xl: 1264px;
-
     --nav-narrow-width: 72px;
     --nav-medium-width: 244px;
+    --nav-wide-width: 335px;
   }
 
   .dark {

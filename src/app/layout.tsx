@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { ToastContainer } from 'react-toastify';
 
 import { ReduxProvider, RoutesProvider, ThemeProvider } from '@/components/Providers';
-import { robotoFont } from '@/configs/font';
+import { quickSandFont } from '@/configs/font';
 import '@/styles/globals.css';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import 'react-toastify/dist/ReactToastify.css';
@@ -18,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en' className={`${robotoFont.className}`}>
+    <html lang='en' className={`${quickSandFont.className}`}>
       <body className='min-h-screen bg-background'>
         <ReduxProvider>
           <ThemeProvider
