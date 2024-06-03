@@ -10,7 +10,6 @@ import SidebarFeed from '@/components/SidebarFeed';
 import { useGetPostTimeLine } from '@/hooks';
 import { IPost } from '@/interfaces';
 import styles from './Home.module.scss';
-import { Button } from '@/components/ui/button';
 
 const cx = classNames.bind(styles);
 
@@ -87,7 +86,6 @@ const HomeView = () => {
           </div>
         </div>
         <div className={cx('content')}>
-          <Button>Click me</Button>
           <div className={cx('list-post')}>
             {posts?.map((post: IPost, index: number) => (
               <PostItem

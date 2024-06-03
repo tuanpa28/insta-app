@@ -1,3 +1,4 @@
+import { DropdownMore } from '@/components/dropdown';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   AtSignIcon,
@@ -11,71 +12,95 @@ import {
   SquarePlusIcon,
   VideotapeIcon,
 } from 'lucide-react';
+import { RootLabel, RootPath } from './enum';
+import { menuItemsMore } from '@/components/common/data/dataMore';
 
 export type NavLinkProps = {
-  title: string;
+  label: string;
   icon: React.ReactNode;
+  activeIcon: React.ReactNode;
   href?: string;
   subIcon?: React.ReactNode;
   badge?: number;
-  [key: string]: any;
+  onClick?: () => void;
+  dropdown?: React.ReactNode;
 };
+
+const strokeWidth = 3;
+
+const AvatarCustom = () => (
+  <Avatar className='w-6 h-6'>
+    <AvatarImage src='https://github.com/shadcn.png' />
+    <AvatarFallback />
+  </Avatar>
+);
 
 export const MANAGER_ROUTES: NavLinkProps[] = [
   {
-    title: 'Home',
-    icon: <HomeIcon className='group-hover:scale-110 transition-transform' strokeWidth={3} />,
-    href: '/',
+    label: RootLabel.Home,
+    icon: <HomeIcon />,
+    activeIcon: <HomeIcon strokeWidth={strokeWidth} />,
+    href: RootPath.Home,
   },
   {
-    title: 'Sreach',
-    icon: <SearchIcon className='group-hover:scale-110 transition-transform' />,
+    label: RootLabel.Sreach,
+    icon: <SearchIcon />,
+    activeIcon: <SearchIcon strokeWidth={strokeWidth} />,
   },
   {
-    title: 'Explore',
-    icon: <CompassIcon className='group-hover:scale-110 transition-transform' />,
-    href: '/explore',
+    label: RootLabel.Explore,
+    icon: <CompassIcon />,
+    activeIcon: <CompassIcon strokeWidth={strokeWidth} />,
+    href: RootPath.Explore,
   },
   {
-    title: 'Reels',
-    icon: <VideotapeIcon className='group-hover:scale-110 transition-transform' />,
-    href: '/reels',
+    label: RootLabel.Reels,
+    icon: <VideotapeIcon />,
+    activeIcon: <VideotapeIcon strokeWidth={strokeWidth} />,
+    href: RootPath.Reels,
   },
   {
-    title: 'Messages',
-    icon: <MessageCircleMoreIcon className='group-hover:scale-110 transition-transform' />,
-    href: '/inbox',
+    label: RootLabel.Messages,
+    icon: <MessageCircleMoreIcon />,
+    activeIcon: <MessageCircleMoreIcon strokeWidth={strokeWidth} />,
+    href: RootPath.Inbox,
     badge: 1,
   },
   {
-    title: 'Notifications',
-    icon: <HeartIcon className='group-hover:scale-110 transition-transform' />,
+    label: RootLabel.Notifications,
+    icon: <HeartIcon />,
+    activeIcon: <HeartIcon strokeWidth={strokeWidth} />,
   },
   {
-    title: 'Create',
-    icon: <SquarePlusIcon className='group-hover:scale-110 transition-transform' />,
+    label: RootLabel.Create,
+    icon: <SquarePlusIcon />,
+    activeIcon: <SquarePlusIcon strokeWidth={strokeWidth} />,
   },
   {
-    title: 'Profile',
-    icon: (
-      <Avatar className='w-6 h-6 group-hover:scale-110 transition-transform'>
-        <AvatarImage src='https://github.com/shadcn.png' />
-        <AvatarFallback>CN</AvatarFallback>
-      </Avatar>
+    label: RootLabel.Profile,
+    icon: <AvatarCustom />,
+    activeIcon: (
+      <div className='p-[0.8px] rounded-full ring-[1.5px] ring-primary'>
+        <AvatarCustom />
+      </div>
     ),
+    href: '/patuan.03',
   },
 ];
 
 export const ROUTES_UTILS: NavLinkProps[] = [
   {
-    title: 'Threads',
-    icon: <AtSignIcon className='group-hover:scale-110 transition-transform' />,
+    label: RootLabel.Threads,
+    icon: <AtSignIcon />,
+    activeIcon: <AtSignIcon strokeWidth={strokeWidth} />,
     href: 'https://www.threads.net',
     badge: 3,
     subIcon: <SquareArrowOutUpRightIcon className='w-[18px] h-[18px]' />,
   },
   {
-    title: 'More',
-    icon: <MenuIcon className='group-hover:scale-110 transition-transform' />,
+    label: RootLabel.More,
+    icon: <MenuIcon />,
+    activeIcon: <MenuIcon strokeWidth={strokeWidth} />,
+    dropdown: <DropdownMore items={menuItemsMore} className='w-72 mx-4' />,
   },
 ];

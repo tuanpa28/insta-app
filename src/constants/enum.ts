@@ -1,7 +1,20 @@
 export enum RootPath {
   Home = '/',
-  Login = '/login',
+  Explore = '/explore',
   Reels = '/reels',
   Inbox = '/inbox',
-  Explore = '/explore',
+  SignIn = '/sign-in',
+}
+
+export enum RootLabel {
+  Home = 'Home',
+  Sreach = 'Sreach',
+  Explore = 'Explore',
+  Reels = 'Reels',
+  Messages = 'Messages',
+  Notifications = 'Notifications',
+  Create = 'Create',
+  Profile = 'Profile',
+  Threads = 'Threads',
+  More = 'More',
 }
