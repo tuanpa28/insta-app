@@ -1,11 +1,17 @@
 import type { Metadata } from 'next';
 import { ToastContainer } from 'react-toastify';
 
-import { ReduxProvider, RoutesProvider, ThemeProvider } from '@/components/Providers';
+import {
+  ReduxProvider,
+  RoutesProvider,
+  StoreProvider,
+  ThemeProvider,
+} from '@/components/Providers';
 import { quickSandFont } from '@/configs/font';
 import '@/styles/globals.css';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import 'react-toastify/dist/ReactToastify.css';
+import { TooltipProvider } from '@/components/ui/tooltip';
 
 export const metadata: Metadata = {
   title: 'Insta App',
@@ -21,14 +27,18 @@ export default function RootLayout({
     <html lang='en' className={`${quickSandFont.className}`}>
       <body className='min-h-screen bg-background'>
         <ReduxProvider>
-          <ThemeProvider
-            attribute='class'
-            defaultTheme='system'
-            enableSystem
-            disableTransitionOnChange
-          >
-            <RoutesProvider>{children}</RoutesProvider>
-          </ThemeProvider>
+          <StoreProvider>
+            <ThemeProvider
+              attribute='class'
+              defaultTheme='system'
+              enableSystem
+              disableTransitionOnChange
+            >
+              <TooltipProvider delayDuration={800}>
+                <RoutesProvider>{children}</RoutesProvider>
+              </TooltipProvider>
+            </ThemeProvider>
+          </StoreProvider>
         </ReduxProvider>
         <ToastContainer
           position='top-right'

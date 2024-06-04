@@ -26,6 +26,7 @@ const config: Config = {
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
         background: 'hsl(var(--background))',
+        darkBackground: 'rgb(var(--darkBackground))',
         foreground: 'hsl(var(--foreground))',
         primary: {
           DEFAULT: 'hsl(var(--primary))',
@@ -70,10 +71,15 @@ const config: Config = {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: '0' },
         },
+        spinner: {
+          from: { transform: 'translateY(-50%) rotate(0)' },
+          to: { transform: 'translateY(-50%) rotate(360deg)' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        'spinner': 'spinner 0.8s linear infinite',
       },
       screens: {
         sm: '479px',

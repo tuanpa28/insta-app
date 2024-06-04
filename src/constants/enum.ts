@@ -3,6 +3,9 @@ export enum RootPath {
   Explore = '/explore',
   Reels = '/reels',
   Inbox = '/inbox',
+  Settings = '/accounts/edit',
+  YourActivity = '/your_activity',
+  Saved = '/patuan.03/saved',
   SignIn = '/sign-in',
 }
 

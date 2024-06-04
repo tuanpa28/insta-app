@@ -1,3 +1,15 @@
+export type NavLinkProps = {
+  label: string;
+  icon: React.ReactNode;
+  activeIcon: React.ReactNode;
+  href?: string;
+  subIcon?: React.ReactNode;
+  badge?: number;
+  onClick?: () => void;
+  dropdown?: React.ReactNode;
+  component?: React.ReactNode;
+};
+
 export type ImageLabel = {
   src: string;
   alt: string;

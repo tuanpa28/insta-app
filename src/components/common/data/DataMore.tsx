@@ -1,3 +1,4 @@
+import { RootPath } from '@/constants/enum';
 import {
   BookmarkIcon,
   LogOut,
@@ -9,8 +10,10 @@ import {
 } from 'lucide-react';
 
 interface MenuItem {
-  Icon: React.ReactNode;
-  text: string;
+  icon: React.ReactNode;
+  label: string;
+  href?: string;
+  switchTheme?: boolean;
 }
 
 interface MenuGroup {
@@ -28,24 +31,28 @@ export const menuItemsMore: MenuItemMore[] = [
   {
     group: [
       {
-        Icon: <SettingsIcon className='mr-3 h-[18px] w-[18px]' />,
-        text: 'Settings',
+        icon: <SettingsIcon className='w-[18px] h-[18px]' />,
+        label: 'Settings',
+        href: RootPath.Settings,
       },
       {
-        Icon: <SquareActivityIcon className='mr-3 h-[18px] w-[18px]' />,
-        text: 'Your activity',
+        icon: <SquareActivityIcon className='w-[18px] h-[18px]' />,
+        label: 'Your activity',
+        href: RootPath.YourActivity,
       },
       {
-        Icon: <BookmarkIcon className='mr-3 h-[18px] w-[18px]' />,
-        text: 'Saved',
+        icon: <BookmarkIcon className='w-[18px] h-[18px]' />,
+        label: 'Saved',
+        href: RootPath.Saved,
       },
       {
-        Icon: <SunIcon className='mr-3 h-[18px] w-[18px]' />,
-        text: 'Switch appearance',
+        icon: <SunIcon className='w-[18px] h-[18px]' />,
+        label: 'Switch appearance',
+        switchTheme: true,
       },
       {
-        Icon: <MessageSquareWarningIcon className='mr-3 h-[18px] w-[18px]' />,
-        text: 'Report a problem',
+        icon: <MessageSquareWarningIcon className='w-[18px] h-[18px]' />,
+        label: 'Report a problem',
       },
     ],
   },
@@ -56,8 +63,8 @@ export const menuItemsMore: MenuItemMore[] = [
   {
     group: [
       {
-        Icon: <RefreshCcwIcon className='mr-3 h-[18px] w-[18px]' />,
-        text: 'Switch accounts',
+        icon: <RefreshCcwIcon className='w-[18px] h-[18px]' />,
+        label: 'Switch accounts',
       },
     ],
   },
@@ -67,8 +74,8 @@ export const menuItemsMore: MenuItemMore[] = [
   {
     group: [
       {
-        Icon: <LogOut className='mr-3 h-[18px] w-[18px]' />,
-        text: 'Log out',
+        icon: <LogOut className='w-[18px] h-[18px]' />,
+        label: 'Log out',
       },
     ],
   },

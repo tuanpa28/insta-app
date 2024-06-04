@@ -5,6 +5,7 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
+    --darkBackground: 0, 0, 0;
     --foreground: 222.2 84% 4.9%;
 
     --card: 0 0% 100%;
@@ -80,15 +81,15 @@
   }
 
   /* Scrollbar CSS */
-  html body::-webkit-scrollbar {
+  *::-webkit-scrollbar {
     border-radius: 0;
     width: 8px;
   }
-  html body::-webkit-scrollbar-thumb {
+  *::-webkit-scrollbar-thumb {
     border-radius: 4px;
     background-color: rgba(22, 24, 35, 0.06);
   }
-  html body::-webkit-scrollbar-track {
+  *::-webkit-scrollbar-track {
     border-radius: 0;
     background-color: rgba(0, 0, 0, 0);
   }
