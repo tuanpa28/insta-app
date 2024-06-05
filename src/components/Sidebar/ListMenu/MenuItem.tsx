@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { TooltipDisplay } from '@/components/common/display/TooltipDisplay';
+import { TooltipDisplay } from '@/components/common/display';
 import { RootLabel } from '@/constants/enum';
 import { CompType } from '@/interfaces';
 import { useStore } from '@/store';

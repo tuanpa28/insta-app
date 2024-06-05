@@ -563,10 +563,10 @@ export const CloseIcon = () => (
     ></line>
   </svg>
 );
-export const ImageVideoIcon = () => (
+export const ImageVideoIcon = ({ className }: IIcon) => (
   <svg
     aria-label='Icon to represent media such as images or videos'
-    className='x1lliihq x1n2onr6 x5n08af'
+    className={className}
     fill='currentColor'
     height='77'
     role='img'

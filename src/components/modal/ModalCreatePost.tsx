@@ -15,10 +15,10 @@ import styles from './ModalCreatePost.module.scss';
 const cx = classNames.bind(styles);
 
 interface IModalCreatePost {
-  onClick: (event: React.MouseEvent<HTMLDivElement>) => void;
+  onToogle: (event: React.MouseEvent<HTMLDivElement>) => void;
 }
 
-const ModalCreatePost = ({ onClick }: IModalCreatePost) => {
+export const ModalCreatePost = ({ onToogle }: IModalCreatePost) => {
   const [activeStep, setActiveStep] = useState(0);
   const [caption, setCaption] = useState<string>('');
   const [files, setFiles] = useState<File[]>([]);
@@ -29,7 +29,7 @@ const ModalCreatePost = ({ onClick }: IModalCreatePost) => {
     const id = toast.loading('Đang đăng bài viết! Vui lòng đợi!', { position: 'top-center' });
     const media = await uploadMedias(files);
     await crearePost({ caption, media });
-    onClick(event);
+    onToogle(event);
     toast.update(id, {
       render: 'Đăng bài viết thành công!',
       type: 'success',
@@ -128,7 +128,7 @@ const ModalCreatePost = ({ onClick }: IModalCreatePost) => {
     };
   }, []);
   return (
-    <div onClick={onClick} className={cx('wrapper')}>
+    <div onClick={onToogle} className={cx('wrapper')}>
       <div
         onClick={(event) => {
           event.stopPropagation();
@@ -136,7 +136,7 @@ const ModalCreatePost = ({ onClick }: IModalCreatePost) => {
         className={cx('modal-container')}
         style={files && files.length > 0 && activeStep === 1 ? { width: 'auto' } : {}}
       >
-        <div onClick={onClick} className={cx('modal-close')}>
+        <div onClick={onToogle} className={cx('modal-close')}>
           <CloseIcon />
         </div>
         <header className={cx('modal-header')}>
@@ -231,5 +231,3 @@ const ModalCreatePost = ({ onClick }: IModalCreatePost) => {
     </div>
   );
 };
-
-export default ModalCreatePost;

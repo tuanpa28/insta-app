@@ -16,10 +16,11 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useCallback, useMemo, useState } from 'react';
 
-import { LogoImgIcon, LogoTextIcon } from '@/components/Icons';
+import { ImageVideoIcon, LogoImgIcon, LogoTextIcon } from '@/components/Icons';
 import Notifications from '@/components/Notifications';
 import Search from '@/components/Search';
 import { menuItemsMore } from '@/components/common/data/DataMore';
+import { DialogDisplay } from '@/components/common/display';
 import { DropdownMore } from '@/components/dropdown';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { RootLabel, RootPath } from '@/constants/enum';
@@ -38,8 +39,9 @@ export type NavLinkProps = {
 };
 
 const Sidebar = () => {
-  const [isShowSearch, setIsShowSearch] = useState(false);
-  const [isShowNotifi, setIsShowNotifi] = useState(false);
+  const [isShowCreatePost, setIsShowCreatePost] = useState<boolean>(false);
+  const [isShowSearch, setIsShowSearch] = useState<boolean>(false);
+  const [isShowNotifi, setIsShowNotifi] = useState<boolean>(false);
   const [state, dispatch] = useStore();
   const pathName = usePathname();
   const { isStateSidebar } = state;
@@ -130,7 +132,7 @@ const Sidebar = () => {
         label: RootLabel.Create,
         icon: <SquarePlusIcon />,
         activeIcon: <SquarePlusIcon strokeWidth={strokeWidth} />,
-        onClick: () => alert('Open Modal'),
+        onClick: () => setIsShowCreatePost(true),
       },
       {
         label: RootLabel.Profile,
@@ -209,6 +211,33 @@ const Sidebar = () => {
       </div>
       <Search isOpen={isShowSearch} />
       <Notifications isOpen={isShowNotifi} />
+      <DialogDisplay
+        title={'Create new post'}
+        alignTitle='center'
+        className='w-[539px] 3xl:w-[744px] min-w-[348px] max-w-[855px] min-h-96'
+        open={isShowCreatePost}
+        setOpen={() => setIsShowCreatePost(!isShowCreatePost)}
+      >
+        <div className='flex items-center justify-center flex-col min-h-96'>
+          <div className='mb-2'>
+            <ImageVideoIcon />
+          </div>
+          <p className='text-lg text-center font-medium mb-4'>Drag photos and videos here</p>
+          <label
+            htmlFor='file-upload'
+            className='bg-[rgb(0,149,246)] hover:bg-[rgb(24,119,242)] text-[#fff] rounded-lg cursor-pointer text-sm font-semibold py-2 px-4'
+          >
+            Select from computer
+          </label>
+          <input
+            id='file-upload'
+            type='file'
+            accept='image/*, video/*'
+            multiple
+            className='hidden'
+          />
+        </div>
+      </DialogDisplay>
       <div
         onClick={handlerResetSidebar}
         className={`${
