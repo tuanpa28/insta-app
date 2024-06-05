@@ -11,7 +11,7 @@ export enum RootPath {
 
 export enum RootLabel {
   Home = 'Home',
-  Sreach = 'Sreach',
+  Search = 'Search',
   Explore = 'Explore',
   Reels = 'Reels',
   Messages = 'Messages',

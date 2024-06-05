@@ -4,23 +4,26 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import { TooltipDisplay } from '@/components/common/display/TooltipDisplay';
-import { NavLinkProps } from '@/constants/routes';
+import { RootLabel } from '@/constants/enum';
 import { CompType } from '@/interfaces';
 import { useStore } from '@/store';
+import { NavLinkProps } from '../Sidebar';
 
 type IMenuItem = {
   item: NavLinkProps;
+  active: string;
+  onSetActive: (active: string) => void;
 };
 
-const MenuItem = ({ item }: IMenuItem) => {
+const MenuItem = ({ item, active, onSetActive }: IMenuItem) => {
   const [state] = useStore();
   const { isStateSidebar } = state;
   const pathName = usePathname();
 
-  const isActive = pathName === item.href;
-
   const Comp: CompType = item.href ? Link : 'button';
   const props = { ...item, ...(item.href && { href: item.href }) };
+
+  const isActive = active ? active === item.label : item.href === pathName;
 
   return (
     <li>
@@ -28,6 +31,10 @@ const MenuItem = ({ item }: IMenuItem) => {
         trigger={
           <Comp
             {...props}
+            onClick={() => {
+              item.onClick && item.onClick();
+              !item.href ? onSetActive(item.label) : onSetActive('');
+            }}
             className='relative flex items-center text-left my-[2px] p-3 w-full text-primary rounded-lg dark:text-[rgb(245,245,245)] hover:!bg-stone-200 dark:hover:!bg-[rgba(255,255,255,0.1)] group'
           >
             <span className='group-hover:scale-110 group-active:scale-90 transition-transform'>
@@ -53,7 +60,9 @@ const MenuItem = ({ item }: IMenuItem) => {
             )}
           </Comp>
         }
-        content={item.label}
+        content={`${item.label} ${
+          item.label === RootLabel.Profile ? `• ${item.href?.slice(1)}` : ''
+        }`}
         side='right'
         hidden={!isStateSidebar}
         className='py-[10px] px-3 rounded-lg shadow-md'

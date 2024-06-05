@@ -10,7 +10,7 @@ export const DropdownDisplay = ({ trigger, children }: IDropdownDisplayProps) =>
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <span className='block w-full !m-0 !p-0'>{trigger}</span>
+        <div className='block w-full !m-0 !p-0'>{trigger}</div>
       </DropdownMenuTrigger>
       {children}
     </DropdownMenu>

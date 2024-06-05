@@ -5,7 +5,7 @@ const NotifiItem = () => {
   return (
     <Link
       href={`/@tuanpa03`}
-      className={`flex items-center py-2 px-6 cursor-pointer hover:bg-stone-200`}
+      className={`flex items-center py-2 px-6 cursor-pointer hover:bg-stone-200 dark:hover:bg-[rgba(255,255,255,0.1)]`}
     >
       <Avatar className='w-11 h-11'>
         <AvatarImage src='https://github.com/shadcn.png' />

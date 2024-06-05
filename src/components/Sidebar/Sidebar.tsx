@@ -13,7 +13,8 @@ import {
   VideotapeIcon,
 } from 'lucide-react';
 import Link from 'next/link';
-import { useMemo } from 'react';
+import { usePathname } from 'next/navigation';
+import { useCallback, useMemo, useState } from 'react';
 
 import { LogoImgIcon, LogoTextIcon } from '@/components/Icons';
 import Notifications from '@/components/Notifications';
@@ -21,16 +22,66 @@ import Search from '@/components/Search';
 import { menuItemsMore } from '@/components/common/data/DataMore';
 import { DropdownMore } from '@/components/dropdown';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { NavLinkProps } from '@/constants/common';
 import { RootLabel, RootPath } from '@/constants/enum';
 import { actions, useStore } from '@/store';
 import ListMenu from './ListMenu';
 
+export type NavLinkProps = {
+  label: string;
+  icon: React.ReactNode;
+  activeIcon: React.ReactNode;
+  href?: string;
+  subIcon?: React.ReactNode;
+  badge?: number;
+  onClick?: () => void;
+  dropdown?: React.ReactNode;
+};
+
 const Sidebar = () => {
+  const [isShowSearch, setIsShowSearch] = useState(false);
+  const [isShowNotifi, setIsShowNotifi] = useState(false);
   const [state, dispatch] = useStore();
+  const pathName = usePathname();
   const { isStateSidebar } = state;
 
   const strokeWidth = useMemo(() => 3, []);
+  const isInboxPage = pathName === RootPath.Inbox;
+
+  const handlerResetSidebar = useCallback(() => {
+    dispatch(actions.setIsStateSidebar(false));
+    setIsShowSearch(false);
+    setIsShowNotifi(false);
+  }, [dispatch]);
+
+  const handlerClickSearch = useCallback(() => {
+    setIsShowSearch(!isShowSearch);
+    if (!isInboxPage && isStateSidebar === isShowSearch) {
+      dispatch(actions.setIsStateSidebar(!isStateSidebar));
+    }
+    if (isShowNotifi) {
+      setIsShowNotifi(false);
+    }
+  }, [isInboxPage, isStateSidebar, isShowNotifi, isShowSearch, dispatch]);
+
+  const handlerClickInbox = useCallback(() => {
+    dispatch(actions.setIsStateSidebar(true));
+    if (isShowSearch) {
+      setIsShowSearch(false);
+    }
+    if (isShowNotifi) {
+      setIsShowNotifi(false);
+    }
+  }, [isShowNotifi, isShowSearch, dispatch]);
+
+  const handlerClickNotifi = useCallback(() => {
+    setIsShowNotifi(!isShowNotifi);
+    if (!isInboxPage && isStateSidebar === isShowNotifi) {
+      dispatch(actions.setIsStateSidebar(!isStateSidebar));
+    }
+    if (isShowSearch) {
+      setIsShowSearch(false);
+    }
+  }, [isInboxPage, isStateSidebar, isShowNotifi, isShowSearch, dispatch]);
 
   const MANAGER_ROUTES: NavLinkProps[] = useMemo(
     () => [
@@ -39,25 +90,27 @@ const Sidebar = () => {
         icon: <HomeIcon />,
         activeIcon: <HomeIcon strokeWidth={strokeWidth} />,
         href: RootPath.Home,
+        onClick: handlerResetSidebar,
       },
       {
-        label: RootLabel.Sreach,
+        label: RootLabel.Search,
         icon: <SearchIcon />,
         activeIcon: <SearchIcon strokeWidth={strokeWidth} />,
-        component: <Search />,
-        onClick: () => dispatch(actions.setIsStateSidebar(!isStateSidebar)),
+        onClick: handlerClickSearch,
       },
       {
         label: RootLabel.Explore,
         icon: <CompassIcon />,
         activeIcon: <CompassIcon strokeWidth={strokeWidth} />,
         href: RootPath.Explore,
+        onClick: handlerResetSidebar,
       },
       {
         label: RootLabel.Reels,
         icon: <VideotapeIcon />,
         activeIcon: <VideotapeIcon strokeWidth={strokeWidth} />,
         href: RootPath.Reels,
+        onClick: handlerResetSidebar,
       },
       {
         label: RootLabel.Messages,
@@ -65,17 +118,19 @@ const Sidebar = () => {
         activeIcon: <MessageCircleMoreIcon strokeWidth={strokeWidth} />,
         href: RootPath.Inbox,
         badge: 1,
+        onClick: handlerClickInbox,
       },
       {
         label: RootLabel.Notifications,
         icon: <HeartIcon />,
         activeIcon: <HeartIcon strokeWidth={strokeWidth} />,
-        component: <Notifications />,
+        onClick: handlerClickNotifi,
       },
       {
         label: RootLabel.Create,
         icon: <SquarePlusIcon />,
         activeIcon: <SquarePlusIcon strokeWidth={strokeWidth} />,
+        onClick: () => alert('Open Modal'),
       },
       {
         label: RootLabel.Profile,
@@ -94,9 +149,10 @@ const Sidebar = () => {
           </div>
         ),
         href: '/patuan.03',
+        onClick: handlerResetSidebar,
       },
     ],
-    [strokeWidth, isStateSidebar, dispatch],
+    [strokeWidth, handlerClickNotifi, handlerClickInbox, handlerClickSearch, handlerResetSidebar],
   );
 
   const ROUTES_UTILS: NavLinkProps[] = useMemo(
@@ -120,34 +176,46 @@ const Sidebar = () => {
   );
 
   return (
-    <div className={`relative z-10 h-screen w-fit border-r border-solid border-border`}>
+    <>
       <div
-        className={`${
-          isStateSidebar
-            ? '!w-[var(--nav-narrow-width)]'
-            : 'w-[var(--nav-narrow-width)] xl:w-[var(--nav-medium-width)] 3xl:w-[var(--nav-wide-width)]'
-        } h-screen flex flex-col transition-[width] ease-in-out duration-300 bg-[#fff] dark:bg-darkBackground px-3 pt-2 pb-5`}
+        className={`relative z-50 h-screen w-fit border-r border-solid border-border dark:border-[rgb(38,38,38)]`}
       >
-        <div className={'w-full pt-6 px-3 pb-4 h-20'}>
-          <Link href={'/'}>
-            {isStateSidebar ? (
-              <LogoImgIcon className={'mt-2'} />
-            ) : (
-              <LogoTextIcon className={'mt-2'} />
-            )}
-          </Link>
-        </div>
-        <div className='flex flex-col justify-between h-full'>
-          <div className='py-4 w-full'>
-            <ListMenu items={MANAGER_ROUTES} />
+        <div
+          className={`${
+            isStateSidebar
+              ? '!w-[var(--nav-narrow-width)]'
+              : 'w-[var(--nav-narrow-width)] xl:w-[var(--nav-medium-width)] 3xl:w-[var(--nav-wide-width)]'
+          } h-screen flex flex-col transition-[width] ease-in-out duration-300 bg-[#fff] dark:bg-darkBackground px-3 pt-2 pb-5`}
+        >
+          <div className={'w-full pt-6 px-3 pb-4 h-20'}>
+            <Link href={'/'} onClick={handlerResetSidebar}>
+              {isStateSidebar ? (
+                <LogoImgIcon className={'mt-2'} />
+              ) : (
+                <LogoTextIcon className={'mt-2'} />
+              )}
+            </Link>
           </div>
+          <div className='flex flex-col justify-between h-full'>
+            <div className='py-4 w-full'>
+              <ListMenu items={MANAGER_ROUTES} />
+            </div>
 
-          <div className='w-full'>
-            <ListMenu items={ROUTES_UTILS} />
+            <div className='w-full'>
+              <ListMenu items={ROUTES_UTILS} />
+            </div>
           </div>
         </div>
       </div>
-    </div>
+      <Search isOpen={isShowSearch} />
+      <Notifications isOpen={isShowNotifi} />
+      <div
+        onClick={handlerResetSidebar}
+        className={`${
+          isShowSearch || isShowNotifi ? 'fixed' : 'hidden'
+        } inset-0 z-30 bg-transparent`}
+      />
+    </>
   );
 };
 
