@@ -57,6 +57,10 @@ const config: Config = {
           foreground: 'hsl(var(--card-foreground))',
         },
       },
+      backgroundImage: {
+        linearGradientAvatar:
+          'linear-gradient(135deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d, #f56040, #ffbd2e, #ffd600)',
+      },
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
@@ -79,7 +83,7 @@ const config: Config = {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
-        'spinner': 'spinner 0.8s linear infinite',
+        spinner: 'spinner 0.8s linear infinite',
       },
       screens: {
         sm: '479px',

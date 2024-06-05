@@ -42,7 +42,7 @@ const AvatarFallback = React.forwardRef<
     )}
     {...props}
   >
-    <Image width={60} height={60} src='/images/no-user-image.jpg' alt='No Avatar' />
+    <Image width={400} height={400} src='/images/no-user-image.jpg' alt='No Avatar' />
   </AvatarPrimitive.Fallback>
 ));
 AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName;
