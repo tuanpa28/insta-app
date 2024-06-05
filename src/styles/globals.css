@@ -38,6 +38,8 @@
     --nav-narrow-width: 72px;
     --nav-medium-width: 244px;
     --nav-wide-width: 335px;
+
+    --feed-sidebar-width: 383px;
   }
 
   .dark {

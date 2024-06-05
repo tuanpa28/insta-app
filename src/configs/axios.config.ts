@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation';
 
 const instance: AxiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
-  timeout: 5000,
+  timeout: 6000,
   headers: {
     'Content-Type': 'application/json',
   },

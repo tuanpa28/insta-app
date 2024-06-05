@@ -1,4 +1,4 @@
-import { IAction, IState } from '@/interfaces/store';
+import { IAction, IState } from '@/interfaces/';
 import { SET_IS_STATE_SIDEBAR } from './constants';
 
 export const initState = {

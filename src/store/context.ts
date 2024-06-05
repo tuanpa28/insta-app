@@ -1,4 +1,4 @@
-import { IAction, IState } from '@/interfaces/store';
+import { IAction, IState } from '@/interfaces';
 import { Dispatch, createContext } from 'react';
 import { initState } from './reducer';
 

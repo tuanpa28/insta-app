@@ -7,15 +7,15 @@ import {
   StoreProvider,
   ThemeProvider,
 } from '@/components/Providers';
+import { TooltipProvider } from '@/components/ui/tooltip';
 import { quickSandFont } from '@/configs/font';
 import '@/styles/globals.css';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import 'react-toastify/dist/ReactToastify.css';
-import { TooltipProvider } from '@/components/ui/tooltip';
 
 export const metadata: Metadata = {
-  title: 'Insta App',
-  description: 'Nơi kết nối mọi người!',
+  title: 'Insta Social Network',
+  description: 'Insta Social Network',
 };
 
 export default function RootLayout({
@@ -25,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en' className={`${quickSandFont.className}`}>
-      <body className='min-h-screen bg-background'>
+      <body className='min-h-screen'>
         <ReduxProvider>
           <StoreProvider>
             <ThemeProvider
