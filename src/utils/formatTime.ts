@@ -1,4 +1,4 @@
-export const timeAgo = (timestamp: string) => {
+export const timeAgo = (timestamp: string | Date) => {
   const createAtDate: Date = new Date(timestamp);
   const now: Date = new Date();
 

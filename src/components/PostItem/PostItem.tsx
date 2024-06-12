@@ -1,145 +1,84 @@
 'use client';
 
 import Tippy from '@tippyjs/react/headless';
-import classNames from 'classnames/bind';
-import Image from 'next/image';
-import { useEffect, useRef, useState } from 'react';
-// import { BiSolidVolumeFull, BiSolidVolumeMute } from 'react-icons/bi';
-// import { RiArrowLeftSLine, RiArrowRightSLine, RiMoreFill } from 'react-icons/ri';
-import { useInView } from 'react-intersection-observer';
-import { Carousel } from 'react-responsive-carousel';
-
-import AccountPreview from '@/components/AccountPreview';
 import {
-  CommentIcon,
-  EmojiIcon,
-  HeartActiveIcon,
+  BookmarkIcon,
+  EllipsisIcon,
   HeartIcon,
-  SavedIcon,
+  MessageCircleIcon,
   SendIcon,
-} from '@/components/Icons';
-import { PopperWrapper } from '@/components/Popper';
-import PostOptions from '@/components/PostOptions';
-import { useCommentPost, useLikePost } from '@/hooks';
-import { IComment, IPost, IUser } from '@/interfaces';
-import noAvatar from '@/public/images/no-user-image.jpg';
-import { commentService, postService } from '@/services';
-import { useAppSelector } from '@/store/hook';
-import { timeAgo } from '@/utils/formatTime';
+  SmileIcon,
+} from 'lucide-react';
 import Link from 'next/link';
-import styles from './PostItem.module.scss';
-import './custom-carousel.css';
+import { useEffect, useRef, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
 
-const cx = classNames.bind(styles);
+import SwiperCarousel from '@/components/SwiperCarousel';
+import { Textarea } from '@/components/common/DataEntry';
+import { TippyDisplay } from '@/components/common/display';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { IComment, IPostTimeLine } from '@/interfaces';
+import { timeAgo } from '@/utils';
 
 interface IPostItem {
-  post: IPost;
+  post: IPostTimeLine;
   isVolume: boolean;
-  onHandlerVolume: () => void;
+  onToggleVolume: () => void;
 }
 
-const PostItem = ({ post, isVolume, onHandlerVolume }: IPostItem) => {
-  const [play, setPlay] = useState<boolean>(false);
+const PostItem = ({ post, isVolume, onToggleVolume }: IPostItem) => {
+  const [isPlay, setIsPlay] = useState<boolean>(false);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [isOptionsPost, setIsOptionsPost] = useState<boolean>(false);
-  const [comments, setComments] = useState<IComment[]>([]);
-  const [postsUser, setPostsUser] = useState<IPost[]>([]);
+  const [comments, setComments] = useState<IComment[]>();
+  const [postsUser, setPostsUser] = useState<IPostTimeLine[]>([]);
   const [comment, setComment] = useState('');
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const commentRef = useRef<HTMLTextAreaElement | null>(null);
-  const authUser = useAppSelector((state) => state.user.currentUser.values);
+  // const authUser = useAppSelector((state) => state.user.currentUser.values);
   const [ref, inView] = useInView({
     threshold: 0.5,
   });
-  const { isLiked, likes, handleLikePost } = useLikePost(post);
-  const { handleCommentPost } = useCommentPost();
+  // const { isLiked, likes, handleLikePost } = useLikePost(post);
+  // const { handleCommentPost } = useCommentPost();
 
-  const handleEnter = (type: string) => {
-    if (type === 'Enter') {
-      handleSubmitComment();
-    }
-  };
+  // const handleEnter = (type: string) => {
+  //   if (type === 'Enter') {
+  //     handleSubmitComment();
+  //   }
+  // };
 
-  const handleSubmitComment = async () => {
-    const data = await handleCommentPost(post?._id as string, comment);
+  // const handleSubmitComment = async () => {
+  //   const data = await handleCommentPost(post?._id as string, comment);
 
-    setComment('');
-    commentRef?.current?.focus();
-    setComments([...comments, data]);
-  };
+  //   setComment('');
+  //   commentRef?.current?.focus();
+  //   setComments([...comments, data]);
+  // };
 
-  const handleOptionPost = () => {
-    setIsOptionsPost(!isOptionsPost);
-  };
+  // const handleOptionPost = () => {
+  //   setIsOptionsPost(!isOptionsPost);
+  // };
 
-  const renderPreview = (user: IUser) => (
-    <div tabIndex={-1}>
-      <PopperWrapper>
-        <AccountPreview user={user} postsUser={postsUser} />
-      </PopperWrapper>
-    </div>
-  );
-
-  const onHandlePlayVideo = () => {
-    setPlay(!play);
+  const handleToogleVideo = () => {
+    setIsPlay(!isPlay);
     setIsPlaying(!isPlaying);
-    !play ? videoRef?.current?.play() : videoRef?.current?.pause();
+    !isPlay ? videoRef?.current?.play() : videoRef?.current?.pause();
   };
 
-  const renderArrowPrev = (onClickHandler: any, hasPrev: boolean) => (
-    <button
-      type='button'
-      onClick={onClickHandler}
-      disabled={!hasPrev}
-      className={cx('arrow-prev')}
-      style={{
-        display: `${hasPrev ? 'block' : 'none'}`,
-      }}
-    >
-      {/* <RiArrowLeftSLine className={cx('block')} /> */}
-    </button>
-  );
+  // useEffect(() => {
+  //   (async () => {
+  //     const respon = await postService.getPostsUser(post?.user_id?._id);
+  //     respon?.data && setPostsUser(respon?.data);
+  //   })();
+  // }, [post]);
 
-  const renderArrowNext = (onClickHandler: any, hasNext: boolean) => (
-    <button
-      type='button'
-      onClick={onClickHandler}
-      disabled={!hasNext}
-      className={cx('arrow-next')}
-      style={{
-        display: `${hasNext ? 'block' : 'none'}`,
-      }}
-    >
-      {/* <RiArrowRightSLine className={cx('block')} /> */}
-    </button>
-  );
-
-  const renderIndicator = (onClickHandler: any, isSelected: boolean, index: number) => (
-    <li
-      className={cx('indicator')}
-      style={{
-        opacity: isSelected ? '1' : '0.4',
-      }}
-      onClick={onClickHandler}
-      onKeyDown={onClickHandler}
-      value={index}
-      key={index}
-    />
-  );
-
-  useEffect(() => {
-    (async () => {
-      const respon = await postService.getPostsUser(post?.user_id?._id);
-      respon?.data && setPostsUser(respon?.data);
-    })();
-  }, [post]);
-
-  useEffect(() => {
-    (async () => {
-      const respon = await commentService.getAllCommentPost(post?._id as string);
-      respon?.data && setComments(respon?.data);
-    })();
-  }, [post]);
+  // useEffect(() => {
+  //   (async () => {
+  //     const respon = await commentService.getAllCommentPost(post?._id as string);
+  //     respon?.data && setComments(respon?.data);
+  //   })();
+  // }, [post]);
 
   useEffect(() => {
     if (videoRef.current) {
@@ -150,143 +89,122 @@ const PostItem = ({ post, isVolume, onHandlerVolume }: IPostItem) => {
   useEffect(() => {
     if (inView && !isPlaying) {
       videoRef?.current?.play();
-      setPlay(true);
+      setIsPlay(true);
     } else {
       videoRef?.current?.pause();
-      setPlay(false);
+      setIsPlay(false);
     }
   }, [inView, isPlaying]);
 
   return (
-    <div className={cx('wrapper')}>
-      <div className={cx('head-post')}>
-        <div className={cx('user')}>
-          <div>
-            <Tippy
-              interactive
-              delay={[600, 100]}
-              offset={[160, 12]}
-              placement='bottom'
-              render={() => renderPreview(post.user_id)}
+    <div className='flex flex-col w-full min-w-[min(390px,100%)] h-full pb-4 mb-5 border-b border-solid border-[rgb(219,219,219)]'>
+      <div className='w-full flex items-center justify-between px-4 sm:pr-0 sm:pl-1 pb-3'>
+        <div className='flex items-center'>
+          <TippyDisplay user={post.user}>
+            <Link
+              className='flex items-center justify-center w-full h-full relative after:bg-linearGradientAvatar after:content-[""] after:block after:absolute after:translate-x-[-50%] after:translate-y-[-50%] after:top-1/2 after:left-1/2 after:h-10 after:w-10 after:z-[-2] after:rounded-full before:content-[""] before:block before:absolute before:translate-x-[-50%] before:translate-y-[-50%] before:top-1/2 before:left-1/2 before:h-9 before:w-9 before:z-[-1] before:rounded-full before:bg-white'
+              href={`/tuanpa.03`}
             >
-              <Link className={cx('link')} href={`/${post.user_id?.username}`}>
-                <div className={cx('avatar', { border: true })}>
-                  <Image
-                    className={cx('img')}
-                    src={post.user_id?.profile_image || noAvatar}
-                    alt=''
-                  />
-                </div>
-              </Link>
-            </Tippy>
+              <div className='w-8 h-8 rounded-full'>
+                <Avatar className='w-full h-full object-cover'>
+                  <AvatarImage src='https://github.com/shadcn.png' />
+                  <AvatarFallback />
+                </Avatar>
+              </div>
+            </Link>
+          </TippyDisplay>
+          <TippyDisplay offset={[150, 8]} user={post.user}>
+            <Link className='ml-3 block' href={`/tuanpa.03`}>
+              <div className='flex items-center text-sm font-bold'>tuanpa.03</div>
+            </Link>
+          </TippyDisplay>
+
+          <div className='flex items-center relative text-sm font-medium ml-3 text-[rgb(115,115,115)] before:content-["•"] before:absolute before:top-0 before:-left-2'>
+            {timeAgo(post?.createdAt)}
           </div>
-          <div>
-            <Tippy
-              interactive
-              delay={[600, 100]}
-              offset={[150, 2]}
-              placement='bottom'
-              render={() => renderPreview(post.user_id)}
-            >
-              <Link href={`/${post.user_id?.username}`}>
-                <div className={cx('user-name')}>{post.user_id?.username}</div>
-              </Link>
-            </Tippy>
-          </div>
-          <div className={cx('time')}>{timeAgo(post?.createdAt as string)}</div>
-          {!authUser?.followings?.includes(post?.user_id?._id) ||
+          {/* {!authUser?.followings?.includes(post?.user_id?._id) ||
             !(
               authUser?._id === post?.user_id?._id && <div className={cx('btn-follow')}>Follow</div>
-            )}
+            )} */}
+          <div className="flex items-center relative text-sm font-bold text-[rgb(0,149,246)] ml-3.5 cursor-pointer hover:text-[rgb(0,55,107)] before:content-['•'] before:block before:absolute before:text-[rgb(115,115,115)] before:top-0 before:-left-2.5">
+            Follow
+          </div>
         </div>
-        <div onClick={handleOptionPost} className={cx('btn-more')}>
-          {/* <RiMoreFill /> */}
+        <div className='flex items-center justify-center ml-2 text-xl text-primary cursor-pointer'>
+          <EllipsisIcon width={24} height={24} />
         </div>
       </div>
-      <div ref={ref} className={cx('body')}>
-        <Carousel
-          className={cx('carousel')}
-          showStatus={false}
-          showThumbs={false}
-          showIndicators={post?.media?.length !== 1}
-          renderArrowPrev={renderArrowPrev}
-          renderArrowNext={renderArrowNext}
-          renderIndicator={renderIndicator}
-        >
-          {post?.media?.map((item: any, index: number) => (
-            <div className={cx('media-item')} key={index}>
-              {item.type === 'image' ? (
-                <Image className={cx('img')} src={item.url} alt='' />
-              ) : (
-                <>
-                  <video ref={videoRef} loop className={cx('video')}>
-                    <source src={item.url} type='video/mp4' />
-                  </video>
-                  <div onClick={onHandlePlayVideo} className={cx('play')}>
-                    {!play && <div className={cx('icon-play')}></div>}
-                  </div>
-                  <div onClick={onHandlerVolume} className={cx('sound')}>
-                    {/* {isVolume ? (
-                      <BiSolidVolumeFull className={cx('block')} />
-                    ) : (
-                      <BiSolidVolumeMute className={cx('block')} />
-                    )} */}
-                  </div>
-                </>
-              )}
-            </div>
-          ))}
-        </Carousel>
+      <div
+        ref={ref}
+        className='relative flex items-center justify-center border border-solid border-[rgb(219,219,219)] rounded bg-[rgb(0,0,0)] w-full h-[400px] sm:w-[468px] sm:h-[585px] cursor-pointer'
+      >
+        <SwiperCarousel
+          medias={post.media}
+          videoRef={videoRef}
+          isPlay={isPlay}
+          onTogglePlay={handleToogleVideo}
+          onToggleVolume={onToggleVolume}
+          isVolume={isVolume}
+        />
       </div>
-      <div className={cx('bottom')}>
-        <div className={cx('action-item')}>
-          <div className={cx('action-box')}>
-            <div onClick={handleLikePost} className={cx('item-box')}>
-              {isLiked ? (
-                <HeartActiveIcon className={cx('heart-active-icon')} />
+      <div className='flex flex-col px-4 sm:px-0'>
+        <div className='flex items-center justify-between py-1 -mx-2'>
+          <div className='flex items-center justify-center'>
+            <div
+              //  onClick={handleLikePost}
+              className='hover:opacity-60 cursor-pointer p-2'
+            >
+              {/* {isLiked ? (
+                <HeartIcon className={cx('heart-active-icon')} strokeWidth={3} />
               ) : (
                 <HeartIcon className={cx('heart-icon')} />
-              )}
+              )} */}
+              <HeartIcon width={24} height={24} className='text-red-600' />
             </div>
-            <div className={cx('item-box')}>
-              <CommentIcon />
+            <div className='hover:opacity-60 cursor-pointer p-2'>
+              <MessageCircleIcon width={24} height={24} />
             </div>
-            <div className={cx('item-box')}>
-              <SendIcon />
+            <div className='hover:opacity-60 cursor-pointer p-2'>
+              <SendIcon width={24} height={24} />
             </div>
           </div>
-          <div className={cx('item-box')}>
-            <SavedIcon className={cx('icon-saved')} />
+          <div className='hover:opacity-60 cursor-pointer p-2'>
+            <BookmarkIcon width={24} height={24} />
           </div>
         </div>
-        {!!likes && likes > 0 && (
+        {/* {!!likes && likes > 0 && (
           <div className={cx('like-count')}>
             <div className={cx('text')}>
               {likes} <span>{likes > 1 ? 'likes' : 'like'}</span>
             </div>
           </div>
-        )}
+        )} */}
+        <div className='flex items-center justify-start mb-1.5'>
+          <div className='text-sm font-semibold cursor-pointer'>
+            2 <span>likes</span>
+          </div>
+        </div>
         {post?.caption && (
-          <div className={cx('content-post')}>
+          <div className='flex items-center justify-start mb-1.5'>
             <div>
               <Tippy
                 interactive
                 delay={[600, 100]}
                 offset={[149, 6]}
                 placement='bottom'
-                render={() => renderPreview(post.user_id)}
+                // render={() => renderPreview(post?.user)}
               >
-                <Link href={`/${post.user_id?.username}`}>
-                  <div className={cx('user-name')}>{post.user_id?.username}</div>
+                <Link href={`/${post.user?.username}`}>
+                  <div className='flex items-center text-sm font-bold'>{post.user?.username}</div>
                 </Link>
               </Tippy>
             </div>
-            <span className={cx('text')}>{post.caption}</span>
+            <span className='text-sm font-medium ml-1'>{post.caption}</span>
           </div>
         )}
         {comments && comments.length > 0 && (
-          <div className={cx('btn-show-comments')}>
-            <Link href={'/'} className={cx('link')}>
+          <div className='flex items-center justify-start mb-1.5'>
+            <Link href={'/'} className='text-sm font-medium text-[rgb(115,115,115)]'>
               View{' '}
               {comments.length === 1
                 ? `${comments.length} comment`
@@ -294,35 +212,39 @@ const PostItem = ({ post, isVolume, onHandlerVolume }: IPostItem) => {
             </Link>
           </div>
         )}
-        <div className={cx('form-comment')}>
-          <div className={cx('form')}>
-            <textarea
-              className={cx('input')}
-              onChange={(e) => setComment(e.target.value)}
-              onKeyDown={(e) => handleEnter(e.key)}
+        <div className='flex items-center'>
+          <div className='flex items-center flex-row flex-grow'>
+            <Textarea
+              className='w-full h-5 max-h-20 mr-2 border-none outline-none overflow-hidden text-sm font-medium text-[#000] bg-white placeholder:text-[rgb(115,115,115)] resize-none'
+              onChange={(event) => setComment(event.target.value)}
+              // onKeyDown={(e) => handleEnter(e.key)}
               value={comment}
+              height={20}
               spellCheck={false}
               ref={commentRef}
               placeholder='Add a comment...'
-            ></textarea>
+            />
             {comment && comment.length > 0 && (
-              <button onClick={handleSubmitComment} className={cx('btn-send')}>
+              <button
+                // onClick={handleSubmitComment}
+                className='text-base font-semibold mr-2 leading-5 text-[rgb(0,149,246)] cursor-pointer hover:text-[rgb(0,55,107)]'
+              >
                 Post
               </button>
             )}
           </div>
-          <span className={cx('emoji')}>
-            <EmojiIcon />
+          <span className='flex items-center justify-center text-[rgb(115,115,115)] cursor-pointer hover:opacity-60'>
+            <SmileIcon width={14} height={14} />
           </span>
         </div>
       </div>
-      {isOptionsPost && (
+      {/* {isOptionsPost && (
         <PostOptions
           onToggleOption={handleOptionPost}
-          userId={post?.user_id?._id}
+          userId={post?.user?._id}
           postId={post?._id as string}
         />
-      )}
+      )} */}
     </div>
   );
 };

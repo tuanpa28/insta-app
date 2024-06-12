@@ -10,7 +10,6 @@ import {
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { quickSandFont } from '@/configs/font';
 import '@/styles/globals.css';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 
 export const metadata: Metadata = {

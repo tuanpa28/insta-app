@@ -1,4 +1,4 @@
-import { SigninPageView } from '@/views/Login';
+import { SigninPageView } from '@/views/Signin';
 
 const SignInPage = () => {
   return <SigninPageView />;

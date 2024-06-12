@@ -96,3 +96,19 @@
     background-color: rgba(0, 0, 0, 0);
   }
 }
+
+.swiper-pagination-bullet {
+  background-color: #fff !important;
+  width: 7px !important;
+  height: 7px !important;
+  transition: all 0.2s ease-in-out !important;
+  display: inline-block !important;
+  margin: 0 4px !important;
+  border-radius: 50% !important;
+  cursor: pointer !important;
+  opacity: 0.4 !important;
+}
+
+.swiper-pagination-bullet-active {
+  opacity: 1 !important;
+}

@@ -21,3 +21,8 @@ export enum RootLabel {
   Threads = 'Threads',
   More = 'More',
 }
+
+export enum TypeMedia {
+  Image = 'image',
+  Video = 'video',
+}
