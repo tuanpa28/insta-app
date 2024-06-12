@@ -79,11 +79,18 @@ const config: Config = {
           from: { transform: 'translateY(-50%) rotate(0)' },
           to: { transform: 'translateY(-50%) rotate(360deg)' },
         },
+        contractility: {
+          '0%': { transform: 'scale(1)' },
+          '25%': { transform: 'scale(1.2)' },
+          '50%': { transform: 'scale(0.90)' },
+          '100%': { transform: 'scale(1)' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         spinner: 'spinner 0.8s linear infinite',
+        contractility: 'contractility 0.45s ease-in-out',
       },
       screens: {
         sm: '479px',

@@ -28,14 +28,14 @@ const SwiperNavButtons = () => {
   return (
     <div className='w-full flex justify-between absolute z-10 left-0 top-[50%] px-2'>
       <button
-        className='flex items-center justify-center transition-all ease-in-out duration-200 text-3xl text-red-500 rounded-[14px] translate-y-[-50%] p-2 hover:bg-[rgba(0,0,0,0.2)]'
+        className='flex items-center justify-center transition-all ease-in-out duration-200 text-3xl text-[#e47a46] rounded-[14px] translate-y-[-50%] p-1'
         onClick={() => swiper.slidePrev()}
       >
         <ChevronLeftIcon />
       </button>
 
       <button
-        className='flex items-center justify-center transition-all ease-in-out duration-200 text-3xl text-red-500 rounded-[14px] translate-y-[-50%] p-2 hover:bg-[rgba(0,0,0,0.2)]'
+        className='flex items-center justify-center transition-all ease-in-out duration-200 text-3xl text-[#e47a46] rounded-[14px] translate-y-[-50%] p-1'
         onClick={() => swiper.slideNext()}
       >
         <ChevronRightIcon />

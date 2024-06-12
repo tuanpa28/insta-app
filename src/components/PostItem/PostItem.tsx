@@ -1,6 +1,5 @@
 'use client';
 
-import Tippy from '@tippyjs/react/headless';
 import {
   BookmarkIcon,
   EllipsisIcon,
@@ -17,6 +16,7 @@ import SwiperCarousel from '@/components/SwiperCarousel';
 import { Textarea } from '@/components/common/DataEntry';
 import { TippyDisplay } from '@/components/common/display';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Dialog, DialogClose, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { IComment, IPostTimeLine } from '@/interfaces';
 import { timeAgo } from '@/utils';
 
@@ -35,6 +35,7 @@ const PostItem = ({ post, isVolume, onToggleVolume }: IPostItem) => {
   const [comment, setComment] = useState('');
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const commentRef = useRef<HTMLTextAreaElement | null>(null);
+  const [isAnimating, setIsAnimating] = useState(false);
   // const authUser = useAppSelector((state) => state.user.currentUser.values);
   const [ref, inView] = useInView({
     threshold: 0.5,
@@ -130,9 +131,44 @@ const PostItem = ({ post, isVolume, onToggleVolume }: IPostItem) => {
             Follow
           </div>
         </div>
-        <div className='flex items-center justify-center ml-2 text-xl text-primary cursor-pointer'>
-          <EllipsisIcon width={24} height={24} />
-        </div>
+        <Dialog>
+          <DialogTrigger asChild>
+            <div className='flex items-center justify-center ml-2 text-xl text-primary cursor-pointer'>
+              <EllipsisIcon width={24} height={24} />
+            </div>
+          </DialogTrigger>
+          <DialogContent
+            hideCloseBtn
+            onOpenAutoFocus={(e) => e.preventDefault()}
+            className='w-[calc(100vw-88px)] min-w-[260px] max-w-[400px] max-h-[calc(100%-40px)] m-5 p-0 !rounded-xl'
+          >
+            <div className='flex flex-col justify-center items-center'>
+              <button className='w-full flex items-center justify-center font-extrabold text-red-600 py-1 px-2 min-h-12 text-sm bg-transparent rounded-t-xl cursor-pointer hover:bg-[rgba(0,0,0,0.1)]'>
+                Report
+              </button>
+              <button className='w-full flex items-center justify-center font-extrabold text-red-600 py-1 px-2 min-h-12 text-sm bg-transparent cursor-pointer hover:bg-[rgba(0,0,0,0.1)] border-t border-solid border-[rgb(219,219,219)]'>
+                Unfollow
+              </button>
+              <button className='w-full flex items-center justify-center font-medium text-primary py-1 px-2 min-h-12 text-sm bg-transparent cursor-pointer hover:bg-[rgba(0,0,0,0.1)] border-t border-solid border-[rgb(219,219,219)]'>
+                Add to favorites
+              </button>
+              <Link
+                href={'/'}
+                className='w-full flex items-center justify-center font-medium text-primary py-1 px-2 min-h-12 text-sm bg-transparent cursor-pointer hover:bg-[rgba(0,0,0,0.1)] border-t border-solid border-[rgb(219,219,219)]'
+              >
+                Go to post
+              </Link>
+              <button className='w-full flex items-center justify-center font-medium text-primary py-1 px-2 min-h-12 text-sm bg-transparent cursor-pointer hover:bg-[rgba(0,0,0,0.1)] border-t border-solid border-[rgb(219,219,219)]'>
+                About this account
+              </button>
+              <DialogClose asChild>
+                <button className='w-full flex items-center justify-center font-medium text-primary py-1 px-2 min-h-12 text-sm bg-transparent cursor-pointer hover:bg-[rgba(0,0,0,0.1)] rounded-b-xl border-t border-solid border-[rgb(219,219,219)]'>
+                  Cancel
+                </button>
+              </DialogClose>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
       <div
         ref={ref}
@@ -152,14 +188,28 @@ const PostItem = ({ post, isVolume, onToggleVolume }: IPostItem) => {
           <div className='flex items-center justify-center'>
             <div
               //  onClick={handleLikePost}
-              className='hover:opacity-60 cursor-pointer p-2'
+              onMouseLeave={() => {
+                setIsAnimating(true);
+                setTimeout(() => {
+                  setIsAnimating(false);
+                }, 500);
+              }}
+              onClick={() => {
+                setIsAnimating(true);
+                setTimeout(() => {
+                  setIsAnimating(false);
+                }, 500);
+              }}
+              className={`hover:opacity-60 cursor-pointer p-2 ${
+                isAnimating ? 'animate-contractility' : ''
+              }`}
             >
               {/* {isLiked ? (
                 <HeartIcon className={cx('heart-active-icon')} strokeWidth={3} />
               ) : (
                 <HeartIcon className={cx('heart-icon')} />
               )} */}
-              <HeartIcon width={24} height={24} className='text-red-600' />
+              <HeartIcon width={24} height={24} strokeWidth={3} className='text-red-600' />
             </div>
             <div className='hover:opacity-60 cursor-pointer p-2'>
               <MessageCircleIcon width={24} height={24} />
@@ -186,19 +236,11 @@ const PostItem = ({ post, isVolume, onToggleVolume }: IPostItem) => {
         </div>
         {post?.caption && (
           <div className='flex items-center justify-start mb-1.5'>
-            <div>
-              <Tippy
-                interactive
-                delay={[600, 100]}
-                offset={[149, 6]}
-                placement='bottom'
-                // render={() => renderPreview(post?.user)}
-              >
-                <Link href={`/${post.user?.username}`}>
-                  <div className='flex items-center text-sm font-bold'>{post.user?.username}</div>
-                </Link>
-              </Tippy>
-            </div>
+            <TippyDisplay user={post.user} offset={[150, 8]}>
+              <Link href={`/${post.user?.username}`}>
+                <div className='flex items-center text-sm font-bold'>{post.user?.username}</div>
+              </Link>
+            </TippyDisplay>
             <span className='text-sm font-medium ml-1'>{post.caption}</span>
           </div>
         )}

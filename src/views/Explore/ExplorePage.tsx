@@ -1,5 +1,5 @@
 const ExplorePage = () => {
-  return <div>ExplorePage</div>;
+  return <div className="h-screen">Explore Page</div>;
 };
 
 export default ExplorePage;

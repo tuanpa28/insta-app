@@ -1,5 +1,3 @@
-'use client';
-
 import Tippy from '@tippyjs/react/headless';
 import { motion, useSpring } from 'framer-motion';
 import React, { CSSProperties } from 'react';
@@ -69,7 +67,7 @@ export const TippyDisplay = ({
     <div>
       <Tippy
         interactive
-        delay={[500, 100]}
+        delay={[400, 100]}
         offset={offset}
         placement={placement}
         render={renderPreview}
