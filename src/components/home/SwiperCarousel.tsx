@@ -44,7 +44,7 @@ const SwiperNavButtons = () => {
   );
 };
 
-const SwiperCarousel = ({
+export const SwiperCarousel = ({
   medias,
   videoRef,
   onTogglePlay,
@@ -85,7 +85,7 @@ const SwiperCarousel = ({
                 </video>
                 <div
                   onClick={onTogglePlay}
-                  className='absolute inset-0 z-40 flex items-center justify-center'
+                  className='absolute inset-0 z-40 flex items-center justify-center cursor-pointer'
                 >
                   {!isPlay && (
                     <div className="bg-[url('/icons/icons2.png')] bg-no-repeat bg-[0_0] w-[135px] h-[135px]"></div>
@@ -93,7 +93,7 @@ const SwiperCarousel = ({
                 </div>
                 <div
                   onClick={onToggleVolume}
-                  className='absolute right-0 bottom-0 p-2 mb-4 mr-4 rounded-[50%] text-white bg-[rgb(38,38,38)] z-50'
+                  className='absolute right-0 bottom-0 p-2 mb-4 mr-4 rounded-[50%] text-white bg-[rgb(38,38,38)] z-50 cursor-pointer'
                 >
                   {isVolume ? (
                     <Volume2Icon width={18} height={18} />
@@ -110,5 +110,3 @@ const SwiperCarousel = ({
     </Swiper>
   );
 };
-
-export default SwiperCarousel;

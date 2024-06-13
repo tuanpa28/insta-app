@@ -1,15 +1,30 @@
 'use client';
 
-import { IUser } from '@/interfaces';
+import { CircleXIcon, SearchIcon } from 'lucide-react';
+import { useEffect, useState } from 'react';
 // import { useEffect, useRef, useState } from 'react';
 
-import { CircleXIcon, LoaderIcon, SearchIcon } from 'lucide-react';
-import Link from 'next/link';
-import { useState } from 'react';
-import AccountItem from '../AccountItem';
-
+import AccountItem from '@/components/AccountItem';
+import { IUser } from '@/interfaces';
 // import { useDebounce } from '@/hooks';
 // import { userService } from '@/services';
+
+const dataFake: IUser[] = [
+  {
+    _id: '1',
+    username: 'tuanpa.03',
+    email: 'tuanpa@gmail.com',
+    full_name: 'Pham Anh Tuan',
+    tick: true,
+  },
+  {
+    _id: '2',
+    username: '_tte19_',
+    email: 'tte19@gmail.com',
+    full_name: 'Hoang Thu Thao',
+    tick: true,
+  },
+];
 
 type SearchProps = {
   isOpen: boolean;
@@ -17,7 +32,7 @@ type SearchProps = {
 
 const Search = ({ isOpen }: SearchProps) => {
   // const [searchValue, setSearchValue] = useState('');
-  const [searchResult, setSearchResult] = useState([]);
+  const [searchResult, setSearchResult] = useState<Array<IUser>>([]);
   // const [loading, setLoading] = useState(false);
   // const debouncedValue = useDebounce(searchValue, 600);
 
@@ -48,6 +63,10 @@ const Search = ({ isOpen }: SearchProps) => {
   //     setSearchValue(searchValue);
   //   }
   // };
+
+  useEffect(() => {
+    setSearchResult(dataFake);
+  }, []);
 
   return (
     <div
@@ -92,10 +111,15 @@ const Search = ({ isOpen }: SearchProps) => {
 
         <div className='overflow-y-auto h-screen'>
           {searchResult && searchResult.length > 0 ? (
-            searchResult?.map((item: IUser, index: number) => (
-              <Link key={index} href={`/${item.username}`}>
-                <AccountItem user={item} hasBorder />
-              </Link>
+            searchResult?.map((item: IUser, i) => (
+              <AccountItem
+                key={i}
+                user={item}
+                hasTippy={false}
+                description={'Pham Tuan • 1.4M followers'}
+                hasRound
+                className='cursor-pointer hover:bg-[rgba(0,0,0,.05)] dark:hover:bg-[rgba(255,255,255,0.1)]'
+              />
             ))
           ) : (
             <div className='p-4 mt-5 flex items-center justify-center text-primary text-base'>

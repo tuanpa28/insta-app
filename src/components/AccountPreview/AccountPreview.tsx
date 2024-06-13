@@ -1,5 +1,4 @@
-import { MessageCircleMoreIcon } from 'lucide-react';
-import Image from 'next/image';
+import { UserPlusIcon } from 'lucide-react';
 import Link from 'next/link';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -24,7 +23,7 @@ const AccountPreview = ({ user }: IAccountPreview) => {
   return (
     <div className='flex flex-col w-[366px] py-4'>
       <div className='px-4 flex flex-row items-center justify-start gap-x-4 mb-4'>
-        <div className='cursor-pointer w-14 h-14 relative z-[1] after:bg-linearGradientAvatar after:content-[""] after:block after:absolute after:translate-x-[-50%] after:translate-y-[-50%] after:top-1/2 after:left-1/2 after:h-[64px] after:w-[64px] after:z-[-2] after:rounded-full before:content-[""] before:block before:absolute before:translate-x-[-50%] before:translate-y-[-50%] before:top-1/2 before:left-1/2 before:h-[60px] before:w-[60px] before:z-[-1] before:rounded-full before:bg-white'>
+        <div className='cursor-pointer w-14 h-14 relative z-[1] after:bg-linearGradientAvatar after:content-[""] after:block after:absolute after:translate-x-[-50%] after:translate-y-[-50%] after:top-1/2 after:left-1/2 after:h-[64px] after:w-[64px] after:z-[-2] after:rounded-full before:content-[""] before:block before:absolute before:translate-x-[-50%] before:translate-y-[-50%] before:top-1/2 before:left-1/2 before:h-[60px] before:w-[60px] before:z-[-1] before:rounded-full before:bg-white dark:before:bg-[rgb(0,0,0)]'>
           <Avatar className='w-full h-full object-cover'>
             <AvatarImage src='https://github.com/shadcn.png' />
             <AvatarFallback />
@@ -32,30 +31,32 @@ const AccountPreview = ({ user }: IAccountPreview) => {
         </div>
         <div className='flex flex-col justify-center'>
           <Link href={`/${user.username}`}>
-            <span className='text-base font-bold text-primary leading-5'>tuanpa.03</span>
+            <span className='text-base font-bold text-primary leading-5 dark:text-[rgb(245,245,245)]'>
+              tuanpa.03
+            </span>
           </Link>
-          <span className='text-sm font-normal text-[rgb(115,115,115)] leading-[18px] mt-0.5'>
+          <span className='text-sm font-normal text-[rgb(115,115,115)] dark:text-[rgb(168,168,168)] leading-[18px] mt-0.5'>
             Tuan Dev
           </span>
         </div>
       </div>
 
       <div className='grid items-center grid-cols-3 gap-x-1 mb-4'>
-        <div className='mx-2 flex flex-col text-center text-sm'>
+        <div className='mx-2 flex flex-col text-center text-sm dark:text-[rgb(245,245,245)]'>
           <span className='font-extrabold leading-[18px]'>{0}</span>
           <span className='font-medium'>posts</span>
         </div>
-        <div className='mx-2 flex flex-col text-center text-sm'>
+        <div className='mx-2 flex flex-col text-center text-sm dark:text-[rgb(245,245,245)]'>
           <span className='font-extrabold leading-[18px]'>{user?.followers?.length}</span>
           <span className='font-medium'>followers</span>
         </div>
-        <div className='mx-2 flex flex-col text-center text-sm'>
+        <div className='mx-2 flex flex-col text-center text-sm dark:text-[rgb(245,245,245)]'>
           <span className='font-extrabold leading-[18px]'>{user?.followings?.length}</span>
           <span className='font-medium'>following</span>
         </div>
       </div>
 
-      <div className='grid items-center grid-cols-3 gap-x-1 mb-4'>
+      {/* <div className='grid items-center grid-cols-3 gap-x-1 mb-4'>
         {new Array(3).fill(0).map((_, i) => (
           <Link key={i} href={'/'}>
             <Image
@@ -67,18 +68,20 @@ const AccountPreview = ({ user }: IAccountPreview) => {
             />
           </Link>
         ))}
-      </div>
-
-      {/* <div className='flex flex-col items-center gap-2 p-4 pb-2 mb-4 border-y border-solid border-[rgb(219,219,219)]'>
-        <i className='w-12 h-12 inline-block bg-[url("/icons/icons.png")] bg-no-repeat bg-[length:98px_198px] bg-[0_-98px]'></i>
-        <span className='text-sm font-bold text-primary'>No posts yet</span>
-        <span className='text-sm font-medium text-center text-[rgb(115,115,115)]'>
-          When {user.username} shares photos and reels, you&apos;ll see them here.
-        </span>
       </div> */}
 
+      <div className='flex flex-col items-center gap-2 p-4 pb-2 mb-4 border-y border-solid border-[rgb(219,219,219)] dark:border-[rgb(38,38,38)]'>
+        <i className='w-12 h-12 inline-block bg-[url("/icons/icons.png")] bg-no-repeat bg-[length:98px_198px] bg-[0_-98px]'></i>
+        <span className='text-sm font-bold text-primary dark:text-[rgb(245,245,245)]'>
+          No posts yet
+        </span>
+        <span className='text-sm font-medium text-center text-[rgb(115,115,115)] dark:text-[rgb(168,168,168)]'>
+          When {user.username} shares photos and reels, you&apos;ll see them here.
+        </span>
+      </div>
+
       <div className='flex items-center justify-center gap-2 px-4'>
-        <Button
+        {/* <Button
           size={'sm'}
           className='w-full bg-[rgb(0,149,246)] text-[rgb(255,255,255)] font-semibold text-sm hover:bg-[rgb(24,119,242)] rounded-lg'
         >
@@ -87,17 +90,17 @@ const AccountPreview = ({ user }: IAccountPreview) => {
         </Button>
         <Button
           size={'sm'}
-          className='w-full bg-[rgb(239,239,239)] text-primary font-semibold text-sm hover:bg-[rgb(219,219,219)] rounded-lg'
+          className='w-full bg-[rgb(239,239,239)] dark:bg-[rgb(54,54,54)] dark:hover:bg-[rgb(38,38,38)] text-primary dark:text-[rgb(245,245,245)] font-semibold text-sm hover:bg-[rgb(219,219,219)] rounded-lg'
         >
           Following
-        </Button>
-        {/* <Button
+        </Button> */}
+        <Button
           size={'sm'}
           className='w-full bg-[rgb(0,149,246)] text-[rgb(255,255,255)] font-semibold text-sm hover:bg-[rgb(24,119,242)] rounded-lg'
         >
           <UserPlusIcon width={20} height={20} className='mr-1.5' />
           Follow
-        </Button> */}
+        </Button>
       </div>
     </div>
   );

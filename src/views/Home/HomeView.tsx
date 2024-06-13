@@ -1,6 +1,4 @@
-import PostsTimeLine from '@/components/PostsTimeLine';
-import SidebarFeed from '@/components/SidebarFeed';
-import Stories from '@/components/Stories';
+import { PostsTimeLine, SidebarFeed, Stories } from '@/components/home';
 
 const HomeView = () => {
   return (

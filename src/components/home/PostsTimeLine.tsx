@@ -52,7 +52,7 @@ const data: IPostTimeLine[] = [
   },
 ];
 
-const PostsTimeLine = () => {
+export const PostsTimeLine = () => {
   const [volume, setVolume] = useState<boolean>(false);
   // const { isLoading, error, data: posts } = useGetPostTimeLine();
 
@@ -73,5 +73,3 @@ const PostsTimeLine = () => {
     </>
   );
 };
-
-export default PostsTimeLine;

@@ -30,9 +30,9 @@ import ListMenu from './ListMenu';
 export type NavLinkProps = {
   label: string;
   icon: React.ReactNode;
-  activeIcon: React.ReactNode;
+  active_icon: React.ReactNode;
   href?: string;
-  subIcon?: React.ReactNode;
+  sub_icon?: React.ReactNode;
   badge?: number;
   onClick?: () => void;
   dropdown?: React.ReactNode;
@@ -90,34 +90,34 @@ const Sidebar = () => {
       {
         label: RootLabel.Home,
         icon: <HomeIcon />,
-        activeIcon: <HomeIcon strokeWidth={strokeWidth} />,
+        active_icon: <HomeIcon strokeWidth={strokeWidth} />,
         href: RootPath.Home,
         onClick: handlerResetSidebar,
       },
       {
         label: RootLabel.Search,
         icon: <SearchIcon />,
-        activeIcon: <SearchIcon strokeWidth={strokeWidth} />,
+        active_icon: <SearchIcon strokeWidth={strokeWidth} />,
         onClick: handlerClickSearch,
       },
       {
         label: RootLabel.Explore,
         icon: <CompassIcon />,
-        activeIcon: <CompassIcon strokeWidth={strokeWidth} />,
+        active_icon: <CompassIcon strokeWidth={strokeWidth} />,
         href: RootPath.Explore,
         onClick: handlerResetSidebar,
       },
       {
         label: RootLabel.Reels,
         icon: <VideotapeIcon />,
-        activeIcon: <VideotapeIcon strokeWidth={strokeWidth} />,
+        active_icon: <VideotapeIcon strokeWidth={strokeWidth} />,
         href: RootPath.Reels,
         onClick: handlerResetSidebar,
       },
       {
         label: RootLabel.Messages,
         icon: <MessageCircleMoreIcon />,
-        activeIcon: <MessageCircleMoreIcon strokeWidth={strokeWidth} />,
+        active_icon: <MessageCircleMoreIcon strokeWidth={strokeWidth} />,
         href: RootPath.Inbox,
         badge: 1,
         onClick: handlerClickInbox,
@@ -125,13 +125,13 @@ const Sidebar = () => {
       {
         label: RootLabel.Notifications,
         icon: <HeartIcon />,
-        activeIcon: <HeartIcon strokeWidth={strokeWidth} />,
+        active_icon: <HeartIcon strokeWidth={strokeWidth} />,
         onClick: handlerClickNotifi,
       },
       {
         label: RootLabel.Create,
         icon: <SquarePlusIcon />,
-        activeIcon: <SquarePlusIcon strokeWidth={strokeWidth} />,
+        active_icon: <SquarePlusIcon strokeWidth={strokeWidth} />,
         onClick: () => setIsShowCreatePost(true),
       },
       {
@@ -142,7 +142,7 @@ const Sidebar = () => {
             <AvatarFallback />
           </Avatar>
         ),
-        activeIcon: (
+        active_icon: (
           <div className='p-[0.8px] rounded-full ring-[1.5px] ring-primary'>
             <Avatar className='w-6 h-6'>
               <AvatarImage src='https://github.com/shadcn.png' />
@@ -162,15 +162,15 @@ const Sidebar = () => {
       {
         label: RootLabel.Threads,
         icon: <AtSignIcon />,
-        activeIcon: <AtSignIcon strokeWidth={strokeWidth} />,
+        active_icon: <AtSignIcon strokeWidth={strokeWidth} />,
         href: 'https://www.threads.net',
         badge: 3,
-        subIcon: <SquareArrowOutUpRightIcon className='w-[18px] h-[18px]' />,
+        sub_icon: <SquareArrowOutUpRightIcon className='w-[18px] h-[18px]' />,
       },
       {
         label: RootLabel.More,
         icon: <MenuIcon />,
-        activeIcon: <MenuIcon strokeWidth={strokeWidth} />,
+        active_icon: <MenuIcon strokeWidth={strokeWidth} />,
         dropdown: <DropdownMore items={menuItemsMore} className='w-72 mx-4' />,
       },
     ],

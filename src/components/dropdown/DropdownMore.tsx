@@ -48,7 +48,7 @@ const DropdownMore = ({ className, items }: IDropdownMore) => {
         ) : (
           <DropdownMenuGroup key={i} className='p-1'>
             {item.group.map(({ icon, label, href, switchTheme }, subIndex) => {
-              const Comp: CompType = href ? Link : 'button';
+              const Comp: CompType = href ? Link : 'div';
               const props = {
                 ...(href && { href }),
                 ...(switchTheme && { onClick: handlerChangeTheme }),

@@ -51,7 +51,7 @@ export const ImageVideoIcon = ({ width = 96, height = 77, className }: IIcon) =>
 export const LoadingIcon = ({ className }: IIcon) => (
   <svg aria-label='Loading...' className={className} viewBox='0 0 100 100'>
     <rect
-      className='x1i210e2'
+      className='fill-[rgb(85,85,85)]'
       height='6'
       opacity='0'
       rx='3'
@@ -62,7 +62,7 @@ export const LoadingIcon = ({ className }: IIcon) => (
       y='47'
     ></rect>
     <rect
-      className='x1i210e2'
+      className='fill-[rgb(85,85,85)]'
       height='6'
       opacity='0.08333333333333333'
       rx='3'
@@ -73,7 +73,7 @@ export const LoadingIcon = ({ className }: IIcon) => (
       y='47'
     ></rect>
     <rect
-      className='x1i210e2'
+      className='fill-[rgb(85,85,85)]'
       height='6'
       opacity='0.16666666666666666'
       rx='3'
@@ -84,7 +84,7 @@ export const LoadingIcon = ({ className }: IIcon) => (
       y='47'
     ></rect>
     <rect
-      className='x1i210e2'
+      className='fill-[rgb(85,85,85)]'
       height='6'
       opacity='0.25'
       rx='3'
@@ -95,7 +95,7 @@ export const LoadingIcon = ({ className }: IIcon) => (
       y='47'
     ></rect>
     <rect
-      className='x1i210e2'
+      className='fill-[rgb(85,85,85)]'
       height='6'
       opacity='0.3333333333333333'
       rx='3'
@@ -106,7 +106,7 @@ export const LoadingIcon = ({ className }: IIcon) => (
       y='47'
     ></rect>
     <rect
-      className='x1i210e2'
+      className='fill-[rgb(85,85,85)]'
       height='6'
       opacity='0.4166666666666667'
       rx='3'
@@ -117,7 +117,7 @@ export const LoadingIcon = ({ className }: IIcon) => (
       y='47'
     ></rect>
     <rect
-      className='x1i210e2'
+      className='fill-[rgb(85,85,85)]'
       height='6'
       opacity='0.5'
       rx='3'
@@ -128,7 +128,7 @@ export const LoadingIcon = ({ className }: IIcon) => (
       y='47'
     ></rect>
     <rect
-      className='x1i210e2'
+      className='fill-[rgb(85,85,85)]'
       height='6'
       opacity='0.5833333333333334'
       rx='3'
@@ -139,7 +139,7 @@ export const LoadingIcon = ({ className }: IIcon) => (
       y='47'
     ></rect>
     <rect
-      className='x1i210e2'
+      className='fill-[rgb(85,85,85)]'
       height='6'
       opacity='0.6666666666666666'
       rx='3'
@@ -150,7 +150,7 @@ export const LoadingIcon = ({ className }: IIcon) => (
       y='47'
     ></rect>
     <rect
-      className='x1i210e2'
+      className='fill-[rgb(85,85,85)]'
       height='6'
       opacity='0.75'
       rx='3'
@@ -161,7 +161,7 @@ export const LoadingIcon = ({ className }: IIcon) => (
       y='47'
     ></rect>
     <rect
-      className='x1i210e2'
+      className='fill-[rgb(85,85,85)]'
       height='6'
       opacity='0.8333333333333334'
       rx='3'
@@ -172,7 +172,7 @@ export const LoadingIcon = ({ className }: IIcon) => (
       y='47'
     ></rect>
     <rect
-      className='x1i210e2'
+      className='fill-[rgb(85,85,85)]'
       height='6'
       opacity='0.9166666666666666'
       rx='3'

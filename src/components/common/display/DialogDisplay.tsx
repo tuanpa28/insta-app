@@ -29,7 +29,9 @@ export const DialogDisplay = ({
 }: DialogProps): JSX.Element => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className={`${className} p-5 !rounded-2xl`}>
+      <DialogContent
+        className={`${className} p-5 !rounded-2xl dark:bg-[rgb(38,38,38)] dark:border-transparent`}
+      >
         <DialogHeader>
           <DialogTitle className={`text-${alignTitle} text-base font-semibold`}>
             {title}

@@ -1,5 +1,5 @@
 const ProfilePage = ({ params }: { params: { slug: string } }) => {
-  return <div>Profile Page {params.slug}</div>;
+  return <div className='h-screen'>Profile Page {params.slug}</div>;
 };
 
 export default ProfilePage;

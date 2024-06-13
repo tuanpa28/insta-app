@@ -23,8 +23,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en' className={`${quickSandFont.className}`}>
-      <body className='min-h-screen'>
+    <html lang='en' suppressHydrationWarning className={`${quickSandFont.className}`}>
+      <body className={`min-h-screen`}>
         <ReduxProvider>
           <StoreProvider>
             <ThemeProvider

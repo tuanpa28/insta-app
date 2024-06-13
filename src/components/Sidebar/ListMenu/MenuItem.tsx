@@ -38,7 +38,7 @@ const MenuItem = ({ item, active, onSetActive }: IMenuItem) => {
             className='relative flex items-center text-left my-[2px] p-3 w-full text-primary rounded-lg dark:text-[rgb(245,245,245)] hover:!bg-stone-200 dark:hover:!bg-[rgba(255,255,255,0.1)] group'
           >
             <span className='group-hover:scale-110 group-active:scale-90 transition-transform'>
-              {isActive ? item.activeIcon : item.icon}
+              {isActive ? item.active_icon : item.icon}
             </span>
             {!isStateSidebar && (
               <span className={`flex-1 ms-4 whitespace-nowrap ${isActive && 'font-black'}`}>
@@ -53,9 +53,9 @@ const MenuItem = ({ item, active, onSetActive }: IMenuItem) => {
                 </span>
               </span>
             )}
-            {!isStateSidebar && item.subIcon && (
+            {!isStateSidebar && item.sub_icon && (
               <div className='text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity'>
-                {item.subIcon}
+                {item.sub_icon}
               </div>
             )}
           </Comp>

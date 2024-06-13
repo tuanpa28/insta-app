@@ -1,113 +1,113 @@
 'use client';
 
-import Tippy from '@tippyjs/react/headless';
-import classNames from 'classnames/bind';
-import Image from 'next/image';
+import { BadgeCheckIcon } from 'lucide-react';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
-// import { BiSolidBadgeCheck } from 'react-icons/bi';
 
-import AccountPreview from '@/components/AccountPreview';
-import { PopperWrapper } from '@/components/Popper';
-import { IPost, IUser } from '@/interfaces';
-import { postService } from '@/services';
-import styles from './AccountItem.module.scss';
-import noAvatar from '@/public/images/no-user-image.jpg';
+import { TippyDisplay } from '@/components/common/display';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { IUser } from '@/interfaces';
 
-const cx = classNames.bind(styles);
-
-interface IAccountItem {
+type AccountItemProps = {
   user: IUser;
   className?: string;
+  hasTippy?: boolean;
+  hasRound?: boolean;
   btn?: string;
-  hasTooltip?: boolean;
-  avatarLarge?: boolean;
-  nameLarge?: boolean;
-  hasBorder?: boolean;
-}
+  description: string;
+  onClickBtn?: () => void;
+};
 
 const AccountItem = ({
   user,
   className,
+  hasTippy = true,
+  hasRound,
   btn,
-  hasTooltip,
-  avatarLarge = false,
-  nameLarge = false,
-  hasBorder = false,
-}: IAccountItem) => {
-  const [postsUser, setPostsUser] = useState<IPost[]>([]);
+  description,
+  onClickBtn,
+  ...props
+}: AccountItemProps) => {
+  // const [postsUser, setPostsUser] = useState<IPost[]>([]);
 
-  const renderPreview = () => (
-    <div tabIndex={-1}>
-      <PopperWrapper>
-        <AccountPreview user={user} postsUser={postsUser} />
-      </PopperWrapper>
-    </div>
-  );
-
-  useEffect(() => {
-    (async () => {
-      const respon = await postService.getPostsUser(user?._id as string);
-      respon?.data && setPostsUser(respon?.data);
-    })();
-  }, [user]);
+  // useEffect(() => {
+  //   (async () => {
+  //     const respon = await postService.getPostsUser(user?._id as string);
+  //     respon?.data && setPostsUser(respon?.data);
+  //   })();
+  // }, [user]);
 
   return (
-    <div className={cx('wrapper', className)}>
-      {hasTooltip ? (
-        <div>
-          <Tippy
-            interactive
-            delay={[600, 100]}
-            offset={[160, 12]}
-            placement='bottom'
-            render={renderPreview}
-          >
-            <Link className={cx({ border: hasBorder })} href={`/${user.username}`}>
-              <Image
-                className={cx('avatar', { avatarLarge })}
-                src={user.profile_image || noAvatar}
-                alt=''
-              />
+    <div {...props} className={`flex items-center justify-between py-2 px-6 ${className}`}>
+      <div className='flex items-center'>
+        {hasTippy ? (
+          <TippyDisplay user={user} offset={[160, 4]}>
+            <Link
+              className={`w-11 h-11 relative ${
+                !hasRound ? 'after:hidden before:hidden' : 'after:content-[""] before:content-[""]'
+              } after:bg-linearGradientAvatar after:block after:absolute after:translate-x-[-50%] after:translate-y-[-50%] after:top-1/2 after:left-1/2 after:h-[52px] after:w-[52px] after:z-[-2] after:rounded-full before:block before:absolute before:translate-x-[-50%] before:translate-y-[-50%] before:top-1/2 before:left-1/2 before:h-12 before:w-12 before:z-[-1] before:rounded-full before:bg-white dark:before:bg-[rgb(0,0,0)]`}
+              href={`/tuanpa.03`}
+            >
+              <Avatar className='w-11 h-11 object-cover rounded-full'>
+                <AvatarImage src='https://github.com/shadcn.png' />
+                <AvatarFallback />
+              </Avatar>
             </Link>
-          </Tippy>
-        </div>
-      ) : (
-        <Link className={cx({ border: hasBorder })} href={`/${user.username}`}>
-          <Image
-            className={cx('avatar', { avatarLarge })}
-            src={user.profile_image || noAvatar}
-            alt=''
-          />
-        </Link>
-      )}
-      <div className={cx('info')}>
-        <h4 className={cx('name', { nameLarge })}>
-          {hasTooltip ? (
-            <div>
-              <Tippy
-                interactive
-                delay={[600, 100]}
-                offset={[152, 2]}
-                placement='bottom'
-                render={renderPreview}
-              >
+          </TippyDisplay>
+        ) : (
+          <Link
+            className={`w-11 h-11 relative ${
+              !hasRound ? 'after:hidden before:hidden' : 'after:content-[""] before:content-[""]'
+            } after:bg-linearGradientAvatar after:block after:absolute after:translate-x-[-50%] after:translate-y-[-50%] after:top-1/2 after:left-1/2 after:h-[52px] after:w-[52px] after:z-[-2] after:rounded-full before:block before:absolute before:translate-x-[-50%] before:translate-y-[-50%] before:top-1/2 before:left-1/2 before:h-12 before:w-12 before:z-[-1] before:rounded-full before:bg-white dark:before:bg-[rgb(0,0,0)]`}
+            href={`/tuanpa.03`}
+          >
+            <Avatar className='w-11 h-11 object-cover rounded-full'>
+              <AvatarImage src='https://github.com/shadcn.png' />
+              <AvatarFallback />
+            </Avatar>
+          </Link>
+        )}
+        <div className={'flex flex-col ml-3'}>
+          <div className='flex items-center justify-start'>
+            {hasTippy ? (
+              <TippyDisplay user={user} offset={[150, 4]}>
+                <h4 className={'text-sm leading-[18px] font-bold dark:text-[rgb(245,245,245)]'}>
+                  <Link href={`/${user.username}`}>
+                    <span>{user.username}</span>
+                  </Link>
+                </h4>
+              </TippyDisplay>
+            ) : (
+              <h4 className={'text-sm leading-[18px] font-bold dark:text-[rgb(245,245,245)]'}>
                 <Link href={`/${user.username}`}>
                   <span>{user.username}</span>
-                  {/* {user?.tick && <BiSolidBadgeCheck className={cx('check')} />} */}
                 </Link>
-              </Tippy>
-            </div>
-          ) : (
-            <Link href={`/${user.username}`}>
-              <span>{user.username}</span>
-              {/* {user?.tick && <BiSolidBadgeCheck className={cx('check')} />} */}
-            </Link>
-          )}
-        </h4>
-        <span className={cx('user-name')}>{user.full_name}</span>
+              </h4>
+            )}
+            {user?.tick && (
+              <BadgeCheckIcon
+                width={12}
+                height={12}
+                className={'ml-0.5 text-[rgb(0,149,246)] -mt-2'}
+              />
+            )}
+          </div>
+          <span
+            className={
+              'text-sm leading-[18px] font-medium text-[rgb(115,115,115)] dark:text-[rgb(168,168,168)]'
+            }
+          >
+            {description}
+          </span>
+        </div>
       </div>
-      {btn && <button className={cx('btn')}>{btn}</button>}
+      {btn && (
+        <button
+          onClick={onClickBtn}
+          className='text-xs font-bold text-[rgb(0,147,246)] dark:text-[rgb(0,160,246)] cursor-pointer hover:text-[rgb(0,55,107)] dark:hover:text-[rgb(245,245,245)]'
+        >
+          {btn}
+        </button>
+      )}
     </div>
   );
 };
