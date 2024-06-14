@@ -143,7 +143,7 @@ const Sidebar = () => {
           </Avatar>
         ),
         active_icon: (
-          <div className='p-[0.8px] rounded-full ring-[1.5px] ring-primary'>
+          <div className='p-[1px] rounded-full ring-[1.5px] ring-primary'>
             <Avatar className='w-6 h-6'>
               <AvatarImage src='https://github.com/shadcn.png' />
               <AvatarFallback />
@@ -180,7 +180,7 @@ const Sidebar = () => {
   return (
     <>
       <div
-        className={`relative z-50 h-screen w-fit border-r border-solid border-border dark:border-[rgb(38,38,38)]`}
+        className={`hidden md:block relative z-50 h-screen w-fit border-r border-solid border-border dark:border-[rgb(38,38,38)]`}
       >
         <div
           className={`${
@@ -192,9 +192,12 @@ const Sidebar = () => {
           <div className={'w-full pt-6 px-3 pb-4 h-20'}>
             <Link href={'/'} onClick={handlerResetSidebar}>
               {isStateSidebar ? (
-                <LogoImgIcon className={'mt-2'} />
+                <LogoImgIcon className='mt-2 ' />
               ) : (
-                <LogoTextIcon className={'mt-2'} />
+                <>
+                  <LogoTextIcon className='mt-2 hidden xl:block' />
+                  <LogoImgIcon className='mt-2 xl:hidden block' />
+                </>
               )}
             </Link>
           </div>

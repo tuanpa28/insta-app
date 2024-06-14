@@ -97,6 +97,10 @@
   }
 }
 
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 .swiper-pagination-bullet {
   background-color: #fff !important;
   width: 7px !important;

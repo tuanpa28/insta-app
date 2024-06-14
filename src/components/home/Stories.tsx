@@ -4,9 +4,9 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 export const Stories = () => {
   return (
-    <div className='w-full outline-none mb-6 py-2 rounded-lg '>
-      <div className='flex flex-row items-center justify-start'>
-        {new Array(4).fill(0).map((_, i) => (
+    <div className='w-full outline-none mb-4 sm:mb-6 py-2 rounded-lg border-b border-solid border-[rgb(219,219,219)] sm:border-none'>
+      <div className='flex flex-row items-center justify-start overflow-x-auto no-scrollbar'>
+        {new Array(8).fill(0).map((_, i) => (
           <div key={i} className='w-20 h-full px-1'>
             <Link
               href={'#'}

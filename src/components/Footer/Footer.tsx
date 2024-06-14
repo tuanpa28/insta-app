@@ -62,11 +62,11 @@ const Footer = () => {
           <Link href={'/'}>Threads</Link>
         </div>
       </div>
-      <div className='flex items-center justify-center text-xs font-medium text-[rgb(115,115,115)] dark:text-[#ccc]'>
+      <div className='flex items-center justify-center mb-8 sm:mb-0 text-xs font-medium text-[rgb(115,115,115)] dark:text-[#ccc]'>
         <div className='flex items-center justify-start cursor-pointer'>
           English <ChevronDownIcon className=' w-[18px] h-[18px]' />
         </div>
-        <span className='ml-4'>© 2024 Social Network Clone By Pham Anh Tuan</span>
+        <span className='ml-1 sm:ml-4'>© 2024 Social Network Clone By Pham Anh Tuan</span>
       </div>
     </div>
   );

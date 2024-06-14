@@ -7,7 +7,7 @@ type NotificationsProps = {
 const Notifications = ({ isOpen }: NotificationsProps) => {
   return (
     <div
-      className={`flex flex-col absolute z-40 top-0 left-[calc(var(--nav-narrow-width)+1px)] w-[397px] h-screen py-2 overflow-y-hidden bg-white dark:bg-darkBackground shadow-[rgba(0,0,0,0.15)] drop-shadow-xl border-r border-solid border-border dark:border-[rgb(38,38,38)] rounded-r-2xl transition-transform ease-in-out duration-500 ${
+      className={`hidden md:flex flex-col absolute z-40 top-0 left-[calc(var(--nav-narrow-width)+1px)] w-[397px] h-screen py-2 overflow-y-hidden bg-white dark:bg-darkBackground shadow-[rgba(0,0,0,0.15)] drop-shadow-xl border-r border-solid border-border dark:border-[rgb(38,38,38)] rounded-r-2xl transition-transform ease-in-out duration-500 ${
         isOpen ? 'translate-x-0' : 'translate-x-[calc(-100%-var(--nav-narrow-width)+1px)]'
       }`}
     >

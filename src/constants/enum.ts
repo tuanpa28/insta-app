@@ -5,6 +5,7 @@ export enum RootPath {
   Inbox = '/inbox',
   Settings = '/accounts/edit',
   YourActivity = '/your_activity',
+  Notifications = '/notifications',
   Saved = '/patuan.03/saved',
   SignIn = '/sign-in',
 }

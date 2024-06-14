@@ -99,7 +99,7 @@ const PostItem = ({ post, isVolume, onToggleVolume }: IPostItem) => {
   }, [inView, isPlaying]);
 
   return (
-    <div className='flex flex-col w-full min-w-[min(390px,100%)] h-full pb-4 mb-5 border-b border-solid border-[rgb(219,219,219)] dark:border-[rgb(38,38,38)]'>
+    <div className='flex flex-col w-full min-w-[min(390px,100%)] h-full pb-4 mb-5 sm:border-b sm:border-solid sm:border-[rgb(219,219,219)] dark:border-[rgb(38,38,38)]'>
       <div className='w-full flex items-center justify-between px-4 sm:pr-0 sm:pl-1 pb-3'>
         <div className='flex items-center'>
           <TippyDisplay user={post.user}>
@@ -144,7 +144,7 @@ const PostItem = ({ post, isVolume, onToggleVolume }: IPostItem) => {
           <DialogContent
             hideCloseBtn
             onOpenAutoFocus={(e) => e.preventDefault()}
-            className='w-[calc(100vw-88px)] min-w-[260px] max-w-[400px] max-h-[calc(100%-40px)] m-5 p-0 !rounded-xl bg-white dark:bg-[rgb(38,38,38)] border-transparent'
+            className='w-[calc(100vw-88px)] min-w-[260px] max-w-[400px] max-h-[calc(100%-40px)] p-0 !rounded-xl bg-white dark:bg-[rgb(38,38,38)] border-transparent'
           >
             <div className='flex flex-col justify-center items-center'>
               <button className='w-full flex items-center justify-center font-extrabold text-red-600 dark:text-red-500 py-1 px-2 min-h-12 text-sm bg-transparent rounded-t-xl cursor-pointer hover:bg-[rgba(0,0,0,0.1)]'>
@@ -176,7 +176,7 @@ const PostItem = ({ post, isVolume, onToggleVolume }: IPostItem) => {
       </div>
       <div
         ref={ref}
-        className='relative flex items-center justify-center border border-solid border-[rgb(219,219,219)] dark:border-[rgb(38,38,38)] rounded bg-[rgb(0,0,0)] w-full h-[400px] sm:w-[468px] sm:h-[585px]'
+        className='relative flex items-center justify-center border border-solid border-[rgb(219,219,219)] dark:border-[rgb(38,38,38)] rounded bg-[rgb(0,0,0)] w-full h-[60vh] sm:w-[468px] sm:h-[585px]'
       >
         <SwiperCarousel
           medias={post.media}
