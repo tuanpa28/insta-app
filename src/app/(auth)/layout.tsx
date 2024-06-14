@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation';
 
 import Footer from '@/components/Footer';
 import HeaderMobile from '@/components/HeaderMobile';
-import Sidebar, { SidebarMobile } from '@/components/Sidebar';
+import Sidebar, { MenuMobile } from '@/components/Sidebar';
 import { RootPath } from '@/constants/enum';
 
 export default function AuthLayout({
@@ -18,7 +18,7 @@ export default function AuthLayout({
     <div className='flex flex-row'>
       <HeaderMobile />
       <Sidebar />
-      <SidebarMobile />
+      <MenuMobile />
       <main
         className={`${
           pathName.startsWith(RootPath.Inbox) && 'md:!w-[calc(100%-var(--nav-narrow-width))]'

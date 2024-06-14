@@ -1,10 +1,11 @@
 'use client';
 
+import { useCallback, useEffect, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
+
 import { LoadingIcon } from '@/components/Icons';
 import PostItem from '@/components/PostItem';
 import { IPostTimeLine } from '@/interfaces';
-import { useCallback, useEffect, useState } from 'react';
-import { useInView } from 'react-intersection-observer';
 
 const dataFake: IPostTimeLine[] = [
   {
@@ -51,10 +52,55 @@ const dataFake: IPostTimeLine[] = [
     slug: 'caption_2_slug',
     createdAt: new Date().toString(),
   },
+  {
+    _id: '3',
+    user: {
+      _id: '2',
+      username: 'tuanpa.03',
+      email: 'tuanpa.03@gmail.com',
+      full_name: 'Pham Anh Tuan',
+      followers: [],
+      followings: [],
+    },
+    caption: 'caption 2',
+    media: [
+      {
+        type: 'video',
+        url: 'https://res.cloudinary.com/dugodumc5/video/upload/v1718352450/InstaApp/dh2hgztaxjmjkv8ag9fs.mov',
+      },
+    ],
+    likes: [],
+    shares: [],
+    slug: 'caption_2_slug',
+    createdAt: new Date().toString(),
+  },
+  {
+    _id: '4',
+    user: {
+      _id: '2',
+      username: 'tuanpa.03',
+      email: 'tuanpa.03@gmail.com',
+      full_name: 'Pham Anh Tuan',
+      followers: [],
+      followings: [],
+    },
+    caption: 'caption 2',
+    media: [
+      {
+        type: 'video',
+        url: 'https://res.cloudinary.com/dugodumc5/video/upload/v1718160418/InstaApp/qbwuc5tkbl3cjtvzo9eg.mov',
+      },
+    ],
+    likes: [],
+    shares: [],
+    slug: 'caption_2_slug',
+    createdAt: new Date().toString(),
+  },
 ];
 
 export const PostsTimeLine = () => {
   const [volume, setVolume] = useState<boolean>(false);
+
   const [data, setData] = useState<IPostTimeLine[]>([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState<boolean>(true);
@@ -76,7 +122,7 @@ export const PostsTimeLine = () => {
 
         setData((prevData) => [...prevData, ...dataFake]);
 
-        if (page >= 6) {
+        if (page >= 4) {
           setHasMore(false);
         }
       } catch (error) {

@@ -38,7 +38,7 @@ const PostItem = ({ post, isVolume, onToggleVolume }: IPostItem) => {
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
   // const authUser = useAppSelector((state) => state.user.currentUser.values);
   const [ref, inView] = useInView({
-    threshold: 0.5,
+    threshold: 0.8,
   });
   // const { isLiked, likes, handleLikePost } = useLikePost(post);
   // const { handleCommentPost } = useCommentPost();
@@ -98,7 +98,9 @@ const PostItem = ({ post, isVolume, onToggleVolume }: IPostItem) => {
   }, [inView, isPlaying]);
 
   return (
-    <div className='flex flex-col w-full min-w-[min(390px,100%)] h-full pb-4 mb-5 sm:border-b sm:border-solid sm:border-[rgb(219,219,219)] dark:border-[rgb(38,38,38)]'>
+    <div
+      className='flex flex-col w-full min-w-[min(390px,100%)] h-full pb-4 mb-5 sm:border-b sm:border-solid sm:border-[rgb(219,219,219)] dark:border-[rgb(38,38,38)]'
+    >
       <div className='w-full flex items-center justify-between px-4 sm:pr-0 sm:pl-1 pb-3'>
         <div className='flex items-center'>
           <TippyDisplay user={post.user}>

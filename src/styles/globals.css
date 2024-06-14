@@ -97,8 +97,14 @@
   }
 }
 
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
+.stories-scrollbar::-webkit-scrollbar {
+  height: 6px;
+}
+
+@media (max-width: 479px) {
+  .stories-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .swiper-pagination-bullet {

@@ -36,8 +36,8 @@ const HeaderMobile = () => {
   }, []);
 
   return (
-    <div className='block md:hidden h-fit w-full bg-white fixed top-0 left-0 right-0 z-10'>
-      <div className='flex items-center justify-between px-4 h-12 sm:h-[60px] border-b border-solid border-[rgb(219,219,219)]'>
+    <div className='block md:hidden h-fit w-full bg-white dark:bg-[rgb(0,0,0)] fixed top-0 left-0 right-0 z-10'>
+      <div className='flex items-center justify-between px-4 h-12 sm:h-[60px] border-b border-solid border-[rgb(219,219,219)] dark:border-[rgb(54,54,54)]'>
         <div className='pt-2 sm:py-1 sm:pt-3'>
           <Link href={'/'}>
             <LogoTextIcon />
@@ -73,7 +73,7 @@ const HeaderMobile = () => {
               <BiLoader className='icon' />
             </div>
            */}
-            <div className='hidden fixed right-0 top-[48px] sm:top-[58px] w-full max-w-[375px] h-fit z-20 bg-white rounded-[6px] shadow-[0_4px_12px_rgba(0,0,0,0.15)]'>
+            <div className='hidden fixed right-0 top-[48px] sm:top-[58px] w-full max-w-[375px] h-fit z-20 bg-white dark:bg-darkBackground rounded-lg shadow-[0_4px_12px_rgba(0,0,0,0.15)] dark:shadow-[0_0_23px_rgba(255,255,255,0.2)]'>
               <div className='overflow-y-auto py-3 h-full max-h-[calc(100vh-110px)]'>
                 {searchResult && searchResult.length > 0 ? (
                   searchResult?.map((item: IUser, i) => (

@@ -58,7 +58,7 @@ export const SwiperCarousel = ({
       pagination={{
         clickable: true,
       }}
-      loop={true}
+      loop={medias.length !== 1}
       modules={[Pagination, Navigation]}
       className='flex items-center justify-center w-full h-full'
     >
@@ -67,6 +67,7 @@ export const SwiperCarousel = ({
           <div className='w-full h-full relative z-[1]'>
             {item.type === TypeMedia.Image ? (
               <Image
+                priority
                 className='block w-full h-full object-contain'
                 src={item.url}
                 width={800}
