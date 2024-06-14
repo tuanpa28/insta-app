@@ -30,13 +30,12 @@ interface IPostItem {
 const PostItem = ({ post, isVolume, onToggleVolume }: IPostItem) => {
   const [isPlay, setIsPlay] = useState<boolean>(false);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
-  const [isOptionsPost, setIsOptionsPost] = useState<boolean>(false);
   const [comments, setComments] = useState<IComment[]>();
   const [postsUser, setPostsUser] = useState<IPostTimeLine[]>([]);
   const [comment, setComment] = useState('');
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const commentRef = useRef<HTMLTextAreaElement | null>(null);
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [isAnimating, setIsAnimating] = useState<boolean>(false);
   // const authUser = useAppSelector((state) => state.user.currentUser.values);
   const [ref, inView] = useInView({
     threshold: 0.5,
@@ -288,13 +287,6 @@ const PostItem = ({ post, isVolume, onToggleVolume }: IPostItem) => {
           </span>
         </div>
       </div>
-      {/* {isOptionsPost && (
-        <PostOptions
-          onToggleOption={handleOptionPost}
-          userId={post?.user?._id}
-          postId={post?._id as string}
-        />
-      )} */}
     </div>
   );
 };

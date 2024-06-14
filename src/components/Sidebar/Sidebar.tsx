@@ -178,7 +178,7 @@ const Sidebar = () => {
   );
 
   return (
-    <>
+    <div className='hidden md:block'>
       <div
         className={`hidden md:block relative z-50 h-screen w-fit border-r border-solid border-border dark:border-[rgb(38,38,38)]`}
       >
@@ -247,7 +247,7 @@ const Sidebar = () => {
           isShowSearch || isShowNotifi ? 'fixed' : 'hidden'
         } inset-0 z-30 bg-transparent`}
       />
-    </>
+    </div>
   );
 };
 

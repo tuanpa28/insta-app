@@ -3,9 +3,10 @@
 import { LoadingIcon } from '@/components/Icons';
 import PostItem from '@/components/PostItem';
 import { IPostTimeLine } from '@/interfaces';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
 
-const data: IPostTimeLine[] = [
+const dataFake: IPostTimeLine[] = [
   {
     _id: '1',
     user: {
@@ -54,11 +55,44 @@ const data: IPostTimeLine[] = [
 
 export const PostsTimeLine = () => {
   const [volume, setVolume] = useState<boolean>(false);
+  const [data, setData] = useState<IPostTimeLine[]>([]);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const { ref, inView } = useInView({
+    threshold: 0,
+  });
   // const { isLoading, error, data: posts } = useGetPostTimeLine();
 
   // if (error) return JSON.stringify(error);
 
   const toggleVolume = () => setVolume(!volume);
+
+  const fetchData = useCallback(() => {
+    setIsLoading(true);
+    (async () => {
+      try {
+        await new Promise((resolve) => setTimeout(resolve, 3000));
+
+        setData((prevData) => [...prevData, ...dataFake]);
+
+        if (page >= 6) {
+          setHasMore(false);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    })();
+  }, [page]);
+
+  useEffect(() => {
+    if (inView && hasMore && !isLoading) {
+      fetchData();
+      setPage((prevPage) => prevPage + 1);
+    }
+  }, [inView, hasMore, isLoading, fetchData]);
 
   return (
     <>
@@ -67,9 +101,11 @@ export const PostsTimeLine = () => {
           return <PostItem key={i} post={post} isVolume={volume} onToggleVolume={toggleVolume} />;
         })}
       </div>
-      <div className='h-14 mt-6 flex items-center justify-center'>
-        <LoadingIcon className='w-8 h-8 animate-spinner' />
-      </div>
+      {hasMore && (
+        <div ref={ref} className='h-14 mt-6 flex items-center justify-center'>
+          <LoadingIcon className='w-8 h-8 animate-spinner' />
+        </div>
+      )}
     </>
   );
 };
