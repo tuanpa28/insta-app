@@ -66,7 +66,7 @@ const dataFake: IPostTimeLine[] = [
     media: [
       {
         type: 'video',
-        url: 'https://res.cloudinary.com/dugodumc5/video/upload/v1718352450/InstaApp/dh2hgztaxjmjkv8ag9fs.mov',
+        url: 'https://res.cloudinary.com/dugodumc5/video/upload/v1718422558/InstaApp/Snaptik_app__1718422598_.mp4',
       },
     ],
     likes: [],
@@ -88,7 +88,51 @@ const dataFake: IPostTimeLine[] = [
     media: [
       {
         type: 'video',
-        url: 'https://res.cloudinary.com/dugodumc5/video/upload/v1718160418/InstaApp/qbwuc5tkbl3cjtvzo9eg.mov',
+        url: 'https://res.cloudinary.com/dugodumc5/video/upload/v1718422647/InstaApp/Snaptik_app__1718422683_.mp4',
+      },
+    ],
+    likes: [],
+    shares: [],
+    slug: 'caption_2_slug',
+    createdAt: new Date().toString(),
+  },
+  {
+    _id: '5',
+    user: {
+      _id: '2',
+      username: 'tuanpa.03',
+      email: 'tuanpa.03@gmail.com',
+      full_name: 'Pham Anh Tuan',
+      followers: [],
+      followings: [],
+    },
+    caption: 'caption 2',
+    media: [
+      {
+        type: 'video',
+        url: 'https://res.cloudinary.com/dugodumc5/video/upload/v1718423251/InstaApp/Snaptik_app__1718423251_.mp4',
+      },
+    ],
+    likes: [],
+    shares: [],
+    slug: 'caption_2_slug',
+    createdAt: new Date().toString(),
+  },
+  {
+    _id: '6',
+    user: {
+      _id: '2',
+      username: 'tuanpa.03',
+      email: 'tuanpa.03@gmail.com',
+      full_name: 'Pham Anh Tuan',
+      followers: [],
+      followings: [],
+    },
+    caption: 'caption 2',
+    media: [
+      {
+        type: 'video',
+        url: 'https://res.cloudinary.com/dugodumc5/video/upload/v1718431348/InstaApp/hh655hsjorjr0icsbfr5.mp4',
       },
     ],
     likes: [],

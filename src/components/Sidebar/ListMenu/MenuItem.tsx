@@ -41,7 +41,9 @@ const MenuItem = ({ item, active, onSetActive }: IMenuItem) => {
               {isActive ? item.active_icon : item.icon}
             </span>
             {!isStateSidebar && (
-              <span className={`hidden xl:block flex-1 ms-4 whitespace-nowrap ${isActive && 'font-black'}`}>
+              <span
+                className={`hidden xl:block flex-1 ms-4 whitespace-nowrap ${isActive && 'font-black'}`}
+              >
                 {item.label}
               </span>
             )}

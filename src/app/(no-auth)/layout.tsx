@@ -7,7 +7,9 @@ export default function NoAuthLayout({
 }>) {
   return (
     <AuthProvider>
-      <div className="bg-[url('/images/bg-login.webp')] bg-no-repeat bg-[length:1785px_510px] bg-top">{children}</div>
+      <div className="bg-[url('/images/bg-login.webp')] bg-no-repeat bg-[length:1785px_510px] bg-top">
+        {children}
+      </div>
     </AuthProvider>
   );
 }

@@ -105,10 +105,10 @@ export const ModalCreatePost = ({ onToogle }: ModalCreatePostProps) => {
         >
           {files && files.length > 0 && activeStep === 1 && (
             <div
-              // onClick={() => !!(!loadingMedia && !loadingPost) && handleBack()}
-              // className={`absolute top-0 left-0 py-3 px-4 h-full text-xl font-bold ${
-              /////   !(!loadingMedia && !loadingPost) && '!text-[#3a3937] !opacity-30 cursor-no-drop'
-              // }`}
+            // onClick={() => !!(!loadingMedia && !loadingPost) && handleBack()}
+            // className={`absolute top-0 left-0 py-3 px-4 h-full text-xl font-bold ${
+            /////   !(!loadingMedia && !loadingPost) && '!text-[#3a3937] !opacity-30 cursor-no-drop'
+            // }`}
             >
               <SquareChevronLeftIcon />
             </div>
