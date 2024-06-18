@@ -1,13 +1,10 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
-import { useInView } from 'react-intersection-observer';
+import { useState } from 'react';
 
-import { LoadingIcon } from '@/components/Icons';
 import PostItem from '@/components/PostItem';
-import { IPostTimeLine } from '@/interfaces';
-import { useQuery } from '@tanstack/react-query';
 import { getPostTimeLine } from '@/services/postService';
+import { useQuery } from '@tanstack/react-query';
 
 export const PostsTimeLine = () => {
   const [volume, setVolume] = useState<boolean>(false);
@@ -28,7 +25,6 @@ export const PostsTimeLine = () => {
   // const { isLoading, error, data: posts } = useGetPostTimeLine();
 
   // if (error) return JSON.stringify(error);
-  console.log(data);
 
   const toggleVolume = () => setVolume(!volume);
 

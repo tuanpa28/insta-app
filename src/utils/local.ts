@@ -3,8 +3,15 @@ import { jwtDecode } from 'jwt-decode';
 
 export const getAccessToken = () => {
   if (typeof window !== 'undefined') {
-    const accessToken = localStorage.getItem('accessToken');
-    if (accessToken) return JSON.parse(accessToken);
+    const accessToken =  localStorage.getItem('accessToken');
+    if (accessToken) {
+      try {
+        return JSON.parse(accessToken);
+      } catch (error) {
+        console.error('Error parsing accessToken:', error);
+        return null;
+      }
+    }
   }
   return null;
 };

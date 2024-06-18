@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
-import { useRouter } from 'next/navigation';
+import Router from 'next/router';
 
 import { RootPath } from '@/constants/enum';
 import { refreshToken } from '@/services/authService';
@@ -33,8 +33,6 @@ instance.interceptors.response.use(
     return response;
   },
   async (error) => {
-    const router = useRouter();
-
     const prevRequest = error.config;
     const statusCode = error.response?.status || error.response?.statusCode;
 
@@ -52,7 +50,7 @@ instance.interceptors.response.use(
         return instance(prevRequest);
       } catch (err) {
         removeToken();
-        router.push(RootPath.SignIn);
+        Router.push(RootPath.SignIn);
       }
     }
 
