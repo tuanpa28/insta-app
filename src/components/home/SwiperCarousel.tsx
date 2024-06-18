@@ -77,6 +77,7 @@ export const SwiperCarousel = ({
             ) : (
               <>
                 <video
+                  playsInline
                   ref={videoRef}
                   loop
                   muted
