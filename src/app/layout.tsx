@@ -1,12 +1,7 @@
 import type { Metadata } from 'next';
 import { ToastContainer } from 'react-toastify';
 
-import {
-  ReduxProvider,
-  RoutesProvider,
-  StoreProvider,
-  ThemeProvider,
-} from '@/components/Providers';
+import { StoreProvider, TanstackProvider, ThemeProvider } from '@/components/Providers';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { quickSandFont } from '@/configs/font';
 import '@/styles/globals.css';
@@ -25,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang='en' suppressHydrationWarning className={`${quickSandFont.className}`}>
       <body className={`min-h-screen`}>
-        <ReduxProvider>
+        <TanstackProvider>
           <StoreProvider>
             <ThemeProvider
               attribute='class'
@@ -33,12 +28,10 @@ export default function RootLayout({
               enableSystem
               disableTransitionOnChange
             >
-              <TooltipProvider delayDuration={800}>
-                <RoutesProvider>{children}</RoutesProvider>
-              </TooltipProvider>
+              <TooltipProvider delayDuration={800}>{children}</TooltipProvider>
             </ThemeProvider>
           </StoreProvider>
-        </ReduxProvider>
+        </TanstackProvider>
         <ToastContainer
           position='top-right'
           autoClose={4000}

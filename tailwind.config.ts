@@ -76,8 +76,8 @@ const config: Config = {
           to: { height: '0' },
         },
         spinner: {
-          from: { transform: 'translateY(-50%) rotate(0)' },
-          to: { transform: 'translateY(-50%) rotate(360deg)' },
+          from: { transform: 'rotate(0)' },
+          to: { transform: 'rotate(360deg)' },
         },
         contractility: {
           '0%': { transform: 'scale(1)' },

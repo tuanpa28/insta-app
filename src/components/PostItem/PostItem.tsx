@@ -117,11 +117,17 @@ const PostItem = ({ post, isVolume, onToggleVolume }: IPostItem) => {
           <TippyDisplay offset={[150, 8]} user={post.user}>
             <Link className='ml-3 block' href={`/tuanpa.03`}>
               <div className='flex items-center text-sm font-bold dark:text-[rgb(245,245,245)]'>
-                tuanpa.03
+                {post.user?.username}
               </div>
             </Link>
           </TippyDisplay>
-          <BadgeCheckIcon width={12} height={12} className={'ml-0.5 text-[rgb(0,149,246)] -mt-2'} />
+          {post.user?.tick && (
+            <BadgeCheckIcon
+              width={12}
+              height={12}
+              className={'ml-0.5 text-[rgb(0,149,246)] -mt-2'}
+            />
+          )}
 
           <div className='flex items-center relative text-sm font-medium ml-3 text-[rgb(115,115,115)] dark:text-[rgb(168,168,168)] before:content-["•"] before:absolute before:top-0 before:-left-2'>
             {timeAgo(post?.createdAt)}
