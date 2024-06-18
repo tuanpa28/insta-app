@@ -7,15 +7,15 @@ import LoadingPage from '@/app/loading';
 import { RootPath } from '@/constants/enum';
 import { useStore } from '@/store';
 
-export const AuthProvider = ({ children }: Readonly<{ children: React.ReactNode }>) => {
+export const ProtectedProvider = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   const [state] = useStore();
   const { push } = useRouter();
   const { isSignedIn } = state;
 
   useEffect(() => {
-    if (isSignedIn) {
+    if (!isSignedIn) {
       const timeout = setTimeout(() => {
-        push(RootPath.Home);
+        push(RootPath.SignIn);
       }, 300);
       return () => {
         clearTimeout(timeout);
@@ -23,5 +23,5 @@ export const AuthProvider = ({ children }: Readonly<{ children: React.ReactNode 
     }
   }, [isSignedIn, push]);
 
-  return isSignedIn ? <LoadingPage /> : <>{children}</>;
+  return !isSignedIn ? <LoadingPage /> : <>{children}</>;
 };

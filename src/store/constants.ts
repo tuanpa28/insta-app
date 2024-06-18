@@ -1,1 +1,4 @@
 export const SET_IS_STATE_SIDEBAR = 'SET_IS_STATE_SIDEBAR';
+export const SET_USER = 'SET_USER';
+export const REHYDRATE_AUTH_STATE = 'REHYDRATE_AUTH_STATE';
+export const LOG_OUT = 'LOG_OUT';

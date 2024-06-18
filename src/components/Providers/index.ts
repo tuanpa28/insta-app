@@ -1,6 +1,5 @@
 export * from './AuthProvider';
-export * from './ManageProvider';
-export * from './RoutesProvider';
+export * from './ProtectedProvider';
 export * from './StoreProvider';
 export * from './TanstackProvider';
 export * from './ThemeProvider';

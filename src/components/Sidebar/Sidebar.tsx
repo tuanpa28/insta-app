@@ -19,7 +19,6 @@ import { useCallback, useMemo, useState } from 'react';
 import { ImageVideoIcon, LogoImgIcon, LogoTextIcon } from '@/components/Icons';
 import Notifications from '@/components/Notifications';
 import Search from '@/components/Search';
-import { menuItemsMore } from '@/components/common/data/DataMore';
 import { DialogDisplay } from '@/components/common/display';
 import { DropdownMore } from '@/components/dropdown';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -171,7 +170,7 @@ const Sidebar = () => {
         label: RootLabel.More,
         icon: <MenuIcon />,
         active_icon: <MenuIcon strokeWidth={strokeWidth} />,
-        dropdown: <DropdownMore items={menuItemsMore} className='w-72 mx-4' />,
+        dropdown: <DropdownMore className='w-72 mx-4' />,
       },
     ],
     [strokeWidth],

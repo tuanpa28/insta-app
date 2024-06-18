@@ -4,7 +4,7 @@ import { jwtDecode } from 'jwt-decode';
 export const getAccessToken = () => {
   if (typeof window !== 'undefined') {
     const accessToken = localStorage.getItem('accessToken');
-    if (accessToken) return accessToken;
+    if (accessToken) return JSON.parse(accessToken);
   }
   return null;
 };
@@ -12,6 +12,12 @@ export const getAccessToken = () => {
 export const setToken = (accessToken: string) => {
   if (typeof window !== 'undefined') {
     localStorage.setItem('accessToken', JSON.stringify(accessToken));
+  }
+};
+
+export const removeToken = () => {
+  if (typeof window !== 'undefined') {
+    localStorage.removeItem('accessToken');
   }
 };
 

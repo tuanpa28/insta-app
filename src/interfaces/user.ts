@@ -16,7 +16,7 @@ export interface IUser {
   isAdmin?: boolean;
 }
 
-export interface IAuth {
+export interface IAuthLogin {
   emailOrUsername: string;
   password: string;
 }

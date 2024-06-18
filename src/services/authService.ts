@@ -1,14 +1,14 @@
 import instance from '@/configs/axios.config';
-import { IAuth } from '@/interfaces';
+import { IAuthLogin } from '@/interfaces';
 
-export const login = (user: IAuth) => {
-  return instance.post('login', user);
+export const login = (user: IAuthLogin) => {
+  return instance.post('auth/login', user);
 };
 
 export const refreshToken = () => {
-  return instance.post('refreshToken');
+  return instance.post('auth/refreshToken');
 };
 
-export const logout = () => {
-  return instance.delete('logout');
+export const logOut = () => {
+  return instance.delete('auth/logout');
 };

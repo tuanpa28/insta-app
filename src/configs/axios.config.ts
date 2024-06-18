@@ -1,6 +1,9 @@
-import { getAccessToken, setToken } from '@/utils';
 import axios, { AxiosInstance } from 'axios';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
+
+import { RootPath } from '@/constants/enum';
+import { refreshToken } from '@/services/authService';
+import { getAccessToken, removeToken, setToken } from '@/utils';
 
 const instance: AxiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
@@ -30,26 +33,26 @@ instance.interceptors.response.use(
     return response;
   },
   async (error) => {
+    const router = useRouter();
+
     const prevRequest = error.config;
     const statusCode = error.response?.status || error.response?.statusCode;
 
-    if (statusCode === 401 && !prevRequest._retry) {
+    if (statusCode === 401 && !prevRequest?._retry) {
       prevRequest._retry = true;
       try {
-        const response = await instance.post('refreshToken');
+        const response = await refreshToken();
 
-        const { accessToken: newAccessToken } = response.data;
+        const { accessToken } = response.data;
 
-        setToken(newAccessToken);
+        setToken(accessToken);
 
-        prevRequest.headers.authorization = `Bearer ${newAccessToken}`;
+        prevRequest.headers.authorization = `Bearer ${accessToken}`;
 
         return instance(prevRequest);
       } catch (err) {
-        return () => {
-          localStorage.removeItem('accessToken');
-          redirect('login');
-        };
+        removeToken();
+        router.push(RootPath.SignIn);
       }
     }
 
