@@ -1,13 +1,12 @@
 import axios, { AxiosInstance } from 'axios';
-import Router from 'next/router';
 
 import { RootPath } from '@/constants/enum';
-import { refreshToken } from '@/services/authService';
+import { logOut, refreshToken } from '@/services/authService';
 import { getAccessToken, removeToken, setToken } from '@/utils';
 
 const instance: AxiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
-  timeout: 10000,
+  timeout: 8000,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -50,7 +49,8 @@ instance.interceptors.response.use(
         return instance(prevRequest);
       } catch (err) {
         removeToken();
-        Router.push(RootPath.SignIn);
+        await logOut();
+        window.location.href = RootPath.SignIn;
       }
     }
 

@@ -20,7 +20,8 @@ export const PostsTimeLine = () => {
   const { data } = useQuery({
     queryKey: ['PostsTimeLine'],
     queryFn: getPostTimeLine,
-    staleTime: 60 * 60 * 1000,
+    staleTime: 2 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
   });
   // const { isLoading, error, data: posts } = useGetPostTimeLine();
 
