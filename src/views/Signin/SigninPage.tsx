@@ -6,7 +6,8 @@ import { jwtDecode } from 'jwt-decode';
 import { ChevronRightIcon, LoaderCircleIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
@@ -25,6 +26,9 @@ type FormData = {
 const SigninPage = () => {
   const [, dispatch] = useStore();
   const { push } = useRouter();
+  const searchParams = useSearchParams();
+
+  const accessToken = searchParams.get('accessToken');
 
   const {
     register,
@@ -58,45 +62,34 @@ const SigninPage = () => {
     },
   });
 
-  // const handleLoginGoogle = () => {
-  //   const popupWidth = 500;
-  //   const popupHeightPercentage = 75; // Chiều cao là 75% của chiều cao màn hình
-  //   const screenWidth = window.innerWidth;
-  //   const screenHeight = screen.availHeight;
-  //   const popupHeight = (screenHeight * popupHeightPercentage) / 100;
-  //   const left = (screenWidth - popupWidth) / 2;
-  //   const top = (screenHeight - popupHeight) / 2;
+  const handleLoginGoogle = () => {
+    // const popupWidth = 500;
+    // const popupHeightPercentage = 75; // Chiều cao là 75% của chiều cao màn hình
+    // const screenWidth = window.innerWidth;
+    // const screenHeight = screen.availHeight;
+    // const popupHeight = (screenHeight * popupHeightPercentage) / 100;
+    // const left = (screenWidth - popupWidth) / 2;
+    // const top = (screenHeight - popupHeight) / 2;
 
-  //   // Mở cửa sổ popup
-  //   window.open(
-  //     `${process.env.NEXT_PUBLIC_API_BASE_URL}auth/google`,
-  //     '_blank',
-  //     `width=${popupWidth}, height=${popupHeight}, left=${left}, top=${top}`,
-  //   );
-  // };
+    // Mở cửa sổ popup
+    // window.open(
+    //   `${process.env.NEXT_PUBLIC_API_BASE_URL}auth/google`,
+    //   '_blank',
+    //   `width=${popupWidth}, height=${popupHeight}, left=${left}, top=${top}`,
+    // );
+    window.location.href = `${process.env.NEXT_PUBLIC_API_BASE_URL}auth/google`;
+  };
 
-  // useEffect(() => {
-  //   const handleMessage = (event: {
-  //     data: {
-  //       type: string;
-  //       accessToken?: string;
-  //     };
-  //   }) => {
-  //     if (event.data && event.data.type === 'success') {
-  //       const accessToken = event.data.accessToken || '';
+  useEffect(() => {
+    if (accessToken) {
+      const userDeCode: IUser = jwtDecode(accessToken);
 
-  //       const decode: IUser = jwtDecode(accessToken);
-
-  //       dispatch(saveUser({ values: decode, accessToken, isAdmin: decode?.isAdmin }));
-  //       toast.success('Đăng nhập thành công!');
-  //       redirect('/');
-  //     }
-  //   };
-
-  //   window.addEventListener('message', handleMessage);
-
-  //   return () => window.removeEventListener('message', handleMessage);
-  // }, [dispatch]);
+      dispatch(actions.setUser(userDeCode));
+      setToken(accessToken);
+      toast.success('Đăng nhập thành công!');
+      push(RootPath.Home);
+    }
+  }, [accessToken, push, dispatch]);
 
   return (
     <div className='w-full relative flex items-center justify-center flex-col min-h-screen'>
@@ -156,7 +149,10 @@ const SigninPage = () => {
             or
           </span>
         </div>
-        <div className='w-full p-5 rounded-2xl border border-solid border-[rgba(0,0,0,0.15)] flex items-center justify-between cursor-pointer active:scale-[.98]'>
+        <div
+          onClick={handleLoginGoogle}
+          className='w-full p-5 rounded-2xl border border-solid border-[rgba(0,0,0,0.15)] flex items-center justify-between cursor-pointer active:scale-[.98]'
+        >
           <Image
             src={'/images/gg-logo.jpg'}
             width={200}
