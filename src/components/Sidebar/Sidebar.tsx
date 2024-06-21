@@ -137,14 +137,14 @@ const Sidebar = () => {
         label: RootLabel.Profile,
         icon: (
           <Avatar className='w-6 h-6'>
-            <AvatarImage src='https://github.com/shadcn.png' />
+            <AvatarImage src={state.user?.profile_image} />
             <AvatarFallback />
           </Avatar>
         ),
         active_icon: (
           <div className='p-[1px] rounded-full ring-[1.5px] ring-primary'>
             <Avatar className='w-6 h-6'>
-              <AvatarImage src='https://github.com/shadcn.png' />
+              <AvatarImage src={state.user?.profile_image} />
               <AvatarFallback />
             </Avatar>
           </div>
@@ -153,7 +153,14 @@ const Sidebar = () => {
         onClick: handlerResetSidebar,
       },
     ],
-    [strokeWidth, handlerClickNotifi, handlerClickInbox, handlerClickSearch, handlerResetSidebar],
+    [
+      state.user?.profile_image,
+      strokeWidth,
+      handlerClickNotifi,
+      handlerClickInbox,
+      handlerClickSearch,
+      handlerResetSidebar,
+    ],
   );
 
   const ROUTES_UTILS: NavLinkProps[] = useMemo(
@@ -163,7 +170,6 @@ const Sidebar = () => {
         icon: <AtSignIcon />,
         active_icon: <AtSignIcon strokeWidth={strokeWidth} />,
         href: 'https://www.threads.net',
-        badge: 3,
         sub_icon: <SquareArrowOutUpRightIcon className='w-[18px] h-[18px]' />,
       },
       {

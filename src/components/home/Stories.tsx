@@ -6,7 +6,7 @@ export const Stories = () => {
   return (
     <div className='w-full outline-none mb-4 sm:mb-6 py-2 rounded-lg border-b border-solid border-[rgb(219,219,219)] dark:border-[rgb(54,54,54)] sm:border-none'>
       <div className='flex flex-row items-center justify-start overflow-x-auto stories-scrollbar'>
-        {new Array(20).fill(0).map((_, i) => (
+        {new Array(6).fill(0).map((_, i) => (
           <div key={i} className='w-20 h-full px-1'>
             <Link
               href={'#'}

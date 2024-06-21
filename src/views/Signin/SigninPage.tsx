@@ -94,32 +94,32 @@ const SigninPage = () => {
   return (
     <div className='w-full relative flex items-center justify-center flex-col min-h-screen'>
       <div className='w-full max-w-[418px] p-4 flex flex-col items-center justify-center z-10'>
-        <span className='block text-lg font-bold text-center text-[#000] mb-2.5'>
+        <span className='block text-lg font-bold text-center text-[#000] dark:text-[rgb(245,245,245)] mb-2.5'>
           Log in with your account
         </span>
         <form className='w-full mb-4' onSubmit={handleSubmit((values) => mutateAsync(values))}>
           <div className='w-full mb-3'>
             <input
-              className='px-4 py-3 w-full border border-solid border-transparent rounded-xl text-base text-[#000] outline-none bg-[rgb(245,245,245)] focus:border-[rgba(0,0,0,0.15)]'
+              className='px-4 py-3 w-full border border-solid border-transparent rounded-xl text-base text-[#000] dark:text-[rgb(243,245,247)] outline-none bg-[rgb(245,245,245)] dark:bg-[rgb(30,30,30)] focus:border-[rgba(0,0,0,0.15)] dark:focus:border-[rgba(243,245,247,0.15)]'
               type='text'
               placeholder='User Name or Email'
               {...register('emailOrUsername')}
             />
             {errors.emailOrUsername && (
-              <span className='inline-block mt-1 ml-2.5 text-sm font-semibold text-[#dc2626]'>
+              <span className='inline-block mt-1 ml-2.5 text-sm font-semibold dark:text-red-500'>
                 {errors?.emailOrUsername.message}
               </span>
             )}
           </div>
           <div className='w-full mb-3'>
             <input
-              className='px-4 py-3 w-full border border-solid border-transparent rounded-xl text-base text-[#000] outline-none bg-[rgb(245,245,245)] focus:border-[rgba(0,0,0,0.15)]'
+              className='px-4 py-3 w-full border border-solid border-transparent rounded-xl text-base text-[#000] dark:text-[rgb(243,245,247)] outline-none bg-[rgb(245,245,245)] dark:bg-[rgb(30,30,30)] focus:border-[rgba(0,0,0,0.15)] dark:focus:border-[rgba(243,245,247,0.15)]'
               type='password'
               placeholder='Password'
               {...register('password')}
             />
             {errors.password && (
-              <span className='inline-block mt-1 ml-2.5 text-sm font-semibold text-[#dc2626]'>
+              <span className='inline-block mt-1 ml-2.5 text-sm font-semibold dark:text-red-500'>
                 {errors.password.message}
               </span>
             )}
@@ -132,36 +132,48 @@ const SigninPage = () => {
               (Object.keys(errors).length > 0
                 ? 'cursor-default'
                 : 'hover:scale-[1.02] cursor-pointer active:scale-[.98]')
-            } flex items-center justify-center px-4 py-3 w-full transition-all rounded-xl outline-none text-base font-semibold border border-solid border-[rgba(0,0,0,0.4)] bg-[rgb(0,0,0)]`}
+            } dark:bg-[rgb(255,255,255)] flex items-center justify-center px-4 py-3 w-full transition-all rounded-xl outline-none text-base font-semibold border border-solid border-[rgba(0,0,0,0.4)] bg-[rgb(0,0,0)]`}
           >
             {isSubmitting ? (
-              <LoaderCircleIcon color='#fff' width={24} height={24} className='animate-spinner' />
+              <LoaderCircleIcon
+                width={24}
+                height={24}
+                className='animate-spinner text-[#fff] dark:text-[rgb(16,16,16)]'
+              />
             ) : (
-              <span className='text-[#fff] block'>Log in</span>
+              <span
+                className={`${
+                  isSubmitting || (Object.keys(errors).length > 0 && 'opacity-40')
+                } text-[#fff] dark:text-[rgb(16,16,16)] block`}
+              >
+                Log in
+              </span>
             )}
           </button>
         </form>
         <span className='mb-4 w-full text-sm font-normal text-center text-[rgb(153,153,153)]'>
           <Link href={'/sign-in'}>Forgot password?</Link>
         </span>
-        <div className='relative mb-6 w-full h-[1px] bg-[rgba(0,0,0,0.15)]'>
-          <span className='absolute block left-1/2 bg-[#fff] px-4 text-base font-normal text-[rgb(153,153,153)] -translate-x-[50%] -translate-y-[50%]'>
+        <div className='relative mb-6 w-full h-[1px] bg-[rgba(0,0,0,0.15)] dark:bg-[rgba(243,245,247,0.15)]'>
+          <span className='absolute block left-1/2 bg-[#fff] dark:bg-[rgb(16,16,16)] px-4 text-base font-normal text-[rgb(153,153,153)] -translate-x-[50%] -translate-y-[50%]'>
             or
           </span>
         </div>
         <div
           onClick={handleLoginGoogle}
-          className='w-full p-5 rounded-2xl border border-solid border-[rgba(0,0,0,0.15)] flex items-center justify-between cursor-pointer active:scale-[.98]'
+          className='w-full p-5 rounded-2xl border border-solid border-[rgba(0,0,0,0.15)] dark:border-[rgba(243,245,247,0.15)] flex items-center justify-between cursor-pointer active:scale-[.98]'
         >
           <Image
-            src={'/images/gg-logo.jpg'}
+            src={'/images/gg-logo.png'}
             width={200}
             height={200}
             alt=''
             className='w-[45px] h-[45px]'
           />
-          <span className='text-[#000] text-base font-bold block'>Continue with Google</span>
-          <span className='text-lg ml-2 text-[rgb(153,153,153)]'>
+          <span className='text-[#000] dark:text-[rgb(245,245,245)] text-base font-bold block'>
+            Continue with Google
+          </span>
+          <span className='text-lg ml-2 text-[rgb(153,153,153)] dark:text-[rgb(119,119,119)]'>
             <ChevronRightIcon />
           </span>
         </div>

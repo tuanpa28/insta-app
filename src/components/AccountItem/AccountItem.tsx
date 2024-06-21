@@ -14,6 +14,7 @@ type AccountItemProps = {
   hasRound?: boolean;
   btn?: string;
   description: string;
+  onClick?: () => void;
   onClickBtn?: () => void;
 };
 
@@ -24,20 +25,16 @@ const AccountItem = ({
   hasRound,
   btn,
   description,
+  onClick,
   onClickBtn,
   ...props
 }: AccountItemProps) => {
-  // const [postsUser, setPostsUser] = useState<IPost[]>([]);
-
-  // useEffect(() => {
-  //   (async () => {
-  //     const respon = await postService.getPostsUser(user?._id as string);
-  //     respon?.data && setPostsUser(respon?.data);
-  //   })();
-  // }, [user]);
-
   return (
-    <div {...props} className={`flex items-center justify-between py-2 px-6 ${className}`}>
+    <div
+      onClick={onClick}
+      {...props}
+      className={`flex items-center justify-between py-2 px-6 ${className}`}
+    >
       <div className='flex items-center'>
         {hasTippy ? (
           <TippyDisplay user={user} offset={[160, 4]}>
@@ -48,7 +45,7 @@ const AccountItem = ({
               href={`/tuanpa.03`}
             >
               <Avatar className='w-11 h-11 object-cover rounded-full'>
-                <AvatarImage src='https://github.com/shadcn.png' />
+                <AvatarImage src={user.profile_image} />
                 <AvatarFallback />
               </Avatar>
             </Link>
@@ -61,7 +58,7 @@ const AccountItem = ({
             href={`/tuanpa.03`}
           >
             <Avatar className='w-11 h-11 object-cover rounded-full'>
-              <AvatarImage src='https://github.com/shadcn.png' />
+              <AvatarImage src={user.profile_image} />
               <AvatarFallback />
             </Avatar>
           </Link>
