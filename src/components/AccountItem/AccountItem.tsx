@@ -2,6 +2,7 @@
 
 import { BadgeCheckIcon } from 'lucide-react';
 import Link from 'next/link';
+import { ReactNode } from 'react';
 
 import { TippyDisplay } from '@/components/common/display';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -10,9 +11,10 @@ import { IUser } from '@/interfaces';
 type AccountItemProps = {
   user: IUser;
   className?: string;
+  classNameBtn?: string;
   hasTippy?: boolean;
   hasRound?: boolean;
-  btn?: string;
+  btn?: string | ReactNode;
   description: string;
   onClick?: () => void;
   onClickBtn?: () => void;
@@ -24,6 +26,7 @@ const AccountItem = ({
   hasTippy = true,
   hasRound,
   btn,
+  classNameBtn,
   description,
   onClick,
   onClickBtn,
@@ -42,7 +45,7 @@ const AccountItem = ({
               className={`w-11 h-11 relative ${
                 !hasRound ? 'after:hidden before:hidden' : 'after:content-[""] before:content-[""]'
               } after:bg-linearGradientAvatar after:block after:absolute after:translate-x-[-50%] after:translate-y-[-50%] after:top-1/2 after:left-1/2 after:h-[52px] after:w-[52px] after:z-[-2] after:rounded-full before:block before:absolute before:translate-x-[-50%] before:translate-y-[-50%] before:top-1/2 before:left-1/2 before:h-12 before:w-12 before:z-[-1] before:rounded-full before:bg-white dark:before:bg-[rgb(0,0,0)]`}
-              href={`/tuanpa.03`}
+              href={`/${user.username}`}
             >
               <Avatar className='w-11 h-11 object-cover rounded-full'>
                 <AvatarImage src={user.profile_image} />
@@ -55,7 +58,7 @@ const AccountItem = ({
             className={`w-11 h-11 relative ${
               !hasRound ? 'after:hidden before:hidden' : 'after:content-[""] before:content-[""]'
             } after:bg-linearGradientAvatar after:block after:absolute after:translate-x-[-50%] after:translate-y-[-50%] after:top-1/2 after:left-1/2 after:h-[52px] after:w-[52px] after:z-[-2] after:rounded-full before:block before:absolute before:translate-x-[-50%] before:translate-y-[-50%] before:top-1/2 before:left-1/2 before:h-12 before:w-12 before:z-[-1] before:rounded-full before:bg-white dark:before:bg-[rgb(0,0,0)]`}
-            href={`/tuanpa.03`}
+            href={`/${user.username}`}
           >
             <Avatar className='w-11 h-11 object-cover rounded-full'>
               <AvatarImage src={user.profile_image} />
@@ -100,7 +103,7 @@ const AccountItem = ({
       {btn && (
         <button
           onClick={onClickBtn}
-          className='text-xs font-bold text-[rgb(0,147,246)] dark:text-[rgb(0,160,246)] cursor-pointer hover:text-[rgb(0,55,107)] dark:hover:text-[rgb(245,245,245)]'
+          className={`text-xs font-bold text-[rgb(0,147,246)] dark:text-[rgb(0,160,246)] cursor-pointer hover:text-[rgb(0,55,107)] dark:hover:text-[rgb(245,245,245)] ${classNameBtn}`}
         >
           {btn}
         </button>

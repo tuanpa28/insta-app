@@ -10,10 +10,12 @@ export interface IUser {
   gender?: string;
   current_city?: string;
   from?: string;
-  followers?: Array<any>;
-  followings?: Array<any>;
+  followers?: Array<IUser | string>;
+  followings?: Array<IUser | string>;
   tick?: boolean;
   isAdmin?: boolean;
+  totalPosts?: number;
+  recentImages?: Array<string>;
 }
 
 export interface IAuthLogin {

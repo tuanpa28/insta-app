@@ -106,7 +106,7 @@ const SigninPage = () => {
               {...register('emailOrUsername')}
             />
             {errors.emailOrUsername && (
-              <span className='inline-block mt-1 ml-2.5 text-sm font-semibold dark:text-red-500'>
+              <span className='inline-block mt-1 ml-2.5 text-sm font-semibold text-red-500'>
                 {errors?.emailOrUsername.message}
               </span>
             )}
@@ -119,7 +119,7 @@ const SigninPage = () => {
               {...register('password')}
             />
             {errors.password && (
-              <span className='inline-block mt-1 ml-2.5 text-sm font-semibold dark:text-red-500'>
+              <span className='inline-block mt-1 ml-2.5 text-sm font-semibold text-red-500'>
                 {errors.password.message}
               </span>
             )}

@@ -21,7 +21,6 @@ const Search = ({ isOpen }: SearchProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const debouncedValue = useDebounce(searchValue, 600);
   const router = useRouter();
-  console.log(searchResult);
 
   const inputRef = useRef<HTMLInputElement>(null);
 

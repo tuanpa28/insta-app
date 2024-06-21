@@ -1,49 +1,47 @@
+'use client';
+
+import { useQuery } from '@tanstack/react-query';
+import { LoaderCircleIcon } from 'lucide-react';
+import Link from 'next/link';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
+
 import AccountItem from '@/components/AccountItem';
 import { IUser } from '@/interfaces';
-import Link from 'next/link';
-
-const dataFake: IUser[] = [
-  {
-    _id: '1',
-    username: 'tuanpa.03',
-    email: 'tuanpa@gmail.com',
-    full_name: 'Pham Anh Tuan',
-    tick: true,
-  },
-  {
-    _id: '2',
-    username: '_tte19_',
-    email: 'tte19@gmail.com',
-    full_name: 'Hoang Thu Thao',
-    tick: true,
-  },
-];
-
-const currentUser: IUser = {
-  _id: '1',
-  username: 'tuanpa.03',
-  email: 'tuanpa@gmail.com',
-  full_name: 'Pham Anh Tuan',
-};
+import { userService } from '@/services';
+import { getUsersSuggested } from '@/services/userService';
+import { actions, useStore } from '@/store';
 
 export const SidebarFeed = () => {
-  // const [userSuggested, setSserSuggested] = useState([]);
-  // const user = useAppSelector((state) => state.user.currentUser.values);
+  const [isLoadingFollowUser, setIsLoadingFollowUser] = useState<boolean>(false);
+  const [state, dispatch] = useStore();
 
-  // useEffect(() => {
-  //   (async () => {
-  //     const response = await userService.getUsersSuggested();
-  //     setSserSuggested(response?.data?.data);
-  //   })();
-  // }, []);
+  const { data } = useQuery({
+    queryKey: ['suggested-people'],
+    queryFn: () => getUsersSuggested({ limit: 5 }),
+    staleTime: 60 * 60 * 1000,
+    gcTime: 60 * 60 * 1000,
+  });
+
+  const handleFollowUser = async (userId: string) => {
+    setIsLoadingFollowUser(true);
+    try {
+      await userService.followUser(userId);
+      dispatch(actions.toggleFollowingUser(userId));
+    } catch (error) {
+      toast.error('Theo dõi người dùng thất bại! vui lòng thử lại sau!');
+    } finally {
+      setIsLoadingFollowUser(false);
+    }
+  };
 
   return (
     <div className='hidden lg:flex flex-col w-[var(--feed-sidebar-width)] mt-9 pl-10'>
       <div>
-        {currentUser && (
+        {state.user && (
           <AccountItem
-            user={currentUser}
-            description={currentUser.full_name}
+            user={state.user}
+            description={state.user.full_name}
             hasTippy={false}
             btn={'Switch'}
           />
@@ -55,15 +53,38 @@ export const SidebarFeed = () => {
             Suggested for you
           </span>
           <Link
-            href={'/'}
+            href={'/explore/people'}
             className='text-xs font-bold text-[#000] dark:text-[rgb(245,245,245)] hover:opacity-60'
           >
             See All
           </Link>
         </div>
         <div className='ml-1 mb-1 flex flex-col py-2'>
-          {dataFake.map((user: IUser, i) => (
-            <AccountItem key={i} user={user} description={'Suggested for you'} btn={'Follow'} />
+          {data?.data?.data.map((user: IUser, i: number) => (
+            <AccountItem
+              key={i}
+              user={user}
+              description={'Suggested for you'}
+              btn={
+                isLoadingFollowUser ? (
+                  <LoaderCircleIcon
+                    width={16}
+                    height={16}
+                    className='animate-spinner text-[rgb(16,16,16)] dark:text-[rgb(245,245,245)]'
+                  />
+                ) : state.user?.followings && state.user?.followings.includes(user?._id) ? (
+                  'Following'
+                ) : (
+                  'Follow'
+                )
+              }
+              classNameBtn={
+                state.user?.followings && state.user?.followings.includes(user?._id)
+                  ? '!text-[#000] !dark:text-[rgb(245,245,245)] hover:!opacity-60'
+                  : ''
+              }
+              onClickBtn={() => !isLoadingFollowUser && handleFollowUser(user._id)}
+            />
           ))}
         </div>
       </div>
