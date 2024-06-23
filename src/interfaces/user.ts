@@ -16,6 +16,7 @@ export interface IUser {
   isAdmin?: boolean;
   totalPosts?: number;
   recentImages?: Array<string>;
+  createdAt?: string | Date;
 }
 
 export interface IAuthLogin {

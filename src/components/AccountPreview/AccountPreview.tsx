@@ -25,6 +25,9 @@ const AccountPreview = ({ user }: IAccountPreview) => {
     try {
       await userService.followUser(userId);
       dispatch(actions.toggleFollowingUser(userId));
+      if (state.user) {
+        user.followers?.push(state.user?._id);
+      }
     } catch (error) {
       toast.error('Theo dõi người dùng thất bại! vui lòng thử lại sau!');
     } finally {

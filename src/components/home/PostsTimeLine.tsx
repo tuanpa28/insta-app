@@ -1,72 +1,110 @@
 'use client';
 
-import { useState } from 'react';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import Image from 'next/image';
+import { Fragment, useEffect, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
 
+import { LoadingIcon } from '@/components/Icons';
 import PostItem from '@/components/PostItem';
+import { IPostTimeLine } from '@/interfaces';
 import { getPostTimeLine } from '@/services/postService';
-import { useQuery } from '@tanstack/react-query';
+import { useStore } from '@/store';
 
 export const PostsTimeLine = () => {
-  const [volume, setVolume] = useState<boolean>(false);
+  const [isSound, setIsSound] = useState<boolean>(false);
+  const [state] = useStore();
+  const { ref, inView } = useInView({
+    threshold: 0.2,
+    triggerOnce: true,
+  });
 
-  // const [data, setData] = useState<IPostTimeLine[]>([]);
-  // const [page, setPage] = useState(1);
-  // const [hasMore, setHasMore] = useState<boolean>(true);
-  // const [isLoading, setIsLoading] = useState(false);
-  // const { ref, inView } = useInView({
-  //   threshold: 0,
-  // });
-
-  const { data } = useQuery({
-    queryKey: ['posts-time-line'],
+  const { data, error, fetchNextPage, hasNextPage, isFetchingNextPage, status } = useInfiniteQuery({
+    queryKey: ['posts-time-line', { currentUser: state.user?.username }],
     queryFn: getPostTimeLine,
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => {
+      const currentPage = lastPage.data.currentPage;
+      const totalPage = lastPage.data.totalPage;
+      const nextPage = currentPage + 1 <= totalPage ? currentPage + 1 : undefined;
+      return nextPage;
+    },
     staleTime: 2 * 60 * 1000,
     gcTime: 10 * 60 * 1000,
   });
-  // const { isLoading, error, data: posts } = useGetPostTimeLine();
 
-  // if (error) return JSON.stringify(error);
+  const handleToggleSound = () => {
+    setIsSound(!isSound);
+  };
 
-  const toggleVolume = () => setVolume(!volume);
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage, fetchNextPage]);
 
-  // const fetchData = useCallback(() => {
-  //   setIsLoading(true);
-  //   (async () => {
-  //     try {
-  //       await new Promise((resolve) => setTimeout(resolve, 3000));
+  if (status === 'pending') {
+    return (
+      <div className='h-14 mt-6 flex items-center justify-center'>
+        <LoadingIcon className='w-8 h-8 animate-spinner' />
+      </div>
+    );
+  }
 
-  //       setData((prevData) => [...prevData, ...dataFake]);
-
-  //       if (page >= 4) {
-  //         setHasMore(false);
-  //       }
-  //     } catch (error) {
-  //       console.error('Error fetching data:', error);
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   })();
-  // }, [page]);
-
-  // useEffect(() => {
-  //   if (inView && hasMore && !isLoading) {
-  //     fetchData();
-  //     setPage((prevPage) => prevPage + 1);
-  //   }
-  // }, [inView, hasMore, isLoading, fetchData]);
+  if (status === 'error') {
+    return <p>Error: {error.message}</p>;
+  }
 
   return (
     <>
       <div className='flex flex-col items-center justify-start max-w-full w-[470px]'>
-        {data?.data?.data?.map((post: any, i: number) => {
-          return <PostItem key={i} post={post} isVolume={volume} onToggleVolume={toggleVolume} />;
-        })}
+        {data?.pages.map((page, pageIndex) => (
+          <Fragment key={pageIndex}>
+            {page.data.data.map((post: IPostTimeLine, index: number) => {
+              if (page.data.data.length === index + 1) {
+                return (
+                  <PostItem
+                    key={index}
+                    ref={ref}
+                    post={post}
+                    isSound={isSound}
+                    onToggleSound={handleToggleSound}
+                  />
+                );
+              }
+              return (
+                <PostItem
+                  key={index}
+                  post={post}
+                  isSound={isSound}
+                  onToggleSound={handleToggleSound}
+                />
+              );
+            })}
+          </Fragment>
+        ))}
       </div>
-      {/* {hasMore && (
-        <div ref={ref} className='h-14 mt-6 flex items-center justify-center'>
+      {isFetchingNextPage && (
+        <div className='h-14 mt-6 flex items-center justify-center'>
           <LoadingIcon className='w-8 h-8 animate-spinner' />
         </div>
-      )} */}
+      )}
+      {!hasNextPage && !isFetchingNextPage && (
+        <div className='flex flex-col items-center justify-center w-full py-6 px-3'>
+          <div className='w-24 h-24 mb-4'>
+            <Image
+              src={'/icons/illo-confirm-refresh-light.png'}
+              width={96}
+              height={96}
+              className='object-fill aspect-[96/96]'
+              alt=''
+            />
+          </div>
+          <p className='text-xl font-medium text-[rgb(0,0,0)] dark:text-[rgb(245,245,245)]'>
+            You&apos;ve seen all new posts
+          </p>
+        </div>
+      )}
     </>
   );
 };

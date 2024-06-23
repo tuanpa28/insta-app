@@ -17,17 +17,25 @@ export const SidebarFeed = () => {
   const [state, dispatch] = useStore();
 
   const { data } = useQuery({
-    queryKey: ['suggested-people'],
+    queryKey: ['suggested-people', { currentUser: state.user?.username }],
     queryFn: () => getUsersSuggested({ limit: 5 }),
     staleTime: 60 * 60 * 1000,
-    gcTime: 60 * 60 * 1000,
+    gcTime: 30 * 60 * 1000,
   });
 
-  const handleFollowUser = async (userId: string) => {
+  const handleFollowUser = async (user: IUser) => {
     setIsLoadingFollowUser(true);
     try {
-      await userService.followUser(userId);
-      dispatch(actions.toggleFollowingUser(userId));
+      await userService.followUser(user._id);
+      dispatch(actions.toggleFollowingUser(user._id));
+      if (state.user && user.followers) {
+        const index = user.followers.indexOf(state.user?._id);
+        if (index !== -1) {
+          user.followers.splice(index, 1);
+        } else {
+          user.followers.push(state.user?._id);
+        }
+      }
     } catch (error) {
       toast.error('Theo dõi người dùng thất bại! vui lòng thử lại sau!');
     } finally {
@@ -83,7 +91,7 @@ export const SidebarFeed = () => {
                   ? '!text-[#000] !dark:text-[rgb(245,245,245)] hover:!opacity-60'
                   : ''
               }
-              onClickBtn={() => !isLoadingFollowUser && handleFollowUser(user._id)}
+              onClickBtn={() => !isLoadingFollowUser && handleFollowUser(user)}
             />
           ))}
         </div>

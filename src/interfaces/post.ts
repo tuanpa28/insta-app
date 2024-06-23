@@ -21,6 +21,7 @@ export interface IPostTimeLine {
   shares: Array<string | IUser>;
   slug: string;
   createdAt: string | Date;
+  totalComments: number;
 }
 
 export interface IMedia {
@@ -30,6 +31,22 @@ export interface IMedia {
 }
 
 export interface IComment {
+  _id?: string;
+  user_id: string;
+  user: IUser;
   post_id: string;
+  content: string;
+  likes: Array<string>;
+  replies: Array<IReplies>;
+  createdAt: string | Date;
+}
+
+export interface ICreateComment {
+  post_id: string;
+  content: string;
+}
+
+export interface IReplies {
+  user_id: string;
   content: string;
 }

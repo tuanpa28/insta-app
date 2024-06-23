@@ -16,41 +16,41 @@ import { IMedia } from '@/interfaces';
 interface ICarouselProps {
   medias: IMedia[];
   videoRef: LegacyRef<HTMLVideoElement> | null;
-  onTogglePlay: () => void;
-  isPlay: boolean;
-  onToggleVolume: () => void;
-  isVolume: boolean;
+  onTogglePlayVideo: () => void;
+  isPlayVideo: boolean;
+  onToggleSound: () => void;
+  isSound: boolean;
 }
 
 const SwiperNavButtons = () => {
   const swiper = useSwiper();
 
   return (
-    <div className='w-full flex justify-between absolute z-10 left-0 top-[50%] px-2'>
+    <>
       <button
-        className='flex items-center justify-center transition-all ease-in-out duration-200 text-3xl text-[#e47a46] rounded-[14px] translate-y-[-50%] p-1'
+        className='absolute z-10 left-0 top-[50%] mx-2 flex items-center justify-center transition-all ease-in-out duration-200 text-3xl text-[#e47a46] rounded-[14px] translate-y-[-50%] p-1'
         onClick={() => swiper.slidePrev()}
       >
         <ChevronLeftIcon />
       </button>
 
       <button
-        className='flex items-center justify-center transition-all ease-in-out duration-200 text-3xl text-[#e47a46] rounded-[14px] translate-y-[-50%] p-1'
+        className='absolute z-10 right-0 top-[50%] mx-2 flex items-center justify-center transition-all ease-in-out duration-200 text-3xl text-[#e47a46] rounded-[14px] translate-y-[-50%] p-1'
         onClick={() => swiper.slideNext()}
       >
         <ChevronRightIcon />
       </button>
-    </div>
+    </>
   );
 };
 
 export const SwiperCarousel = ({
   medias,
   videoRef,
-  onTogglePlay,
-  isPlay,
-  onToggleVolume,
-  isVolume,
+  onTogglePlayVideo,
+  isPlayVideo,
+  onToggleSound,
+  isSound,
 }: ICarouselProps) => {
   return (
     <Swiper
@@ -77,27 +77,27 @@ export const SwiperCarousel = ({
             ) : (
               <>
                 <video
-                  playsInline
                   ref={videoRef}
                   loop
                   muted
+                  playsInline
                   className='w-full h-full object-contain overflow-clip'
                 >
                   <source src={item.url} type='video/mp4' />
                 </video>
                 <div
-                  onClick={onTogglePlay}
+                  onClick={onTogglePlayVideo}
                   className='absolute inset-0 z-40 flex items-center justify-center cursor-pointer'
                 >
-                  {!isPlay && (
+                  {!isPlayVideo && (
                     <div className="bg-[url('/icons/icons2.png')] bg-no-repeat bg-[0_0] w-[135px] h-[135px]"></div>
                   )}
                 </div>
                 <div
-                  onClick={onToggleVolume}
+                  onClick={onToggleSound}
                   className='absolute right-0 bottom-0 p-2 mb-4 mr-4 rounded-[50%] text-white bg-[rgb(38,38,38)] z-50 cursor-pointer'
                 >
-                  {isVolume ? (
+                  {isSound ? (
                     <Volume2Icon width={18} height={18} />
                   ) : (
                     <VolumeXIcon width={18} height={18} />

@@ -17,8 +17,19 @@ export const getListPost = () => {
   return instance.get('post');
 };
 
-export const getPostTimeLine = () => {
-  return instance.get('post/timeline/results?_order=desc');
+export const getPostTimeLine = ({
+  pageParam,
+  limit = 8,
+}: {
+  pageParam?: number;
+  limit?: number;
+}) => {
+  return instance.get('post/timeline/results?_order=desc', {
+    params: {
+      page: pageParam,
+      limit,
+    },
+  });
 };
 
 export const uploadImage = (formData: FormData) => {
