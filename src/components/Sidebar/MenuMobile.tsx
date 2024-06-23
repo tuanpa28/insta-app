@@ -12,8 +12,10 @@ import { usePathname } from 'next/navigation';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { RootPath } from '@/constants/enum';
+import { useStore } from '@/store';
 
 export const MenuMobile = () => {
+  const [state] = useStore();
   const pathName = usePathname();
 
   return (
@@ -59,7 +61,7 @@ export const MenuMobile = () => {
               }`}
             >
               <Avatar className='w-6 h-6'>
-                <AvatarImage src='https://github.com/shadcn.png' />
+                <AvatarImage src={state.user?.profile_image} />
                 <AvatarFallback />
               </Avatar>
             </div>

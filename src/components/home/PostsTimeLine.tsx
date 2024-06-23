@@ -15,7 +15,7 @@ export const PostsTimeLine = () => {
   const [isSound, setIsSound] = useState<boolean>(false);
   const [state] = useStore();
   const { ref, inView } = useInView({
-    threshold: 0.2,
+    threshold: 0.6,
     triggerOnce: true,
   });
 

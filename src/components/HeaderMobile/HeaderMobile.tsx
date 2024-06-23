@@ -1,39 +1,60 @@
 'use client';
 
-import { CircleXIcon, HeartIcon, SearchIcon } from 'lucide-react';
+import { CircleXIcon, HeartIcon, LoaderIcon, SearchIcon } from 'lucide-react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { useEffect, useRef, useState } from 'react';
 
 import AccountItem from '@/components/AccountItem';
 import { LogoTextIcon } from '@/components/Icons';
+import { Skeleton } from '@/components/ui/skeleton';
 import { RootPath } from '@/constants/enum';
+import { useDebounce } from '@/hooks';
 import { IUser } from '@/interfaces';
-import { useEffect, useState } from 'react';
-
-const dataFake: IUser[] = [
-  {
-    _id: '1',
-    username: 'tuanpa.03',
-    email: 'tuanpa@gmail.com',
-    full_name: 'Pham Anh Tuan',
-    tick: true,
-  },
-  {
-    _id: '2',
-    username: '_tte19_',
-    email: 'tte19@gmail.com',
-    full_name: 'Hoang Thu Thao',
-    tick: true,
-  },
-];
+import { userService } from '@/services';
 
 const HeaderMobile = () => {
+  const [isFocusedInput, setIsFocusedInput] = useState<boolean>(false);
   const [searchResult, setSearchResult] = useState<Array<IUser>>([]);
+  const [searchValue, setSearchValue] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const pathName = usePathname();
+  const router = useRouter();
+  const debouncedValue = useDebounce(searchValue, 600);
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const searchValue = event.target.value;
+    if (!searchValue.startsWith(' ')) {
+      setSearchValue(searchValue);
+    }
+  };
+
+  const handleClearInput = () => {
+    setSearchValue('');
+    setSearchResult([]);
+    inputRef.current!.blur();
+  };
 
   useEffect(() => {
-    setSearchResult(dataFake);
-  }, []);
+    if (!debouncedValue.trim()) {
+      setSearchResult([]);
+      return;
+    }
+    (async () => {
+      setIsLoading(true);
+      try {
+        const response = await userService.search(debouncedValue);
+
+        setSearchResult(response?.data?.data);
+      } catch (error) {
+        setSearchResult([]);
+      } finally {
+        setIsLoading(false);
+      }
+    })();
+  }, [debouncedValue]);
 
   return (
     <div className='block md:hidden h-fit w-full bg-white dark:bg-[rgb(0,0,0)] fixed top-0 left-0 right-0 z-10'>
@@ -45,43 +66,70 @@ const HeaderMobile = () => {
         </div>
         <div className='flex items-center justify-end w-full'>
           <div className='mx-2 w-full max-w-64 min-w-32 h-fit flex items-center justify-center relative'>
-            <div className='absolute left-4 top-2/4 translate-y-[-50%] text-[rgba(22,24,35,0.34)] dark:text-[rgb(180,180,180)]'>
-              <SearchIcon width={18} height={18} />
-            </div>
+            {!isFocusedInput && (
+              <div className='absolute left-4 top-2/4 translate-y-[-50%] text-[rgba(22,24,35,0.34)] dark:text-[rgb(180,180,180)]'>
+                <SearchIcon width={18} height={18} />
+              </div>
+            )}
+
             <input
-              className='w-full h-full text-base py-2 px-4 rounded-lg outline-none text-primary dark:text-[rgb(250,250,250)] bg-[rgb(239,239,239)] dark:bg-[rgb(38,38,38)] placeholder:text-[rgb(180,180,180)] placeholder:pl-7'
+              className={`w-full h-full text-base py-2 px-4 rounded-lg outline-none text-primary dark:text-[rgb(250,250,250)] bg-[rgb(239,239,239)] dark:bg-[rgb(38,38,38)] placeholder:text-[rgb(180,180,180)] ${
+                !isFocusedInput && 'placeholder:pl-6'
+              }  ${!isFocusedInput && searchValue && 'pl-10'}`}
               type='text'
               placeholder='Search'
-              // ref={inputRef}
-              // value={searchValue}
+              ref={inputRef}
+              value={searchValue}
               spellCheck={false}
-              // onChange={handleChange}
+              onFocus={() => setIsFocusedInput(true)}
+              onBlur={() => setTimeout(() => setIsFocusedInput(false), 100)}
+              onChange={handleChangeInput}
             />
-            <div className='absolute right-4 top-2/4 translate-y-[-50%] text-[rgba(22,24,35,0.34)] dark:text-[rgb(180,180,180)] cursor-pointer'>
-              <CircleXIcon width={18} height={18} />
-            </div>
-            {/* <div className='animate-spinner absolute right-4 top-2/4 translate-y-[-50%] text-[rgba(22,24,35,0.34)] dark:text-[rgb(180,180,180)]'>
-            <LoaderIcon width={18} height={18} />
-          </div> */}
-            {/* {!!searchValue && !loading && ( 
-            <div onClick={handleClear} className='clear'>
-              <BiSolidXCircle className='icon' />
-            </div>
-          
-          {loading && (
-            <div className='loading'>
-              <BiLoader className='icon' />
-            </div>
-           */}
-            <div className='hidden fixed right-0 top-[48px] sm:top-[58px] w-full max-w-[375px] h-fit z-20 bg-white dark:bg-darkBackground rounded-lg shadow-[0_4px_12px_rgba(0,0,0,0.15)] dark:shadow-[0_0_23px_rgba(255,255,255,0.2)]'>
+            {isFocusedInput && !isLoading && (
+              <div
+                onClick={handleClearInput}
+                className='absolute right-3 top-2/4 translate-y-[-50%] text-[rgba(22,24,35,0.34)] dark:text-[rgb(180,180,180)] cursor-pointer'
+              >
+                <CircleXIcon width={18} height={18} />
+              </div>
+            )}
+
+            {isLoading && (
+              <div className='absolute right-3 top-2/4 translate-y-[-50%] text-[rgba(22,24,35,0.34)] dark:text-[rgb(180,180,180)]'>
+                <LoaderIcon width={18} height={18} className='animate-spinner' />
+              </div>
+            )}
+
+            <div
+              className={`${
+                !isFocusedInput && 'hidden'
+              } fixed right-0 top-[48px] sm:top-[58px] w-full max-w-[375px] h-fit z-20 bg-white dark:bg-darkBackground rounded-lg shadow-[0_4px_12px_rgba(0,0,0,0.15)] dark:shadow-[0_0_23px_rgba(255,255,255,0.2)]`}
+            >
               <div className='overflow-y-auto py-3 h-full max-h-[calc(100vh-110px)]'>
-                {searchResult && searchResult.length > 0 ? (
-                  searchResult?.map((item: IUser, i) => (
+                {isLoading ? (
+                  <div className='flex flex-col'>
+                    {new Array(4).fill(0).map((_, i) => (
+                      <div key={i} className='flex items-center space-x-4 px-6 py-2'>
+                        <Skeleton className='h-12 w-12 rounded-full' />
+                        <div className='space-y-2'>
+                          <Skeleton className='h-4 w-[250px]' />
+                          <Skeleton className='h-4 w-[200px]' />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : searchResult && searchResult.length > 0 ? (
+                  searchResult?.map((user: IUser, index) => (
                     <AccountItem
-                      key={i}
-                      user={item}
+                      key={index}
+                      onClick={() => router.push(`/${user.username}`)}
+                      user={user}
                       hasTippy={false}
-                      description={'Pham Tuan • 1.4M followers'}
+                      description={`${user.full_name} ${
+                        user.followers && user?.followers?.length >= 1
+                          ? `• ${user.followers?.length} followers`
+                          : ''
+                      }`}
                       hasRound
                       className='cursor-pointer hover:bg-[rgba(0,0,0,.05)] dark:hover:bg-[rgba(255,255,255,0.1)]'
                     />
