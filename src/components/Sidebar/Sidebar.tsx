@@ -65,14 +65,14 @@ const Sidebar = () => {
   }, [isInboxPage, isStateSidebar, isShowNotifi, isShowSearch, dispatch]);
 
   const handlerClickInbox = useCallback(() => {
-    dispatch(actions.setIsStateSidebar(true));
+    // dispatch(actions.setIsStateSidebar(true));
     if (isShowSearch) {
       setIsShowSearch(false);
     }
     if (isShowNotifi) {
       setIsShowNotifi(false);
     }
-  }, [isShowNotifi, isShowSearch, dispatch]);
+  }, [isShowNotifi, isShowSearch]);
 
   const handlerClickNotifi = useCallback(() => {
     setIsShowNotifi(!isShowNotifi);
@@ -149,12 +149,12 @@ const Sidebar = () => {
             </Avatar>
           </div>
         ),
-        href: '/patuan.03',
+        href: `/${state?.user?.username}`,
         onClick: handlerResetSidebar,
       },
     ],
     [
-      state.user?.profile_image,
+      state?.user,
       strokeWidth,
       handlerClickNotifi,
       handlerClickInbox,

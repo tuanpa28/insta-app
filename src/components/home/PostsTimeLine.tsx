@@ -10,9 +10,12 @@ import PostItem from '@/components/PostItem';
 import { IPostTimeLine } from '@/interfaces';
 import { getPostTimeLine } from '@/services/postService';
 import { useStore } from '@/store';
+import Error from '@/app/error';
+import { useRouter } from 'next/navigation';
 
 export const PostsTimeLine = () => {
   const [isSound, setIsSound] = useState<boolean>(false);
+  const { refresh } = useRouter();
   const [state] = useStore();
   const { ref, inView } = useInView({
     threshold: 0.6,
@@ -52,7 +55,7 @@ export const PostsTimeLine = () => {
   }
 
   if (status === 'error') {
-    return <p>Error: {error.message}</p>;
+    return <Error reset={refresh} error={error} />;
   }
 
   return (

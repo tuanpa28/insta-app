@@ -54,10 +54,10 @@ export const MenuMobile = () => {
           </span>
         </div>
         <div className='p-3'>
-          <Link href={'/patuan.03'}>
+          <Link href={`/${state?.user?.username}`}>
             <div
               className={`p-[1px] rounded-full ${
-                pathName === '/patuan.03' && 'ring-[1.5px] ring-primary'
+                pathName === `/${state?.user?.username}` && 'ring-[1.5px] ring-primary'
               }`}
             >
               <Avatar className='w-6 h-6'>

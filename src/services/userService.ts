@@ -12,6 +12,10 @@ export const search = (q: string) => {
   });
 };
 
+export const getUserByUserName = (userName: string) => {
+  return instance.get(`user/${userName}/username`);
+};
+
 export const getUsersSuggested = (params: { limit?: number }) => {
   return instance.get('user/suggested/results', { params });
 };
