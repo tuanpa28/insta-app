@@ -16,6 +16,7 @@ import { toast } from 'react-toastify';
 
 import Error from '@/app/error';
 import { LoadingIcon } from '@/components/Icons';
+import { PostList } from '@/components/profile';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Dialog, DialogClose, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { RootPath } from '@/constants/enum';
@@ -82,7 +83,7 @@ const ProfilePage = ({ params }: { params: { slug: string } }) => {
   }
 
   return (
-    <div className='h-screen w-full md:w-[calc(100%-40px)] max-w-[935px] pt-3 px-4 md:px-5 mx-auto'>
+    <div className='md:w-[calc(100%-40px)] max-w-[935px] pt-3 px-4 md:px-5 mx-auto'>
       <div className='flex flex-col'>
         <section className='border-b border-solid border-[rgb(219,219,219)] dark:border-[rgb(38,38,38)]'>
           <div className='flex flex-col md:flex-row items-center justify-center sm:justify-start md:justify-center mb-10 md:mb-14'>
@@ -369,7 +370,9 @@ const ProfilePage = ({ params }: { params: { slug: string } }) => {
             </div>
           )}
         </section>
-        <section></section>
+        <section className='pt-6 mb-4'>
+          <PostList userId={data?.data?.data?._id} />
+        </section>
       </div>
     </div>
   );

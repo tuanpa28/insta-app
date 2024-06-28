@@ -10,6 +10,7 @@ export interface IPost {
   shares?: Array<string | IUser>;
   slug?: string;
   createdAt?: string | Date;
+  totalComments?: number;
 }
 
 export interface IPostTimeLine {

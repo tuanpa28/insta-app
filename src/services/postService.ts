@@ -32,6 +32,20 @@ export const getPostTimeLine = ({
   });
 };
 
+export const findPostListByUser = ({
+  userId,
+  pageParam,
+}: {
+  userId: string;
+  pageParam?: number;
+}) => {
+  return instance.get(`post/${userId}/user?_order=desc`, {
+    params: {
+      page: pageParam,
+    },
+  });
+};
+
 export const uploadImage = (formData: FormData) => {
   return instance.post('upload/images', formData);
 };
