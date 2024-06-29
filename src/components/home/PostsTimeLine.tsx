@@ -5,12 +5,12 @@ import Image from 'next/image';
 import { Fragment, useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
+import Error from '@/app/error';
 import { LoadingIcon } from '@/components/Icons';
 import PostItem from '@/components/PostItem';
 import { IPostTimeLine } from '@/interfaces';
 import { getPostTimeLine } from '@/services/postService';
 import { useStore } from '@/store';
-import Error from '@/app/error';
 import { useRouter } from 'next/navigation';
 
 export const PostsTimeLine = () => {
@@ -64,23 +64,15 @@ export const PostsTimeLine = () => {
         {data?.pages.map((page, pageIndex) => (
           <Fragment key={pageIndex}>
             {page.data.data.map((post: IPostTimeLine, index: number) => {
-              if (page.data.data.length === index + 1) {
-                return (
-                  <PostItem
-                    key={index}
-                    ref={ref}
-                    post={post}
-                    isSound={isSound}
-                    onToggleSound={handleToggleSound}
-                  />
-                );
-              }
+              const params = { ...(page.data.data.length === index + 1 && { ref }) };
               return (
                 <PostItem
                   key={index}
+                  {...params}
                   post={post}
                   isSound={isSound}
                   onToggleSound={handleToggleSound}
+                  className='snap-center md:snap-start'
                 />
               );
             })}

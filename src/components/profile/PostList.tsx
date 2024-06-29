@@ -63,52 +63,11 @@ export const PostList = ({ userId }: PostListProps) => {
         {data.pages.map((page, pageIndex) => (
           <Fragment key={pageIndex}>
             {page.data.data.map((post: IPost, index: number) => {
-              if (page.data.data.length === index + 1) {
-                return (
-                  <div
-                    ref={ref}
-                    key={index}
-                    className='relative flex items-center justify-center aspect-square w-1/3 mb-1 px-0.5 overflow-hidden cursor-pointer group'
-                  >
-                    <Link
-                      href={`${post.user?.username}`}
-                      className='w-full block h-full bg-stone-300'
-                    >
-                      {post?.media[0].type === TypeMedia.Image ? (
-                        <Image
-                          width={400}
-                          height={400}
-                          className='block w-full h-full object-cover'
-                          src={post?.media[0].url}
-                          alt=''
-                        />
-                      ) : (
-                        <video muted playsInline className='w-full h-full object-cover block'>
-                          <source src={post?.media[0].url} type='video/mp4' />
-                        </video>
-                      )}
-                    </Link>
-                    <div className='hidden sm:group-hover:flex transition-all mx-0.5 items-center justify-center gap-[10%] absolute inset-0 bg-[rgba(0,0,0,0.3)]'>
-                      <div className='flex items-center justify-center gap-2'>
-                        <HeartIcon width={24} height={24} className='text-[#fff]' strokeWidth={3} />
-                        <span className='font-bold text-[#fff] text-lg'>{post.likes?.length}</span>
-                      </div>
-                      <div className='flex items-center justify-center gap-2'>
-                        <MessageCircleIcon
-                          width={24}
-                          height={24}
-                          className='text-[#fff]'
-                          strokeWidth={3}
-                        />
-                        <span className='font-bold text-[#fff] text-lg'>{post?.totalComments}</span>
-                      </div>
-                    </div>
-                  </div>
-                );
-              }
+              const params = { ...(page.data.data.length === index + 1 && { ref }) };
               return (
                 <div
                   key={index}
+                  {...params}
                   className='relative flex items-center justify-center aspect-square w-1/3 mb-1 px-0.5 overflow-hidden cursor-pointer group'
                 >
                   <Link

@@ -29,12 +29,13 @@ import { timeAgo } from '@/utils';
 
 interface PostItemProps {
   post: IPostTimeLine;
+  className?: string;
   isSound: boolean;
   onToggleSound: () => void;
 }
 
 const PostItem = forwardRef<HTMLDivElement, PostItemProps>(
-  ({ post, isSound, onToggleSound }, innerRef) => {
+  ({ post, className = '', isSound, onToggleSound }, innerRef) => {
     const [isLoadingFollowUser, setIsLoadingFollowUser] = useState<boolean>(false);
     const [isLoadingComment, setIsLoadingComment] = useState<boolean>(false);
     const [isPlayVideo, setIsPlayVideo] = useState<boolean>(false);
@@ -136,7 +137,7 @@ const PostItem = forwardRef<HTMLDivElement, PostItemProps>(
     return (
       <div
         ref={innerRef}
-        className='flex flex-col w-full min-w-[min(390px,100%)] h-full pb-4 mb-5 sm:border-b sm:border-solid sm:border-[rgb(219,219,219)] dark:border-[rgb(38,38,38)]'
+        className={`flex flex-col w-full min-w-[min(390px,100%)] h-full pt-0 sm:pt-5 pb-9 sm:pb-4 sm:border-b sm:border-solid sm:border-[rgb(219,219,219)] dark:border-[rgb(38,38,38)] ${className}`}
       >
         <div className='w-full flex items-center justify-between px-4 sm:pr-0 sm:pl-1 pb-3'>
           <div className='flex items-center'>
