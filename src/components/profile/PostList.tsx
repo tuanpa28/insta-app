@@ -5,14 +5,14 @@ import { HeartIcon, MessageCircleIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { Fragment, useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
 
 import Error from '@/app/error';
 import { LoadingIcon } from '@/components/Icons';
 import { TypeMedia } from '@/constants/enum';
 import { IPost } from '@/interfaces';
 import { findPostListByUser } from '@/services/postService';
-import { Fragment, useEffect } from 'react';
-import { useInView } from 'react-intersection-observer';
 
 type PostListProps = {
   userId: string;
@@ -66,8 +66,9 @@ export const PostList = ({ userId }: PostListProps) => {
               if (page.data.data.length === index + 1) {
                 return (
                   <div
+                    ref={ref}
                     key={index}
-                    className='relative h-[300px] w-1/3 mb-1 px-0.5 overflow-hidden cursor-pointer group'
+                    className='relative flex items-center justify-center aspect-square w-1/3 mb-1 px-0.5 overflow-hidden cursor-pointer group'
                   >
                     <Link
                       href={`${post.user?.username}`}
@@ -82,22 +83,23 @@ export const PostList = ({ userId }: PostListProps) => {
                           alt=''
                         />
                       ) : (
-                        <video
-                          muted
-                          playsInline
-                          className='w-full h-full object-contain overflow-clip bg-stone-300'
-                        >
+                        <video muted playsInline className='w-full h-full object-cover block'>
                           <source src={post?.media[0].url} type='video/mp4' />
                         </video>
                       )}
                     </Link>
-                    <div className='hidden group-hover:flex transition-all mx-0.5 items-center justify-center gap-12 absolute inset-0 bg-[rgba(0,0,0,0.3)]'>
+                    <div className='hidden sm:group-hover:flex transition-all mx-0.5 items-center justify-center gap-[10%] absolute inset-0 bg-[rgba(0,0,0,0.3)]'>
                       <div className='flex items-center justify-center gap-2'>
-                        <HeartIcon width={24} height={24} className='text-[#fff]' />
+                        <HeartIcon width={24} height={24} className='text-[#fff]' strokeWidth={3} />
                         <span className='font-bold text-[#fff] text-lg'>{post.likes?.length}</span>
                       </div>
                       <div className='flex items-center justify-center gap-2'>
-                        <MessageCircleIcon width={24} height={24} className='text-[#fff]' />
+                        <MessageCircleIcon
+                          width={24}
+                          height={24}
+                          className='text-[#fff]'
+                          strokeWidth={3}
+                        />
                         <span className='font-bold text-[#fff] text-lg'>{post?.totalComments}</span>
                       </div>
                     </div>
@@ -107,7 +109,7 @@ export const PostList = ({ userId }: PostListProps) => {
               return (
                 <div
                   key={index}
-                  className='relative flex items-center justify-center h-full max-h-[300px] w-1/3 mb-1 px-0.5 overflow-hidden cursor-pointer group'
+                  className='relative flex items-center justify-center aspect-square w-1/3 mb-1 px-0.5 overflow-hidden cursor-pointer group'
                 >
                   <Link
                     href={`${post.user?.username}`}
@@ -122,22 +124,23 @@ export const PostList = ({ userId }: PostListProps) => {
                         alt=''
                       />
                     ) : (
-                      <video
-                        muted
-                        playsInline
-                        className='w-full h-full object-contain overflow-clip bg-stone-300'
-                      >
+                      <video muted playsInline className='w-full h-full object-cover block'>
                         <source src={post?.media[0].url} type='video/mp4' />
                       </video>
                     )}
                   </Link>
-                  <div className='hidden group-hover:flex transition-all mx-0.5 items-center justify-center gap-12 absolute inset-0 bg-[rgba(0,0,0,0.3)]'>
+                  <div className='hidden sm:group-hover:flex transition-all mx-0.5 items-center justify-center gap-[10%] absolute inset-0 bg-[rgba(0,0,0,0.3)]'>
                     <div className='flex items-center justify-center gap-2'>
-                      <HeartIcon width={24} height={24} className='text-[#fff]' />
+                      <HeartIcon width={24} height={24} className='text-[#fff]' strokeWidth={3} />
                       <span className='font-bold text-[#fff] text-lg'>{post.likes?.length}</span>
                     </div>
                     <div className='flex items-center justify-center gap-2'>
-                      <MessageCircleIcon width={24} height={24} className='text-[#fff]' />
+                      <MessageCircleIcon
+                        width={24}
+                        height={24}
+                        className='text-[#fff]'
+                        strokeWidth={3}
+                      />
                       <span className='font-bold text-[#fff] text-lg'>{post?.totalComments}</span>
                     </div>
                   </div>
