@@ -21,12 +21,13 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Dialog, DialogClose, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { RootPath } from '@/constants/enum';
 import { IUser } from '@/interfaces';
-import { userService } from '@/services';
+import { postService, userService } from '@/services';
 import { logOut } from '@/services/authService';
 import { getUserByUserName } from '@/services/userService';
 import { actions, useStore } from '@/store';
 
 const ProfilePage = ({ params }: { params: { slug: string } }) => {
+  const [isLoadingAvatar, setIsLoadingAvatar] = useState<boolean>(false);
   const [isLoadingFollowUser, setIsLoadingFollowUser] = useState<boolean>(false);
   const [state, dispatch] = useStore();
   const { push, refresh } = useRouter();
@@ -70,6 +71,51 @@ const ProfilePage = ({ params }: { params: { slug: string } }) => {
     }
   };
 
+  const handleAvatarChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files: FileList | null = event.target.files;
+
+    if (files && files.length > 0) {
+      if (!files[0].type.startsWith('image/')) {
+        toast.error('Loại file không được hỗ trợ!');
+        return;
+      }
+      setIsLoadingAvatar(true);
+
+      const formData = new FormData();
+      formData.append(`image`, files[0]);
+      try {
+        const response = await postService.uploadImage(formData);
+        const avatarUrl = response.data.data[0].url;
+        const userId = data?.data?.data?._id;
+        dispatch(actions.setAvatar(avatarUrl));
+        data && (data.data.data.profile_image = avatarUrl);
+        await userService.updateUser(userId, {
+          profile_image: avatarUrl,
+        });
+        toast.success('Upload thành công!');
+      } catch (error: any) {
+        toast.error(error?.message || 'Upload avatar failed!');
+      } finally {
+        setIsLoadingAvatar(false);
+      }
+    }
+  };
+
+  const handleRemoveAvatar = async () => {
+    setIsLoadingAvatar(true);
+    const userId = data?.data?.data?._id;
+    try {
+      await userService.updateUser(userId, { profile_image: '' });
+      dispatch(actions.setAvatar(''));
+      data && (data.data.data.profile_image = '');
+      toast.success('Xóa ảnh đại diện thành công!');
+    } catch (error: any) {
+      toast.error(error?.message || 'Remove avatar failed!');
+    } finally {
+      setIsLoadingAvatar(false);
+    }
+  };
+
   if (status === 'pending') {
     return (
       <div className='h-14 mt-10 flex items-center justify-center'>
@@ -83,7 +129,7 @@ const ProfilePage = ({ params }: { params: { slug: string } }) => {
   }
 
   return (
-    <div className='md:w-[calc(100%-40px)] max-w-[935px] pt-3 px-4 md:px-5 mx-auto'>
+    <div className='md:w-[calc(100%-40px)] max-w-[935px] pt-16 sm:pt-20 md:pt-8 px-4 md:px-5 mx-auto'>
       <div className='flex flex-col'>
         <section className='border-b border-solid border-[rgb(219,219,219)] dark:border-[rgb(38,38,38)]'>
           <div className='flex flex-col md:flex-row items-center justify-center sm:justify-start md:justify-center mb-10 md:mb-14'>
@@ -99,9 +145,14 @@ const ProfilePage = ({ params }: { params: { slug: string } }) => {
                       <AvatarImage src={data?.data?.data?.profile_image} />
                       <AvatarFallback />
                     </Avatar>
+                    {isLoadingAvatar && (
+                      <div className='absolute inset-0 flex items-center justify-center rounded-full bg-[rgba(85,85,85,.4)]'>
+                        <LoadingIcon className='w-8 h-8 animate-spinner' />
+                      </div>
+                    )}
                   </div>
                 </DialogTrigger>
-                {state.user?._id == data?.data?.data?._id && (
+                {state.user?._id == data?.data?.data?._id && !isLoadingAvatar && (
                   <DialogContent
                     hideCloseBtn
                     onOpenAutoFocus={(e) => e.preventDefault()}
@@ -120,16 +171,33 @@ const ProfilePage = ({ params }: { params: { slug: string } }) => {
                           Instagram, Facebook
                         </span>
                       </div>
-                      <button className='w-full flex items-center justify-center font-extrabold text-[rgb(0,149,246)] py-1 px-2 min-h-12 text-sm bg-transparent cursor-pointer hover:bg-[rgba(0,0,0,0.1)] border-t border-solid border-[rgb(219,219,219)] dark:border-[rgb(54,54,54)]'>
-                        Upload Photo
+                      <button className='w-full font-extrabold text-[rgb(0,149,246)] py-1 px-2 min-h-12 text-sm bg-transparent cursor-pointer hover:bg-[rgba(0,0,0,0.1)] border-t border-solid border-[rgb(219,219,219)] dark:border-[rgb(54,54,54)]'>
+                        <label
+                          htmlFor='file-upload'
+                          className='w-full h-full flex items-center justify-center cursor-pointer bg-transparent'
+                        >
+                          Upload Photo
+                        </label>
+                        <input
+                          id='file-upload'
+                          type='file'
+                          onChange={handleAvatarChange}
+                          accept='image/*'
+                          className='hidden'
+                        />
                       </button>
                       <button className='w-full flex items-center justify-center font-medium text-primary dark:text-[rgb(245,245,245)] py-1 px-2 min-h-12 text-sm bg-transparent cursor-pointer hover:bg-[rgba(0,0,0,0.1)] border-t border-solid border-[rgb(219,219,219)] dark:border-[rgb(54,54,54)]'>
                         Manage sync settings
                       </button>
+                      {!!data?.data?.data?.profile_image && (
+                        <button
+                          onClick={handleRemoveAvatar}
+                          className='w-full flex items-center justify-center font-extrabold text-red-600 dark:text-red-500 py-1 px-2 min-h-12 text-sm bg-transparent cursor-pointer hover:bg-[rgba(0,0,0,0.1)] border-t border-solid border-[rgb(219,219,219)] dark:border-[rgb(54,54,54)]'
+                        >
+                          Remove Current Photo
+                        </button>
+                      )}
 
-                      <button className='w-full flex items-center justify-center font-extrabold text-red-600 dark:text-red-500 py-1 px-2 min-h-12 text-sm bg-transparent cursor-pointer hover:bg-[rgba(0,0,0,0.1)] border-t border-solid border-[rgb(219,219,219)] dark:border-[rgb(54,54,54)]'>
-                        Remove Current Photo
-                      </button>
                       <DialogClose asChild>
                         <button className='w-full flex items-center justify-center font-medium text-primary dark:text-[rgb(245,245,245)] py-1 px-2 min-h-12 text-sm bg-transparent cursor-pointer hover:bg-[rgba(0,0,0,0.1)] rounded-b-xl border-t border-solid border-[rgb(219,219,219)] dark:border-[rgb(54,54,54)]'>
                           Cancel

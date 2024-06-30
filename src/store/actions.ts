@@ -1,10 +1,11 @@
 import { IUser } from '@/interfaces';
 import {
-  TOGGLE_FOLLOWING_USER,
   LOG_OUT,
   REHYDRATE_AUTH_STATE,
+  SET_AVATAR,
   SET_IS_STATE_SIDEBAR,
   SET_USER,
+  TOGGLE_FOLLOWING_USER,
 } from './constants';
 
 export const setIsStateSidebar = (payload: boolean) => ({
@@ -29,5 +30,10 @@ export const logOut = () => ({
 
 export const toggleFollowingUser = (payload: string) => ({
   type: TOGGLE_FOLLOWING_USER,
+  payload,
+});
+
+export const setAvatar = (payload: string) => ({
+  type: SET_AVATAR,
   payload,
 });

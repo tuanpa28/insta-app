@@ -19,6 +19,18 @@ export interface IUser {
   createdAt?: string | Date;
 }
 
+export interface IUserUpdate {
+  username?: string;
+  email?: string;
+  full_name?: string;
+  profile_image?: string;
+  bio?: string;
+  date_of_birth?: string;
+  gender?: string;
+  current_city?: string;
+  from?: string;
+}
+
 export interface IAuthLogin {
   emailOrUsername: string;
   password: string;

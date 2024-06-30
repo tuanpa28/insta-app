@@ -47,7 +47,11 @@ export const findPostListByUser = ({
 };
 
 export const uploadImage = (formData: FormData) => {
-  return instance.post('upload/images', formData);
+  return instance.post('upload/images', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
 };
 
 export const uploadVideo = (formData: FormData) => {

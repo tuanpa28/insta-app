@@ -1,8 +1,10 @@
 import { IAction, IState } from '@/interfaces/';
-import { decodeAccessToken, removeToken } from '@/utils';
+import { refreshToken } from '@/services/authService';
+import { decodeAccessToken, removeToken, setToken } from '@/utils';
 import {
   LOG_OUT,
   REHYDRATE_AUTH_STATE,
+  SET_AVATAR,
   SET_IS_STATE_SIDEBAR,
   SET_USER,
   TOGGLE_FOLLOWING_USER,
@@ -48,6 +50,16 @@ const reducer = (state: IState, action: IAction) => {
           state.user.followings.push(action.payload);
         }
       }
+      return state;
+    }
+    case SET_AVATAR: {
+      state.user && (state.user.profile_image = action.payload);
+      refreshToken().then((response) => {
+        const { accessToken } = response.data;
+
+        setToken(accessToken);
+      });
+
       return state;
     }
     default:

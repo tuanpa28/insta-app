@@ -1,4 +1,5 @@
 import instance from '@/configs/axios.config';
+import { IUserUpdate } from '@/interfaces';
 
 export const getListUser = () => {
   return instance.get('user');
@@ -22,4 +23,8 @@ export const getUsersSuggested = (params: { limit?: number }) => {
 
 export const followUser = (userId: string) => {
   return instance.put(`user/follow/${userId}`);
+};
+
+export const updateUser = (userId: string, dataUpdate: IUserUpdate) => {
+  return instance.put(`user/${userId}`, dataUpdate);
 };
