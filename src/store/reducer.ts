@@ -2,6 +2,7 @@ import { IAction, IState } from '@/interfaces/';
 import { refreshToken } from '@/services/authService';
 import { decodeAccessToken, removeToken, setToken } from '@/utils';
 import {
+  EDIT_USER,
   LOG_OUT,
   REHYDRATE_AUTH_STATE,
   SET_AVATAR,
@@ -59,7 +60,15 @@ const reducer = (state: IState, action: IAction) => {
 
         setToken(accessToken);
       });
+      return state;
+    }
+    case EDIT_USER: {
+      state.user = { ...state.user, ...action.payload };
+      refreshToken().then((response) => {
+        const { accessToken } = response.data;
 
+        setToken(accessToken);
+      });
       return state;
     }
     default:

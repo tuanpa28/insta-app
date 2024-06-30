@@ -1,18 +1,18 @@
-import Joi from 'joi';
+import { z } from 'zod';
 
-export const signInSchema = Joi.object({
-  emailOrUsername: Joi.string().min(3).max(30).required().messages({
-    'string.base': 'Tên tài khoản hoặc Email phải là một chuỗi!',
-    'string.empty': 'Tên tài khoản hoặc Email không được để trống!',
-    'string.min': 'Tên tài khoản hoặc Email phải có ít nhất {#limit} ký tự!',
-    'string.max': 'Tên tài khoản hoặc Email không được vượt quá {#limit} ký tự!',
-    'any.required': 'Tên tài khoản hoặc Email là bắt buộc!',
-  }),
-  password: Joi.string().min(6).max(28).required().messages({
-    'string.base': 'Mật khẩu phải là một chuỗi!',
-    'string.empty': 'Mật khẩu không được để trống!',
-    'string.min': 'Mật khẩu phải có ít nhất {#limit} ký tự!',
-    'string.max': 'Mật khẩu không được vượt quá {#limit} ký tự!',
-    'any.required': 'Vui lòng nhập mật khẩu!',
-  }),
+export const signInSchema = z.object({
+  emailOrUsername: z
+    .string()
+    .min(4, { message: 'Vui lòng nhập ít nhất 4 ký tự!' })
+    .max(40, { message: 'Vui lòng không vượt quá 40 ký tự!' })
+    .refine((val) => !val.startsWith(' '), {
+      message: 'Chữ cái đầu phải là số hoặc chữ!',
+    }),
+  password: z
+    .string()
+    .min(6, { message: 'Mật khẩu phải có ít nhất 6 ký tự!' })
+    .max(28, { message: 'Mật khẩu không được vượt quá 28 ký tự!' })
+    .refine((val) => !val.startsWith(' '), {
+      message: 'Chữ cái đầu phải là số hoặc chữ!',
+    }),
 });

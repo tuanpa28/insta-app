@@ -1,5 +1,6 @@
-import { IUser } from '@/interfaces';
+import { IUser, IUserUpdate } from '@/interfaces';
 import {
+  EDIT_USER,
   LOG_OUT,
   REHYDRATE_AUTH_STATE,
   SET_AVATAR,
@@ -35,5 +36,10 @@ export const toggleFollowingUser = (payload: string) => ({
 
 export const setAvatar = (payload: string) => ({
   type: SET_AVATAR,
+  payload,
+});
+
+export const editUser = (payload: IUserUpdate) => ({
+  type: EDIT_USER,
   payload,
 });

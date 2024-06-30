@@ -1,6 +1,6 @@
 'use client';
 
-import { joiResolver } from '@hookform/resolvers/joi';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { jwtDecode } from 'jwt-decode';
 import { ChevronRightIcon, LoaderCircleIcon } from 'lucide-react';
@@ -10,6 +10,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+import { z } from 'zod';
 
 import { RootPath } from '@/constants/enum';
 import { IAuthLogin, IUser } from '@/interfaces';
@@ -17,11 +18,6 @@ import { login } from '@/services/authService';
 import { actions, useStore } from '@/store';
 import { setToken } from '@/utils';
 import { signInSchema } from '@/validates';
-
-type FormData = {
-  emailOrUsername: string;
-  password: string;
-};
 
 const SigninPage = () => {
   const [, dispatch] = useStore();
@@ -34,9 +30,9 @@ const SigninPage = () => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<FormData>({
+  } = useForm<z.infer<typeof signInSchema>>({
     mode: 'onChange',
-    resolver: joiResolver(signInSchema),
+    resolver: zodResolver(signInSchema),
     defaultValues: {
       emailOrUsername: process.env.NEXT_PUBLIC_USERNAME ?? '',
       password: process.env.NEXT_PUBLIC_PASSWORD ?? '',

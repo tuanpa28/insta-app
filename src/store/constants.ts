@@ -4,3 +4,4 @@ export const REHYDRATE_AUTH_STATE = 'REHYDRATE_AUTH_STATE';
 export const LOG_OUT = 'LOG_OUT';
 export const TOGGLE_FOLLOWING_USER = 'TOGGLE_FOLLOWING_USER';
 export const SET_AVATAR = 'SET_AVATAR';
+export const EDIT_USER = 'EDIT_USER';

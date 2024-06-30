@@ -6,7 +6,7 @@ export interface IUser {
   full_name: string;
   profile_image?: string;
   bio?: string;
-  date_of_birth?: string;
+  date_of_birth?: Date | null;
   gender?: string;
   current_city?: string;
   from?: string;
@@ -25,7 +25,7 @@ export interface IUserUpdate {
   full_name?: string;
   profile_image?: string;
   bio?: string;
-  date_of_birth?: string;
+  date_of_birth?: Date | null;
   gender?: string;
   current_city?: string;
   from?: string;
